@@ -1,11 +1,37 @@
 -- SPEC ID 64
 ProbablyEngine.rotation.register(64, {
-    { "Flamestrike", "modifier.shift", "ground" },
-    { "Nether Tempest",  "target.debuff" },
-    { "Frozen Orb", "player.buff(Fingers of Frost).count < 2" },
-    { "Ice Lance", "player.buff(Fingers of Frost)" },
-    { "Frostfire Bolt", "player.buff(Brain Freeze)" },
-    { "Ice Lance", "player.moving" },
-    { "Frostbolt" }
-  }
-)
+
+  -- Cooldowns
+  { "Icy Veins", "modifier.cooldowns" },
+  { "Ice Block", {"modifier.cooldowns", "player.health <= 30"} },
+  { "Ice Barrier", {"modifier.cooldowns", "player.health <= 80"} },
+  { "Cold Snap", {"modifier.cooldowns", "player.health <= 25", "player.spell(Ice Block).cooldown"} },
+  { "Mirror Image", "modifier.cooldowns" },
+  { "Alter Time", "modifier.cooldowns" },
+  { "Presence of Mind", "modifier.cooldowns" },
+  { "Temporal Shield", { "modifier.cooldowns", "player.health <= 80"} },
+  
+  -- Interrupts
+  { "Counterspell", "modifier.interrupts" },
+  { "Frostjaw", "modifier.interrupts" },
+
+  -- AoE
+  --{ "Blizzard", "modifier.ctrl", "ground" }, -- Broken for the moment.
+  --{ "Ring of Frost", "modifier.alt", "ground" }, -- Broken for the moment.
+  
+  -- Survivability
+  { "Frost Nova", "target.range <= 9" },
+  { "Blink", "target.range <= 3" },
+  { "Rune of Power", "modifier.shift", "ground" },
+  
+  -- Rotation
+  { "Nether Tempest",  "target.debuff" },
+  { "Frost Bomb", "target.debuff" },
+  { "Frozen Orb", "player.buff(Fingers of Frost).count < 2" },
+  { "Ice Lance", "player.buff(Fingers of Frost)" },
+  { "Frostfire Bolt", "player.buff(Brain Freeze)" },
+  { "Ice Lance", "player.moving" },
+  { "Frostbolt" }},
+  
+{{ "Arcane Brilliance", "!player.buff" },
+  { "Frost Armor", "!player.buff" }})
