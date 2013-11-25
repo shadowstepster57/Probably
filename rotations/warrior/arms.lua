@@ -6,15 +6,15 @@ ProbablyEngine.rotation.register(71, {
 
   -- Survival
   { "Rallying Cry", {
-    "player.health < 20",
+    "player.health <= 35",
   }},
 
   { "Shield Wall", {
-    "player.health < 10"
+    "player.health <= 55"
   }},
 
   { "Die by the Sword", {
-    "player.health < 40",
+    "player.health <= 65",
   }},
 
   { "Hamstring", {
@@ -25,7 +25,7 @@ ProbablyEngine.rotation.register(71, {
   { "Impending Victory" },
   { "Victory Rush" },
 
-  -- Kicks
+  -- Interrupts
   { "Pummel", "modifier.interrupts" },
   { "Disrupting Shout", "modifier.interrupts" },
 
@@ -38,10 +38,10 @@ ProbablyEngine.rotation.register(71, {
 
   -- AoE
   { "Sweeping Strikes", "modifier.multitarget" },
-  { "Thunder Clap", "modifier.multitarget" },
-  { "Whirlwind", "modifier.multitarget" },
-  { "Dragon Roar", "modifier.multitarget" },
-  { "Dragon Roar", "modifier.cooldowns" },
+  { "Thunder Clap", "modifier.multitarget","target.range <= 4" },
+  { "Whirlwind", "modifier.multitarget", "target.range <= 5" },
+  { "Dragon Roar", "modifier.multitarget", "target.range <= 5" },
+  { "Dragon Roar", "modifier.cooldowns", "target.range <= 5" },
 
   -- Rotation
   { "Overpower" },
