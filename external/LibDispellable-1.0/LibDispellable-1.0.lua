@@ -31,10 +31,7 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --]]
 
-local MAJOR, MINOR = "LibDispellable-1.0", 16
---[===[@debug@
-MINOR = 999999999
---@end-debug@]===]
+local MAJOR, MINOR = "LibDispellable-1.0", 23
 assert(LibStub, MAJOR.." requires LibStub")
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
 if not lib then return end
@@ -53,9 +50,10 @@ end
 -- Data
 -- ----------------------------------------------------------------------------
 
-lib.defensive = lib.defensive or {}
-lib.enrageEffectIDs = wipe(lib.enrageEffectIDs or {})
-lib.spells = {}
+lib.buff = lib.buff or {}
+lib.debuff = lib.debuff or {}
+lib.specialIDs = wipe(lib.specialIDs or {})
+lib.spells = lib.spells or {}
 
 for _, id in ipairs({
 	-- Datamined using fetchEnrageList.sh (see source)
@@ -70,11 +68,10 @@ for _, id in ipairs({
 	117837, 119629, 123936, 124019, 124309, 124840, 126370, 127823, 127955,
 	128231, 129016, 129874, 130196, 130202, 131150, 135524, 135548, 142760,
 	145554, 145692, 145974,
-}) do lib.enrageEffectIDs[id] = true end
+}) do lib.specialIDs[id] = 'tranquilize' end
 
 -- Spells that do not have a dispel type according to Blizzard API
 -- but that can be dispelled anyway.
-lib.specialIDs = wipe(lib.specialIDs or {})
 lib.specialIDs[144351] = "Magic" -- Mark of Arrogance (Sha of Pride encounter)
 
 -- ----------------------------------------------------------------------------
@@ -86,132 +83,134 @@ local function CheckSpell(spellID, pet)
 end
 
 function lib:UpdateSpells()
-	wipe(self.defensive)
-	self.offensive = nil
+	wipe(self.buff)
+	wipe(self.debuff)
 
 	local _, class = UnitClass("player")
 
 	if class == "HUNTER" then
-		self.offensive = CheckSpell(19801) -- Tranquilizing Shot
-		self.tranquilize = self.offensive
+		self.buff.Magic = CheckSpell(19801) -- Tranquilizing Shot
+		self.buff.tranquilize = self.buff.Magic
 
 	elseif class == "SHAMAN" then
-		self.offensive = CheckSpell(370) -- Purge
+		self.buff.Magic = CheckSpell(370) -- Purge
 		if IsSpellKnown(77130) then -- Purify Spirit
-			self.defensive.Curse = 77130
-			self.defensive.Magic = 77130
+			self.debuff.Curse = 77130
+			self.debuff.Magic = 77130
 		else
-			self.defensive.Curse = CheckSpell(51886) -- Cleanse Spirit
+			self.debuff.Curse = CheckSpell(51886) -- Cleanse Spirit
 		end
 
 	elseif class == "WARLOCK" then
-		self.offensive = 19505 -- Devour Magic (Felhunter)
-		self.defensive.Magic = CheckSpell(132411) or CheckSpell(89808, true) -- Singe Magic (Imp)
+		self.buff.Magic = 19505 -- Devour Magic (Felhunter)
+		self.debuff.Magic = CheckSpell(132411) or CheckSpell(89808, true) -- Singe Magic (Imp)
 
 	elseif class == "MAGE" then
-		self.defensive.Curse = CheckSpell(475) -- Remove Curse
+		self.debuff.Curse = CheckSpell(475) -- Remove Curse
 
 	elseif class == "PRIEST" then
-		self.offensive = CheckSpell(528) -- Dispel Magic
-		self.defensive.Magic = CheckSpell(527) -- Purify
-		self.defensive.Disease = self.defensive.Magic
+		self.buff.Magic = CheckSpell(528) -- Dispel Magic
+		self.debuff.Magic = CheckSpell(527) -- Purify
+		self.debuff.Disease = self.debuff.Magic
 
 	elseif class == "DRUID" then
-		if IsSpellKnown(88423) then -- Nature's Cure
-			self.defensive.Curse = 88423
-			self.defensive.Magic = 88423
-		else
-			self.defensive.Curse = CheckSpell(2782) -- Remove Corruption
-		end
-		self.defensive.Poison = self.defensive.Curse
-		self.tranquilize = CheckSpell(2908) -- Soothe
+		local cure = CheckSpell(88423) -- Nature's Cure
+		local rmCorruption = CheckSpell(2782) -- Remove Corruption
+		local symbCleanse = CheckSpell(122288) -- Symbiosis: Cleanse
+		self.debuff.Magic = cure
+		self.debuff.Curse = cure or rmCorruption
+		self.debuff.Poison = cure or rmCorruption or symbCleanse
+		self.debuff.Disease = symbCleanse
+		self.buff.Magic = CheckSpell(110802) -- Symbiosis: Purge
+		self.buff.tranquilize = CheckSpell(2908) -- Soothe
 
 	elseif class == "ROGUE" then
-		self.tranquilize = CheckSpell(5938) -- Shiv
+		self.buff.tranquilize = CheckSpell(5938) -- Shiv
 
 	elseif class == "PALADIN" then
 		if IsSpellKnown(4987) then -- Cleanse
-			self.defensive.Poison = 4987
-			self.defensive.Disease = 4987
+			self.debuff.Poison = 4987
+			self.debuff.Disease = 4987
 			if IsSpellKnown(53551) then -- Sacred Cleansing
-				self.defensive.Magic = 4987
+				self.debuff.Magic = 4987
 			end
 		end
 
 	elseif class == "MONK" then
-		self.defensive.Disease = CheckSpell(115450) -- Detox
-		self.defensive.Poison = self.defensive.Disease
+		self.debuff.Disease = CheckSpell(115450) -- Detox
+		self.debuff.Poison = self.debuff.Disease
 		if IsSpellKnown(115451) then -- Internal Medicine
-			self.defensive.Magic = self.defensive.Disease
+			self.debuff.Magic = self.debuff.Disease
 		end
 	end
 
 	wipe(self.spells)
-	if self.offensive then
-		self.spells[self.offensive] = 'offensive'
+	if self.buff.Magic then
+		self.spells[self.buff.Magic] = 'offensive'
 	end
-	if self.tranquilize then
-		self.spells[self.tranquilize] = 'tranquilize'
+	if self.buff.tranquilize then
+		self.spells[self.buff.tranquilize] = 'tranquilize'
 	end
-	for dispelType, id in pairs(self.defensive) do
+	for dispelType, id in pairs(self.debuff) do
 		self.spells[id] = 'defensive'
 	end
 
 end
 
--- ----------------------------------------------------------------------------
--- Enrage test method
--- ----------------------------------------------------------------------------
-
---- Test if the specified spell is an enrage effect
--- @name LibDispellable:IsEnrageEffect
--- @param spellID (number) The spell ID
--- @return isEnrage (boolean) true if the passed spell ID
+--- Test if the specified aura is an enrage effect.
+-- @name LibDispellable:IsEnrageEffect.
+-- @param spellID (number) The spell ID.
+-- @return boolean true if the aura is an enrage.
 function lib:IsEnrageEffect(spellID)
-	return spellID and lib.enrageEffectIDs[spellID]
+	return lib.specialIDs[spellID or false] == "tranquilize"
 end
 
--- ----------------------------------------------------------------------------
--- Detect available dispel skills
--- ----------------------------------------------------------------------------
-
---- Get the actual dispell type of an aura, including tranquilize and special cases.
+--- Get the actual dispel mechanism of an aura, including tranquilize and special cases.
 -- @name LibDispellable:GetDispelType
--- @param dispelType (string) The dispel type as returned by Blizzard API
+-- @param dispelType (string) The dispel mechanism as returned by UnitAura
 -- @param spellID (number) The spell ID
--- @return dispelType (string) What can actually dispel the aura
+-- @return dispelType (string) The actual dispel mechanism
 function lib:GetDispelType(dispelType, spellID)
-	if not spellID then
-		return nil
-	elseif lib.enrageEffectIDs[spellID] then
-		return "tranquilize"
-	elseif lib.specialIDs[spellID] then
+	if spellID and lib.specialIDs[spellID] then
 		return lib.specialIDs[spellID]
-	elseif dispelType == "none" then
-		return nil
-	else
+	elseif dispelType and dispelType ~= "none" and dispelType ~= "" then
 		return dispelType
 	end
 end
 
--- ----------------------------------------------------------------------------
--- Simple query method
--- ----------------------------------------------------------------------------
+--- Check if an aura can be dispelled by anyone.
+-- @name LibDispellable:IsDispellable
+-- @param dispelType (string) The dispel mechanism as returned by UnitAura
+-- @param spellID (number) The spell ID
+-- @return boolean True if the aura can be dispelled in some way
+function lib:IsDispellable(dispelType, spellID)
+	return self:GetDispelType(dispelType, spellID) ~= nil
+end
 
---- Test if the player can dispel the given (de)buff on the given unit.
+--- Check which player spell can be used to dispel an aura.
+-- @name LibDispellable:GetDispelSpell
+-- @param dispelType (string) The dispel mechanism as returned by UnitAura
+-- @param spellID (number) The spell ID
+-- @param isBuff (boolean) True if the spell is a buff, false if it is a debuff.
+-- @return number The spell ID of the dispel, or nil if the player cannot dispel it.
+function lib:GetDispelSpell(dispelType, spellID, isBuff)
+	local actualDispelType = self:GetDispelType(dispelType, spellID)
+	return actualDispelType and self[isBuff and "buff" or "debuff"][actualDispelType]
+end
+
+--- Test if the player can dispel the given aura on the given unit.
 -- @name LibDispellable:CanDispel
 -- @param unit (string) The unit id.
--- @param offensive (boolean) True to test offensive dispel, i.e. enemy buffs.
+-- @param isBuff (boolean) True if the spell is a buff.
 -- @param dispelType (string) The dispel mechanism, as returned by UnitAura.
--- @param spellID (number, optional) The buff spell ID, as returned by UnitAura, used to test enrage effects.
--- @return canDispel, spellID (boolean, number) Whether this kind of spell can be dispelled and the spell to use to do so.
-function lib:CanDispel(unit, offensive, dispelType, spellID)
-	local spell
-	if offensive and UnitCanAttack("player", unit) then
-		spell = (dispelType == "Magic" and self.offensive) or (self:IsEnrageEffect(spellID) and self.tranquilize)
-	elseif not offensive and UnitCanAssist("player", unit) then
-		spell = dispelType and self.defensive[lib.specialIDs[spellID] or dispelType]
+-- @param spellID (number) The aura spell ID, as returned by UnitAura, used to test enrage effects.
+-- @return boolean true if the player knows a spell to dispel the aura.
+-- @return number The spell ID of the spell to dispel, or nil.
+function lib:CanDispel(unit, isBuff, dispelType, spellID)
+	if (isBuff and not UnitCanAttack("player", unit)) or (not isBuff and not UnitCanAssist("player", unit))then
+		return false
 	end
+	local spell = lib:GetDispelSpell(dispelType, spellID, isBuff)
 	return not not spell, spell or nil
 end
 
@@ -225,9 +224,19 @@ local function buffIterator(unit, index)
 	repeat
 		index = index + 1
 		local name, rank, icon, count, dispelType, duration, expires, caster, isStealable, shouldConsolidate, spellID, canApplyAura = UnitBuff(unit, index)
-		local dispel = (dispelType == "Magic" and lib.offensive) or (spellID and lib.enrageEffectIDs[spellID] and lib.tranquilize)
-		if dispel then
-			return index, dispel, name, rank, icon, count, dispelType, duration, expires, caster, isStealable, shouldConsolidate, spellID, canApplyAura
+		local spell = lib:GetDispelSpell(dispelType, spellID, true)
+		if spell then
+			return index, spell, name, rank, icon, count, dispelType, duration, expires, caster, isStealable, shouldConsolidate, spellID, canApplyAura
+		end
+	until not name
+end
+
+local function allBuffIterator(unit, index)
+	repeat
+		index = index + 1
+		local name, rank, icon, count, dispelType, duration, expires, caster, isStealable, shouldConsolidate, spellID, canApplyAura = UnitBuff(unit, index)
+		if lib:IsDispellable(dispelType, spellID) then
+			return index, lib:GetDispelSpell(dispelType, spellID, true), name, rank, icon, count, dispelType, duration, expires, caster, isStealable, shouldConsolidate, spellID, canApplyAura
 		end
 	until not name
 end
@@ -236,10 +245,19 @@ local function debuffIterator(unit, index)
 	repeat
 		index = index + 1
 		local name, rank, icon, count, dispelType, duration, expires, caster, isStealable, shouldConsolidate, spellID, canApplyAura, isBossDebuff = UnitDebuff(unit, index)
-		local actualDispelType = lib.specialIDs[spellID] or dispelType
-		local spell = name and actualDispelType and lib.defensive[actualDispelType]
+		local spell = lib:GetDispelSpell(dispelType, spellID, false)
 		if spell then
 			return index, spell, name, rank, icon, count, dispelType, duration, expires, caster, isStealable, shouldConsolidate, spellID, canApplyAura, isBossDebuff
+		end
+	until not name
+end
+
+local function allDebuffIterator(unit, index)
+	repeat
+		index = index + 1
+		local name, rank, icon, count, dispelType, duration, expires, caster, isStealable, shouldConsolidate, spellID, canApplyAura, isBossDebuff = UnitDebuff(unit, index)
+		if lib:IsDispellable(dispelType, spellID) then
+			return index, lib:GetDispelSpell(dispelType, spellID, false), name, rank, icon, count, dispelType, duration, expires, caster, isStealable, shouldConsolidate, spellID, canApplyAura, isBossDebuff
 		end
 	until not name
 end
@@ -247,17 +265,18 @@ end
 --- Iterate through unit (de)buffs that can be dispelled by the player.
 -- @name LibDispellable:IterateDispellableAuras
 -- @param unit (string) The unit to scan.
--- @param offensive (boolean) true to test buffs instead of debuffs (offensive dispel).
+-- @param buffs (boolean) true to test buffs instead of debuffs (offensive dispel).
+-- @param allDispellable (boolean) Include auras that can be dispelled even if the player cannot.
 -- @return A triplet usable in the "in" part of a for ... in ... do loop.
 -- @usage
 --   for index, spellID, name, rank, icon, count, dispelType, duration, expires, caster, isStealable, shouldConsolidate, spellID, canApplyAura, isBossDebuff in LibDispellable:IterateDispellableAuras("target", true) do
 --     print("Can dispel", name, "on target using", GetSpellInfo(spellID))
 --   end
-function lib:IterateDispellableAuras(unit, offensive)
-	if offensive and UnitCanAttack("player", unit) and (self.offensive or self.tranquilize) then
-		return buffIterator, unit, 0
-	elseif not offensive and UnitCanAssist("player", unit) and next(self.defensive) then
-		return debuffIterator, unit, 0
+function lib:IterateDispellableAuras(unit, buffs, allDispellable)
+	if buffs and UnitCanAttack("player", unit) and next(self.buff) then
+		return (allDispellable and allBuffIterator or buffIterator), unit, 0
+	elseif not buffs and UnitCanAssist("player", unit) and next(self.debuff) then
+		return (allDispellable and allDebuffIterator or debuffIterator), unit, 0
 	else
 		return noop
 	end
@@ -273,38 +292,27 @@ end
 --     -- Tell the user that Cleanse (id 4987) could be used to dispel something from the focus
 --   end
 function lib:CanDispelWith(unit, spellID)
-	local dispelType = spellID and self.spells[spellID]
-	if UnitCanAttack("player", unit) then
-		if dispelType == 'offensive' then
-			for index = 1, math.huge do
-				local name, _, _, _, dispelType = UnitBuff(unit, index)
-				if not name then
-					return false
-				elseif dispelType == 'Magic' then
-					return true
-				end
-			end
-		elseif dispelType == 'tranquilize' then
-			for index = 1, math.huge do
-				local name, _, _, _, _, _, _, _, _, _, buffID = UnitBuff(unit, index)
-				if not name then
-					return false
-				elseif self:IsEnrageEffect(buffID) then
-					return true
-				end
-			end
-		end
-	elseif dispelType == 'defensive' and UnitCanAssist("player", unit) then
-		for index = 1, math.huge do
-			local name, _, _, _, dispelType = UnitDebuff(unit, index)
-			if not name then
-				return false
-			elseif self.defensive[lib.specialIDs[spellID] or dispelType] == spellID then
-				return true
-			end
+	for index, spell in self:IterateDispellableAuras(unit, UnitCanAttack("player", unit)) do
+		if spell == spellID then
+			return true
 		end
 	end
 	return false
+end
+
+--- Test if player can dispel anything.
+-- @name LibDispellable:HasDispel
+-- @return boolean true if the player has any spell that can be used to dispel something.
+function lib:HasDispel()
+	return next(self.spells)
+end
+
+--- Get an iterator of the dispel spells.
+-- @name LibDispellable:IterateDispelSpells
+-- @return a (iterator, data, index) triplet usable in for .. in loops.
+--  Each iteration returns a spell id and the general dispel type: "offensive", "tranquilize" or "debuff"
+function lib:IterateDispelSpells()
+	return next, self.spells, nil
 end
 
 -- Initialization
