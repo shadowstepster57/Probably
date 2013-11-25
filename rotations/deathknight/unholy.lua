@@ -62,5 +62,6 @@ ProbablyEngine.rotation.register(252, {
   { "Blood Strike" },
 
 },
-{ "Path of Frost", "!player.buff(Path of Frost)" } -- Out of Combat 
+  { "Path of Frost", "!player.buff(Path of Frost)" },
+  { "Raise Dead", "!pet.exists" },-- Out of Combat 
 )
