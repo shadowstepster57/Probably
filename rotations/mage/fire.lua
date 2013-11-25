@@ -15,8 +15,8 @@ ProbablyEngine.rotation.register(63, {
   
   -- AoE
   --{ "Blizzard", "modifier.ctrl", "ground" }, -- Broken for the moment.
-  --{ "Flamestrike", "modifier.alt", "ground" }, -- Broken for the moment.
-  --{ "Ring of Frost", "modifier.alt", "ground" }, -- Broken for the moment.
+  { "Flamestrike", "modifier.ctrl", "ground" }, -- Broken for the moment.
+  { "Ring of Frost", "modifier.alt", "ground" }, -- Broken for the moment.
 	
   -- Mage Bombs
   { "Nether Tempest", "!target.debuff(Nether Tempest)", "target" }, 
