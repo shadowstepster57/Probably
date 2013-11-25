@@ -1,6 +1,6 @@
 -- SPEC ID 70
 ProbablyEngine.rotation.register(70, {
-    { "Blessing of Might", "!player.buff(Blessing of Might)" },
+
     { "Avenging Wrath", "modifier.cooldowns" },
     { "Guardian of Ancient Kings", "modifier.cooldowns" },
     { "Inquisition", {
@@ -26,7 +26,6 @@ ProbablyEngine.rotation.register(70, {
     { "Exorcism" },
     { "Crusader Strike", "!modifier.multitarget" },
     { "Judgment" },
-  }
-)
-
--- Updated 7 13 2013
+  }, {
+    { "Blessing of Might", "!player.buff(Blessing of Might)" },
+})
