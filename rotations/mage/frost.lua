@@ -4,7 +4,6 @@ ProbablyEngine.rotation.register(64, {
   -- Cooldowns
   { "Icy Veins", "modifier.cooldowns" },
   { "Ice Block", {"modifier.cooldowns", "player.health <= 30"} },
-  { "Ice Barrier", {"modifier.cooldowns", "player.health <= 80"} },
   { "Cold Snap", {"modifier.cooldowns", "player.health <= 25", "player.spell(Ice Block).cooldown"} },
   { "Mirror Image", "modifier.cooldowns" },
   { "Alter Time", "modifier.cooldowns" },
@@ -19,14 +18,19 @@ ProbablyEngine.rotation.register(64, {
   --{ "Blizzard", "modifier.ctrl", "ground" }, -- Broken for the moment.
   --{ "Ring of Frost", "modifier.alt", "ground" }, -- Broken for the moment.
   
+  -- Mage Bombs
+  {"Nether Tempest", "!target.debuff(Nether Tempest)", "target"}, 
+  {"Nether Tempest", "target.debuff(Nether Tempest).duration <= 2", "target"}
+  {"Living Bomb", "!target.debuff(Living Bomb)", "target"},
+  {"Frost Bomb", "player.spell(Frost Bomb).cooldown = 0", "target"},
+  
   -- Survivability
   { "Frost Nova", "target.range <= 9" },
   { "Blink", "target.range <= 3" },
   { "Rune of Power", "modifier.shift", "ground" },
+  { "Ice Barrier", "player.health <= 80" },
   
   -- Rotation
-  { "Nether Tempest",  "target.debuff" },
-  { "Frost Bomb", "target.debuff" },
   { "Frozen Orb", "player.buff(Fingers of Frost).count < 2" },
   { "Ice Lance", "player.buff(Fingers of Frost)" },
   { "Frostfire Bolt", "player.buff(Brain Freeze)" },
