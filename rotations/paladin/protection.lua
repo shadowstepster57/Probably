@@ -1,11 +1,6 @@
 -- SPEC ID 66
 ProbablyEngine.rotation.register(66, {
 
-	-- Buffs
-    { "Blessing of Might", "!player.buff(Blessing of Might)" },
-    { "Righteous Fury",    "!player.buff(Righteous Fury)" },
-
-
     -- Seals
     { "Seal of Righteousness", {
         "modifier.multitarget",
@@ -70,7 +65,8 @@ ProbablyEngine.rotation.register(66, {
     { "Hammer of the Righteous", "modifier.multitarget" },
     { "Judgment" },
     { "Crusader Strike" },
-  }
-)
-
- -- { "Avenging Wrath", "cooldowns" }, Not a cd
+  },{
+  -- OOC Buffing
+    { "Blessing of Might", "!player.buff(Blessing of Might)" },
+    { "Righteous Fury",    "!player.buff(Righteous Fury)" },
+})
