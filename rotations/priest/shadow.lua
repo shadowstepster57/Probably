@@ -32,7 +32,8 @@ ProbablyEngine.rotation.register(258, {
     
     { "Shadow Word: Death" },
   },
+  {
     { "Power Word: Fortitude", "!player.buff(Power Word: Fortitude)" },
     { "Inner Fire", "!player.buff(Inner Fire)" },
     { "Shadow Form", "!player.buff(Shadowform)" },
-)
+  })
