@@ -20,7 +20,7 @@ ProbablyEngine.rotation.register(64, {
   
   -- Mage Bombs
   {"Nether Tempest", "!target.debuff(Nether Tempest)", "target"}, 
-  {"Nether Tempest", "target.debuff(Nether Tempest).duration <= 2", "target"}
+  {"Nether Tempest", "target.debuff(Nether Tempest).duration <= 2", "target"},
   {"Living Bomb", "!target.debuff(Living Bomb)", "target"},
   {"Frost Bomb", "player.spell(Frost Bomb).cooldown = 0", "target"},
   
