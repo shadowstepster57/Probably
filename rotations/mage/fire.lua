@@ -38,6 +38,6 @@ ProbablyEngine.rotation.register(63, {
   { "Living Bomb", "target.debuff(Living Bomb).duration <= 3" },
   { "Scorch", "player.moving" },
   { "Fireball" }
-  }
+  },
 {{ "Arcane Brilliance", "!player.buff" },
  { "Molten Armor", "!player.buff(Molten Armor)" },})
