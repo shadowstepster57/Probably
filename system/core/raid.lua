@@ -17,10 +17,12 @@ end
 
 ProbablyEngine.raid.build = function()
   if UnitInRaid("player") then
-    for i = 1, GetNumGroupMembers() do
+    for i = 1, 40 do
       local name, rank, subgroup, level, class, fileName, zone, online, isDead = GetRaidRosterInfo(i);
       if online and UnitExists('raid' .. i)  then
         ProbablyEngine.raid.roster['raid' .. i] = UnitHealth('raid' .. i)
+      elseif ProbablyEngine.raid.roster['raid' .. i] then
+        ProbablyEngine.raid.roster['raid' .. i] = nil
       end
     end
   elseif UnitInParty("player") then
@@ -28,6 +30,8 @@ ProbablyEngine.raid.build = function()
       local name, rank, subgroup, level, class, fileName, zone, online, isDead = GetRaidRosterInfo(i);
       if online and UnitExists('party' .. i) then
         ProbablyEngine.raid.roster['party' .. i] = UnitHealth('party' .. i)
+      elseif ProbablyEngine.raid.roster['party' .. i] then
+         ProbablyEngine.raid.roster['party' .. i] = nil
       end
     end
   end
