@@ -1,25 +1,21 @@
 -- SPEC ID 258
 -- 7/11/2013 - Changed by j
 ProbablyEngine.rotation.register(258, {
-
-	-- Maintain these buffs
-    { "Power Word: Fortitude", "!player.buff(Power Word: Fortitude)" },
-    { "Inner Fire", "!player.buff(Inner Fire)" },
-    { "Shadow Form", "!player.buff(Shadowform)" },
     
-    -- Blow Our Cooldowns
+    -- Cooldowns
     { "Power Infusion", "modifier.cooldowns" },
     { "Shadowfiend",    "modifier.cooldowns" },
     
-    -- Key Click Checking
-    { "Mind Sear", 		"modifier.shift" },
+    -- Keybinds
+    { "Mind Sear", "modifier.shift" },
     
-    -- We are moving
+    -- If Moving
     { "Shadow Word: Pain", "player.moving" },
     { "Cascade", "player.moving" },
     { "Halo", "player.moving" },
     { "Shadow Word: Death", "player.moving" },
-    -- Main DPS 
+    
+    -- Rotation
     { "Mind Blast", "player.buff(Divine Insight)" },
     { "Devouring Plague", "player.shadoworbs = 3" },
 
@@ -35,10 +31,8 @@ ProbablyEngine.rotation.register(258, {
  
     
     { "Shadow Word: Death" },
-    
-    
-  
-    
-    
-  }
+  },
+    { "Power Word: Fortitude", "!player.buff(Power Word: Fortitude)" },
+    { "Inner Fire", "!player.buff(Inner Fire)" },
+    { "Shadow Form", "!player.buff(Shadowform)" },
 )
