@@ -5,7 +5,7 @@ ProbablyEngine.rotation.register(70, {
     { "Guardian of Ancient Kings", "modifier.cooldowns" },
     { "Inquisition", {
         "!player.buff(Inquisition)",
-        "player.holypower = 3"
+        "player.holypower >= 3"
     }},
     
     { "Templar's Verdict", {
@@ -18,9 +18,7 @@ ProbablyEngine.rotation.register(70, {
         "modifier.multitarget"
     }},
     { "Hammer of Wrath" },
-    { "Hammer of the Righteous", "!target.debuff(Weakened Blows)" }, 
     { "Hammer of the Righteous", "modifier.multitarget" },
-    
     { "Hammer of Wrath ", "target.health <= 20" },
     { "Hammer of Wrath ", "player.buff(Avenging Wrath)" },
     { "Exorcism" },
