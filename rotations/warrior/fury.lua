@@ -26,7 +26,7 @@ ProbablyEngine.rotation.register(72, {
   { "Bladestorm", "modifier.cooldowns" },
 
   -- AoE
-  { "Thunder Clap", "modifier.multitarget" },
+  { "Thunder Clap", "modifier.multitarget", "target.range <= 4" },
   { "Whirlwind", "modifier.multitarget" },
   { "Dragon Roar", "modifier.multitarget" },
 
