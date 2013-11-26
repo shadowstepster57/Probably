@@ -13,11 +13,12 @@ ProbablyEngine.rotation.register(103, {
   --Cooldowns
   { "106737", {
     "player.spell(106737).charges > 2",
-    "!modifier.last(106737)"
+    "!modifier.last(106737)",
+    "player.spell(106737).exists"
   }}, --Force of Nature
   { "Beserk", "modifier.cooldowns" },
   { "Nature's Vigil", "modifier.cooldowns" },
-  { "Incarnation", "modifier.cooldowns" },
+  { "Incarnation", "modifier.cooldowns", "player.buff(Beserk)" },
 
   --Keybinds
   { "Ursol's Vortex", "modifier.shift", "ground" },
@@ -28,13 +29,12 @@ ProbablyEngine.rotation.register(103, {
 
   --Interrupts
   { "Skull Bash", { "target.casting", "modifier.interrupt" }},
-
-  -- Stealth
-  { "5215", "target.enemy" },
+  { "Disorienting Roar", "modifier.interrupt" },
+  { "Mighty Bash", "modifier.interrupt" },
 
   -- Self Heals
-  { "Healing Touch", {"player.buff(Predatory Swiftness)", "player.health < 70"} },
-  { "Regrowth", {"player.buff(Predatory Swiftness)", "player.health < 90"} },
+  { "Healing Touch", {"player.buff(Predatory Swiftness)", "player.health <= 70"} },
+  { "Regrowth", {"player.buff(Predatory Swiftness)", "player.health <= 90"} },
 
   -- AoE
   { "Swipe", "modifier.multitarget" },
@@ -85,7 +85,7 @@ ProbablyEngine.rotation.register(103, {
   -- Target Health is less then 25%
   { "Ferocious Bite", {
     "target.debuff(Rip)",
-    "target.health < 25",
+    "target.health < 30",
     "player.combopoints = 5"
   }},
 
@@ -96,13 +96,14 @@ ProbablyEngine.rotation.register(103, {
     "player.buff(Savage Roar).duration > 5",
   }},
 
-  -- Build Combo
+  -- Combo Point Building Rotation
   -- Shred
   {{
     { "Shred", "player.buff(Clearcasting)" },
     { "Shred", "player.buff(Berserk)" },
     { "Shred", "player.combopoints < 5" },
   }, "player.behind" },
+
   -- Mangle
   {{
     { "Mangle", "player.buff(Clearcasting)" },
