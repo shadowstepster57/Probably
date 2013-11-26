@@ -57,6 +57,6 @@ ProbablyEngine.rotation.register(73, {
   { "Devastate" },
   { "Heroic Throw" },
   { "Heroic Strike", "target.buff(Ultimatum)" },
-  { "Thunder Clap", "!target.debuff(Weakened Blows)", "target.range <= 4"}
+  { "Thunder Clap", "!target.debuff(Weakened Blows)", "target.range <= 8"}
 
 })
