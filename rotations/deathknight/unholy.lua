@@ -61,7 +61,8 @@ ProbablyEngine.rotation.register(252, {
   { "Death Coil", "player.runicpower > 90"},
   { "Blood Strike" },
 
-},
+},{
   { "Path of Frost", "!player.buff(Path of Frost)" },
   { "Raise Dead", "!pet.exists" },-- Out of Combat 
+  }
 )
