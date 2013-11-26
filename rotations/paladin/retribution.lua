@@ -6,7 +6,7 @@ ProbablyEngine.rotation.register(70, {
         "player.buff(Inquisition)"
     }},
     { "Guardian of Ancient Kings", {
-        "modifier.cooldowns"
+        "modifier.cooldowns",
         "player.buff(Inquisition)"
     }},
     
@@ -38,7 +38,8 @@ ProbablyEngine.rotation.register(70, {
     	{ "Exorcism", "spell.cooldown(Hammer of Wrath) > 0.2" },
     	{ "Crusader Strike", "spell.cooldown(Hammer of Wrath) > 0.2" },
     	{ "Judgement", "spell.cooldown(Hammer of Wrath) > 0.2" },
-    	{ "Templar's Verdict" },
+    	{ "Templar's Verdict", "!modifier.multitarget" },
+    	{ "Divine Storm", "modifier.multitarget" },
     }, "player.buff(Avenging Wrath)"},
     {{	{ "Templar's Verdict", {
         "player.holypower = 5",
@@ -57,7 +58,8 @@ ProbablyEngine.rotation.register(70, {
     	{ "Exorcism", "spell.cooldown(Hammer of Wrath) > 0.2" },
     	{ "Crusader Strike", "spell.cooldown(Hammer of Wrath) > 0.2" },
     	{ "Judgement", "spell.cooldown(Hammer of Wrath) > 0.2" },
-    	{ "Templar's Verdict" },
+    	{ "Templar's Verdict", "!modifier.multitarget" },
+    	{ "Divine Storm", "modifier.multitarget" },
     }, "target.health < 20"},
     
     { "Templar's Verdict", {
@@ -73,7 +75,8 @@ ProbablyEngine.rotation.register(70, {
     { "Exorcism" },
     { "Crusader Strike", "!modifier.multitarget" },
     { "Judgment" },
-    { "Templar's Verdict" },
+    { "Templar's Verdict", "!modifier.multitarget" },
+    { "Divine Storm", "modifier.multitarget" },
   }, {
     { "Blessing of Might", "!player.buff(Blessing of Might)" },
 })
