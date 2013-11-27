@@ -34,7 +34,7 @@ ProbablyEngine.dsl.comparator = function(condition, target, condition_spell)
     modify_not = true
   end
 
-  -- fuck lua you are a dirty basterd
+  -- fuck lua you are a dirty bastard
   -- we do this so we can keep the same table
   -- and save some memory
   for i,_ in ipairs(comparator_table) do comparator_table[i] = nil end
