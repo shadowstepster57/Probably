@@ -37,15 +37,15 @@ ProbablyEngine.rotation.register(73, {
   -- Cooldowns
   { "Bloodbath", "modifier.cooldowns" },
   { "Avatar", "modifier.cooldowns" },
-  { "Recklessness", "modifier.cooldowns" },
+  { "Recklessness", "modifier.cooldowns", "target.range <= 4" },
   { "Skull Banner", "modifier.cooldowns" },
-  { "Bladestorm", "modifier.cooldowns" },
+  { "Bladestorm", "modifier.cooldowns", "target.range <= 4" },
 
   -- AoE
   { "Sweeping Strikes", "modifier.multitarget" },
-  { "Thunder Clap", "modifier.multitarget" },
-  { "Whirlwind", "modifier.multitarget" },
-  { "Dragon Roar", "modifier.multitarget" },
+  { "Thunder Clap", "modifier.multitarget", "target.range <= 4" },
+  { "Whirlwind", "modifier.multitarget", "target.range <= 4" },
+  { "Dragon Roar", "modifier.multitarget", "target.range <= 4" },
   { "Cleave", {
     "modifier.multitarget",
     "player.rage > 60"
@@ -56,6 +56,7 @@ ProbablyEngine.rotation.register(73, {
   { "Revenge" },
   { "Devastate" },
   { "Heroic Throw" },
-  { "Heroic Strike", "target.buff(Ultimatum)" },
+  { "Heroic Strike", "player.buff(Ultimatum)" },
+  { "Thunder Clap", "!target.debuff(Weakened Blows)", "target.range <= 8"}
 
 })
