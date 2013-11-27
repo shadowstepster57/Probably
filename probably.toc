@@ -30,6 +30,7 @@ system\core\timer.lua
 system\core\spellcache.lua
 system\core\parser.lua
 system\core\rotation.lua
+system\core\tooltip.lua
 system\core\condition.lua
 system\core\dsl.lua
 system\core\library.lua
