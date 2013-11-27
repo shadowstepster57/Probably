@@ -91,33 +91,35 @@ ProbablyEngine.timer.register("updateCTHealth", function()
 end, 100)
 
 ProbablyEngine.module.combatTracker.damageUnit = function(guid, damage)
-  if damage ~= nil and type(damage) == "number" then
-    if ProbablyEngine.module.combatTracker.enemy[guid] and ProbablyEngine.module.combatTracker.enemy[guid]['health'] then
-      local newHealth = ProbablyEngine.module.combatTracker.enemy[guid]['health'] - damage
-      if newHealth >= 0 then
-        ProbablyEngine.module.combatTracker.enemy[guid]['health'] = newHealth
+  if ProbablyEngine.module.combatTracker.enemy[guid] then
+    if damage ~= nil and type(damage) == "number" then
+      if ProbablyEngine.module.combatTracker.enemy[guid] and ProbablyEngine.module.combatTracker.enemy[guid]['health'] then
+        local newHealth = ProbablyEngine.module.combatTracker.enemy[guid]['health'] - damage
+        if newHealth >= 0 then
+          ProbablyEngine.module.combatTracker.enemy[guid]['health'] = newHealth
+        end
+      elseif ProbablyEngine.module.combatTracker.enemy[guid] and ProbablyEngine.module.combatTracker.enemy[guid]['maxHealth'] then
+        local newHealth = ProbablyEngine.module.combatTracker.enemy[guid]['maxHealth'] - damage
+        if newHealth >= 0 then
+          ProbablyEngine.module.combatTracker.enemy[guid]['health'] = newHealth
+        end
       end
-    elseif ProbablyEngine.module.combatTracker.enemy[guid] and ProbablyEngine.module.combatTracker.enemy[guid]['maxHealth'] then
-      local newHealth = ProbablyEngine.module.combatTracker.enemy[guid]['maxHealth'] - damage
-      if newHealth >= 0 then
-        ProbablyEngine.module.combatTracker.enemy[guid]['health'] = newHealth
+      if not ProbablyEngine.module.combatTracker.enemy[guid]['time'] then
+        ProbablyEngine.module.combatTracker.enemy[guid]['time'] = time()
       end
-    end
-    if not ProbablyEngine.module.combatTracker.enemy[guid]['time'] then
-      ProbablyEngine.module.combatTracker.enemy[guid]['time'] = time()
-    end
-    unit = ProbablyEngine.module.combatTracker.enemy[guid]
-    if unit and unit['maxHealth'] and unit['health'] then
-      local T = unit.time
-      local N = time()
-      local M = unit.maxHealth
-      local H = unit.health
-      local S = T - N
-      local D = M - H
-      local P = D / S
-      local R = math.floor(math.abs(H / P))
-      if R > 3600 then R = 1 end
-      ProbablyEngine.module.combatTracker.enemy[guid]['ttd'] = R
+      unit = ProbablyEngine.module.combatTracker.enemy[guid]
+      if unit and unit['maxHealth'] and unit['health'] then
+        local T = unit.time
+        local N = time()
+        local M = unit.maxHealth
+        local H = unit.health
+        local S = T - N
+        local D = M - H
+        local P = D / S
+        local R = math.floor(math.abs(H / P))
+        if R > 3600 then R = 1 end
+        ProbablyEngine.module.combatTracker.enemy[guid]['ttd'] = R
+      end
     end
   end
 end
