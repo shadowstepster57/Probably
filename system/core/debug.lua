@@ -30,7 +30,6 @@ ProbablyEngine.debug.flags.add('spell_cast')
 ProbablyEngine.debug.flags.add('no_flag')
 ProbablyEngine.debug.flags.add('timer')
 
-
 ProbablyEngine.debug.flag = function(name)
   return ProbablyEngine.debug.flags[name]
 end
@@ -45,11 +44,12 @@ end
 
 -- defaults
 
-ProbablyEngine.debug.level.add('spell_cast')
-ProbablyEngine.debug.level.add('dsl_no_exist')
+ProbablyEngine.debug.toggle = function()
+  ProbablyEngine.debugging = not ProbablyEngine.debugging
+end
 
 ProbablyEngine.debug.print = function(message, flag)
-  if not debugging then return end
+  if not ProbablyEngine.debugging then return end
   if flag == nil then flag = 'no_flag' end
   local bitFlag = ProbablyEngine.debug.flag(flag)
   if bit.band(bitFlag, ProbablyEngine.debug.level.value) ~= 0 then
