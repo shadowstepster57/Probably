@@ -197,7 +197,7 @@ ProbablyEngine.condition.register("target", function(target, spell)
 end)
 
 ProbablyEngine.condition.register("exists", function(target)
-  return not not UnitExists(target)
+  return (UnitExists(target) == 1)
 end)
 
 ProbablyEngine.condition.register("modifier.shift", function()
