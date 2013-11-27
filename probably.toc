@@ -38,6 +38,7 @@ system\core\raid.lua
 
 # Conditions
 system\conditions\core.lua
+system\conditions\states.lua
 
 # Modules
 system\modules\player.lua
