@@ -30,18 +30,23 @@ ProbablyEngine.rotation.register(71, {
   { "Disrupting Shout", "modifier.interrupts" },
 
   -- Cooldowns
-  { "Bloodbath", "modifier.cooldowns" },
-  { "Avatar", "modifier.cooldowns" },
-  { "Recklessness", "modifier.cooldowns" },
-  { "Skull Banner", "modifier.cooldowns" },
-  { "Bladestorm", "modifier.cooldowns" },
+  {{
+    { "Bloodbath" },
+    { "Avatar" },
+    { "Recklessness" },
+    { "Skull Banner" },
+    { "Bladestorm" },
+  }, "modifier.cooldowns" },
 
   -- AoE
-  { "Sweeping Strikes", "modifier.multitarget" },
-  { "Thunder Clap", "modifier.multitarget","target.range <= 4" },
-  { "Whirlwind", "modifier.multitarget", "target.range <= 5" },
-  { "Dragon Roar", "modifier.multitarget", "target.range <= 5" },
-  { "Dragon Roar", "modifier.cooldowns", "target.range <= 5" },
+  {{
+    { "Sweeping Strikes" },
+    {{
+      { "Thunder Clap" },
+      { "Whirlwind" },
+      { "Dragon Roar" },
+    }, "target.range <= 5" },
+  }, "modifier.multitarget" },
 
   -- Rotation
   { "Overpower" },
