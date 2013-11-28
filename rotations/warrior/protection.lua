@@ -31,25 +31,30 @@ ProbablyEngine.rotation.register(73, {
   { "Taunt", "modifier.taunt" },
 
   -- Kicks
-  { "Pummel", "modifier.interrupts" },
-  { "Disrupting Shout", "modifier.interrupts" },
+  {{
+    { "Pummel" },
+    { "Disrupting Shout" },
+  }, "modifier.interrupts" },
 
   -- Cooldowns
-  { "Bloodbath", "modifier.cooldowns" },
-  { "Avatar", "modifier.cooldowns" },
-  { "Recklessness", "modifier.cooldowns", "target.range <= 4" },
-  { "Skull Banner", "modifier.cooldowns" },
-  { "Bladestorm", "modifier.cooldowns", "target.range <= 4" },
+  {{
+    { "Bloodbath" },
+    { "Avatar" },
+    { "Recklessness", "target.range <= 4" },
+    { "Skull Banner" },
+    { "Bladestorm", "target.range <= 4" },
+  }, "modifier.cooldowns" },
 
   -- AoE
-  { "Sweeping Strikes", "modifier.multitarget" },
-  { "Thunder Clap", "modifier.multitarget", "target.range <= 4" },
-  { "Whirlwind", "modifier.multitarget", "target.range <= 4" },
-  { "Dragon Roar", "modifier.multitarget", "target.range <= 4" },
-  { "Cleave", {
-    "modifier.multitarget",
-    "player.rage > 60"
-  }},
+  {{
+    { "Sweeping Strikes" },
+    {{
+      { "Thunder Clap" },
+      { "Whirlwind" },
+      { "Dragon Roar" },
+    }, "target.range <= 4" }, -- why range 4? these are all 8
+    { "Cleave", "player.rage > 60" },
+  }, "modifier.multitarget" },
 
   -- Rotation
   { "Shield Slam" },
@@ -57,6 +62,6 @@ ProbablyEngine.rotation.register(73, {
   { "Devastate" },
   { "Heroic Throw" },
   { "Heroic Strike", "player.buff(Ultimatum)" },
-  { "Thunder Clap", "!target.debuff(Weakened Blows)", "target.range <= 8"}
+  { "Thunder Clap", { "!target.debuff(Weakened Blows)", "target.range <= 8" } }
 
 })
