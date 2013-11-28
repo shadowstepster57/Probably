@@ -37,7 +37,10 @@ ProbablyEngine.rotation.register(250, {
   { "Outbreak", "!target.debuff(Frost Fever)" },
 
   -- Refresh dots with Blood Boil
-  { "Blood Boil", "target.debuff(Frost Fever).duration < 4" },
+  { "Blood Boil", {
+    "target.debuff(Frost Fever).duration < 4",
+    "target.range <= 8"
+  }},
 
   -- Refresh dots with hard casts
   { "Icy Touch", "target.debuff(Frost Fever).duration < 4" },
