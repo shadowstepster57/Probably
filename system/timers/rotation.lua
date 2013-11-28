@@ -6,6 +6,7 @@ ProbablyEngine.cycle = function(skip_verify)
   local turbo = ProbablyEngine.config.data['pe_turbo']
   local cycle =
     IsMounted() ~= 1
+    and UnitInVehicle("player") ~= 1
     and ProbablyEngine.module.player.combat
     and ProbablyEngine.active
     and ProbablyEngine.module.player.specId
@@ -70,6 +71,7 @@ end, ProbablyEngine.cycleTime)
 ProbablyEngine.timer.register("oocrotation", function()
   local cycle =
     IsMounted() ~= 1
+    and UnitInVehicle("player") ~= 1
     and ProbablyEngine.module.player.combat ~= true
     and ProbablyEngine.active == true
     and ProbablyEngine.module.player.specId ~= 0
