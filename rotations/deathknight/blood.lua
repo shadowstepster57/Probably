@@ -25,7 +25,7 @@ ProbablyEngine.rotation.register(250, {
     "player.health < 35",
     "player.spell(Death Pact).cooldown",
     "player.spell(Raise Dead).cooldown",
-    "player.spell.usable(Death Pact)"
+    "player.spell((Death Pact).usable"
   }},
 
   -- hard cast dnd
