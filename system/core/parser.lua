@@ -87,6 +87,7 @@ ProbablyEngine.parser.can_cast =  function(spell, unit)
     if not UnitIsVisible(unit) then return false end
     if UnitIsDeadOrGhost(unit) then return false end
     if SpellHasRange(spell) == 1 and IsSpellInRange(spell, unit) == 0 then return false end
+    if IsHarmfulSpell(GetSpellInfo(spellId)) and not UnitCanAttack("player", unit) then return false end
   end
   if UnitBuff("player", GetSpellInfo(80169)) then return false end -- Eat
   if UnitBuff("player", GetSpellInfo(87959)) then return false end -- Drink
@@ -97,7 +98,6 @@ ProbablyEngine.parser.can_cast =  function(spell, unit)
   if ProbablyEngine.module.player.casting == true and turbo == false then return false end
   -- handle Surging Mists manually :(
   if spellId == 116694 or spellId == 124682 then return true end
-  if IsHarmfulSpell(GetSpellInfo(spellId)) and not UnitCanAttack("player", unit) then return false end
   if UnitChannelInfo("player") == nil then return true else return false end
   return true
 end
