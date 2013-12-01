@@ -202,39 +202,39 @@ ProbablyEngine.condition.register("exists", function(target)
 end)
 
 ProbablyEngine.condition.register("modifier.shift", function()
-  return IsShiftKeyDown() == 1
+  return IsShiftKeyDown() == 1 and GetCurrentKeyBoardFocus() == nil
 end)
 
 ProbablyEngine.condition.register("modifier.control", function()
-  return IsControlKeyDown() == 1
+  return IsControlKeyDown() == 1 and GetCurrentKeyBoardFocus() == nil
 end)
 
 ProbablyEngine.condition.register("modifier.alt", function()
-  return IsAltKeyDown() == 1
+  return IsAltKeyDown() == 1 and GetCurrentKeyBoardFocus() == nil
 end)
 
 ProbablyEngine.condition.register("modifier.lshift", function()
-  return IsLeftShiftKeyDown() == 1
+  return IsLeftShiftKeyDown() == 1 and GetCurrentKeyBoardFocus() == nil
 end)
 
 ProbablyEngine.condition.register("modifier.lcontrol", function()
-  return IsLeftControlKeyDown() == 1
+  return IsLeftControlKeyDown() == 1 and GetCurrentKeyBoardFocus() == nil
 end)
 
 ProbablyEngine.condition.register("modifier.lalt", function()
-  return IsLeftAltKeyDown() == 1
+  return IsLeftAltKeyDown() == 1 and GetCurrentKeyBoardFocus() == nil
 end)
 
 ProbablyEngine.condition.register("modifier.rshift", function()
-  return IsRightShiftKeyDown() == 1
+  return IsRightShiftKeyDown() == 1 and GetCurrentKeyBoardFocus() == nil
 end)
 
 ProbablyEngine.condition.register("modifier.rcontrol", function()
-  return IsRightControlKeyDown() == 1
+  return IsRightControlKeyDown() == 1 and GetCurrentKeyBoardFocus() == nil
 end)
 
 ProbablyEngine.condition.register("modifier.ralt", function()
-  return IsRightAltKeyDown() == 1
+  return IsRightAltKeyDown() == 1 and GetCurrentKeyBoardFocus() == nil
 end)
 
 ProbablyEngine.condition.register("modifier.player", function()
