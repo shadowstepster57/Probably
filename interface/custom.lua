@@ -103,12 +103,11 @@ ProbablyEngine.rotation.loadLastRotation = function ()
         else
           ProbablyEngine.rotation.activeOOCRotation = false
         end
+        ProbablyEngine.buttons.resetButtons()
         if rotation.buttons then
-          ProbablyEngine.buttons.resetButtons()
           rotation.buttons()
         end
         ProbablyEngine.print('Switched active rotation to: ' .. text)
-        ProbablyEngine.buttons.resetButtons()
         break
       end
     end
