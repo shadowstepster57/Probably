@@ -242,7 +242,7 @@ ProbablyEngine.condition.register("modifier.player", function()
 end)
 
 ProbablyEngine.condition.register("boss", function(target)
-  return LibBoss[UnitId(target)] == true
+  return (LibBoss[UnitId(target)] == true)
 end)
 
 ProbablyEngine.condition.register("toggle", function(toggle, spell)
