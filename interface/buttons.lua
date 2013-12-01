@@ -67,8 +67,12 @@ ProbablyEngine.buttons.frame:SetScript("OnHide", function(self)
 end)
 
 ProbablyEngine.buttons.create = function(name, icon, callback, tooltipl1, tooltipl2)
-
-  ProbablyEngine.buttons.buttons[name] = CreateFrame("CheckButton", "PE_Buttons_"..name, ProbablyEngine.buttons.buttonFrame, "ActionButtonTemplate")
+  if _G['PE_Buttons_' .. name] then
+    ProbablyEngine.buttons.buttons[name] = _G['PE_Buttons_' .. name]
+    _G['PE_Buttons_' .. name]:Show()
+  else
+    ProbablyEngine.buttons.buttons[name] = CreateFrame("CheckButton", "PE_Buttons_"..name, ProbablyEngine.buttons.buttonFrame, "ActionButtonTemplate")
+  end
   ProbablyEngine.buttons.buttons[name]:RegisterForClicks("LeftButtonUp", "RightButtonUp")
   local button = ProbablyEngine.buttons.buttons[name]
 
@@ -186,4 +190,25 @@ ProbablyEngine.buttons.loadStates = function()
       ProbablyEngine.toggle.states[button] = false
     end
   end
+end
+
+ProbablyEngine.buttons.resetButtons = function ()
+  local defaultButtons = { 'MasterToggle', 'cooldowns', 'multitarget', 'interrupt' }
+
+  for name, button in pairs(ProbablyEngine.buttons.buttons) do
+    local original = false
+    for _, buttonName in pairs(defaultButtons) do
+      if name == buttonName then
+        original = true
+        break
+      end
+    end
+
+    if not original then
+      ProbablyEngine.buttons.buttons[name] = nil
+      button:Hide()
+    end
+  end
+
+  ProbablyEngine.buttons.count = #buttons
 end
