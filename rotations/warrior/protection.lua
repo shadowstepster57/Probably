@@ -40,9 +40,9 @@ ProbablyEngine.rotation.register(73, {
   {{
     { "Bloodbath" },
     { "Avatar" },
-    { "Recklessness", "target.range <= 4" },
+    { "Recklessness", "target.range <= 8" },
     { "Skull Banner" },
-    { "Bladestorm", "target.range <= 4" },
+    { "Bladestorm", "target.range <= 8" },
   }, "modifier.cooldowns" },
 
   -- AoE
@@ -52,16 +52,27 @@ ProbablyEngine.rotation.register(73, {
       { "Thunder Clap" },
       { "Whirlwind" },
       { "Dragon Roar" },
-    }, "target.range <= 4" }, -- why range 4? these are all 8
+    }, "target.range <= 5" },
     { "Cleave", "player.rage > 60" },
-  }, "modifier.multitarget" },
+  }, { "modifier.multitarget" } },
 
   -- Rotation
   { "Shield Slam" },
   { "Revenge" },
   { "Devastate" },
+  { "Sunder Armor", {
+    "player.level < 26",
+    "target.debuff(Weakened Armor).count < 3"
+  }},
   { "Heroic Throw" },
   { "Heroic Strike", "player.buff(Ultimatum)" },
-  { "Thunder Clap", { "!target.debuff(Weakened Blows)", "target.range <= 8" } }
+  { "Thunder Clap", {
+    "!target.debuff(Weakened Blows)",
+    "target.range <= 5"
+  }}
 
-})
+}, {
+
+}, function()
+  ProbablyEngine.toggle.create('taunt', 'Interface\\ICONS\\spell_nature_reincarnation', 'Taunt', 'Toggle the usage of Taunt.')
+end)
