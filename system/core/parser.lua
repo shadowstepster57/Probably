@@ -97,7 +97,7 @@ ProbablyEngine.parser.can_cast =  function(spell, unit)
   if select(2, GetSpellCooldown(spell)) > 1 then return false end
   if ProbablyEngine.module.player.casting == true and turbo == false then return false end
   -- handle Surging Mists manually :(
-  if spellId == 116694 or spellId == 124682 then return true end
+  if spellId == 116694 or spellId == 124682 or spellId == 123273 then return true end
   if UnitChannelInfo("player") == nil then return true else return false end
   return true
 end
