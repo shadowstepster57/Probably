@@ -97,7 +97,7 @@ ProbablyEngine.buttons.create = function(name, icon, callback, tooltipl1, toolti
     ElvSkin:StyleButton(button)
   end
   ]]
-  
+
   if icon == nil then
     button.icon:SetTexture('Interface\\ICONS\\INV_Misc_QuestionMark')
   else
@@ -193,22 +193,21 @@ ProbablyEngine.buttons.loadStates = function()
 end
 
 ProbablyEngine.buttons.resetButtons = function ()
-  local defaultButtons = { 'MasterToggle', 'cooldowns', 'multitarget', 'interrupt' }
-
-  for name, button in pairs(ProbablyEngine.buttons.buttons) do
-    local original = false
-    for _, buttonName in pairs(defaultButtons) do
-      if name == buttonName then
-        original = true
-        break
+  if ProbablyEngine.buttons.buttons then
+    local defaultButtons = { 'MasterToggle', 'cooldowns', 'multitarget', 'interrupt' }
+    for name, button in pairs(ProbablyEngine.buttons.buttons) do
+      local original = false
+      for _, buttonName in pairs(defaultButtons) do
+        if name == buttonName then
+          original = true
+          break
+        end
+      end
+      if not original then
+        ProbablyEngine.buttons.buttons[name] = nil
+        button:Hide()
       end
     end
-
-    if not original then
-      ProbablyEngine.buttons.buttons[name] = nil
-      button:Hide()
-    end
+    ProbablyEngine.buttons.count = #defaultButtons + #ProbablyEngine.buttons.buttons
   end
-
-  ProbablyEngine.buttons.count = #buttons
 end
