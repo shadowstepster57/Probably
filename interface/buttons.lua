@@ -208,6 +208,6 @@ ProbablyEngine.buttons.resetButtons = function ()
         button:Hide()
       end
     end
-    ProbablyEngine.buttons.count = #defaultButtons + #ProbablyEngine.buttons.buttons
+    ProbablyEngine.buttons.count = table.length(ProbablyEngine.buttons.buttons)
   end
 end
