@@ -108,7 +108,7 @@ ProbablyEngine.rotation.loadLastRotation = function ()
           rotation.buttons()
         end
         ProbablyEngine.print('Switched active rotation to: ' .. text)
-
+        ProbablyEngine.buttons.resetButtons()
         break
       end
     end
