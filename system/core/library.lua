@@ -31,6 +31,6 @@ ProbablyEngine.library.parse = function(event, evaluation, target)
     -- we need to call the function
     func = loadstring('local target = "'..target..'";return ProbablyEngine.library.libs.' .. call .. '(target)')
   end
-  local eval = func(target, event)
+  local eval = func and func(target, event) or false
   return eval
 end
