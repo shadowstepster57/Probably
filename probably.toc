@@ -44,7 +44,6 @@ system\conditions\states.lua
 # Modules
 system\modules\player.lua
 system\modules\target.lua
-system\modules\keymanager.lua
 system\modules\combat_tracker.lua
 system\modules\queue.lua
 system\modules\config.lua
