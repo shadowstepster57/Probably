@@ -22,6 +22,7 @@ ProbablyEngine.listener.register("PLAYER_SPECIALIZATION_CHANGED", function(...)
           ProbablyEngine.rotation.add_buttons()
         end
         ProbablyEngine.print(ProbablyEngine.rotation.specId[id] .. " rotation loaded!")
+        ProbablyEngine.rotation.loadLastRotation()
       end
     else
       ProbablyEngine.module.player.specId = false

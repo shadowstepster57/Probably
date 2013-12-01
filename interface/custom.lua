@@ -40,6 +40,7 @@ ProbablyEngine.rotation.list_custom = (function()
           ProbablyEngine.rotation.add_buttons()
         end
         ProbablyEngine.print('Switched active rotation to: ' .. text)
+        ProbablyEngine.config.write('lastRotation_' .. mySpecId, '')
       end
       UIDropDownMenu_AddButton(info)
     end
@@ -71,6 +72,7 @@ ProbablyEngine.rotation.list_custom = (function()
           rotation.buttons()
         end
         ProbablyEngine.print('Switched active rotation to: ' .. text)
+        ProbablyEngine.config.write('lastRotation_' .. mySpecId, ProbablyEngine.rotation.currentStringComp)
       end
       UIDropDownMenu_AddButton(info)
     end
@@ -85,3 +87,30 @@ ProbablyEngine.rotation.list_custom = (function()
 
 
 end)
+
+ProbablyEngine.rotation.loadLastRotation = function ()
+  local mySpecId, _, _, _, _, _ = GetSpecializationInfo(GetSpecialization())
+
+  local lastRotation = ProbablyEngine.config.read('lastRotation_' .. mySpecId, '')
+  if ProbablyEngine.rotation.custom[mySpecId] and lastRotation ~= '' then
+    for _, rotation in pairs(ProbablyEngine.rotation.custom[mySpecId]) do
+      if rotation.desc == lastRotation then
+        local text = rotation.desc
+        ProbablyEngine.rotation.currentStringComp = text
+        ProbablyEngine.rotation.activeRotation = rotation.spellTable
+        if rotation.oocrotation then
+          ProbablyEngine.rotation.activeOOCRotation = rotation.oocrotation
+        else
+          ProbablyEngine.rotation.activeOOCRotation = false
+        end
+        if rotation.buttons then
+          ProbablyEngine.buttons.resetButtons()
+          rotation.buttons()
+        end
+        ProbablyEngine.print('Switched active rotation to: ' .. text)
+
+        break
+      end
+    end
+  end
+end
