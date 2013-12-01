@@ -20,40 +20,79 @@ ProbablyEngine.raid.build = function()
     for i = 1, 40 do
       local name, rank, subgroup, level, class, fileName, zone, online, isDead = GetRaidRosterInfo(i);
       if online and UnitExists('raid' .. i)  then
-        ProbablyEngine.raid.roster['raid' .. i] = UnitHealth('raid' .. i)
+        ProbablyEngine.raid.roster['raid' .. i] = ProbablyEngine.raid.calShieldHp('raid' .. i)
       elseif ProbablyEngine.raid.roster['raid' .. i] then
         ProbablyEngine.raid.roster['raid' .. i] = nil
       end
     end
+    if online and UnitExists('target') then ProbablyEngine.raid.roster['target'] = ProbablyEngine.raid.calShieldHp('target') end
+    if online and UnitExists('focus') then ProbablyEngine.raid.roster['focus'] = ProbablyEngine.raid.calShieldHp('focus') end
+    -- needs controls
   elseif UnitInParty("player") then
     for i = 1, GetNumGroupMembers() do
       local name, rank, subgroup, level, class, fileName, zone, online, isDead = GetRaidRosterInfo(i);
       if online and UnitExists('party' .. i) then
-        ProbablyEngine.raid.roster['party' .. i] = UnitHealth('party' .. i)
+        ProbablyEngine.raid.roster['party' .. i] = ProbablyEngine.raid.calShieldHp('party' .. i)
       elseif ProbablyEngine.raid.roster['party' .. i] then
          ProbablyEngine.raid.roster['party' .. i] = nil
       end
     end
   end
-  ProbablyEngine.raid.roster['player'] = UnitHealth('player')
+  ProbablyEngine.raid.roster['player'] = ProbablyEngine.raid.calShieldHp('player')
 end
 
+ProbablyEngine.raid.calShieldHp = function(t)
+	local inc = UnitGetIncomingHeals(t) and UnitGetIncomingHeals(t) or 0
+  -- Check for Malkorok Shields
+	local cur = select(15,UnitDebuff(t, 142863, 'any'))
+    or select(15,UnitDebuff(t, 142864, 'any'))
+    or select(15,UnitDebuff(t, 142865, 'any'))
+    or UnitHealth(t)
+	local pinc = 100 * ( cur + inc ) / UnitHealthMax(t)
+	local valinc = ( UnitHealthMax(t) - ( cur + inc ) )
+	if pinc and valinc then
+    if pinc > 0 then
+      return pinc, valinc
+    else
+      return 100,UnitHealthMax("player")
+    end
+	else
+		return 100,UnitHealthMax("player")
+	end
+end
 
 ProbablyEngine.raid.lowestHP = function()
-  local lowestTarget = false
-  local lowestHP = 100
-  for target, health in pairs(ProbablyEngine.raid.roster) do
-    local max = UnitHealthMax(target)
-    local per = math.abs(math.floor(health/max*100))
-    if per < lowestHP and health ~= 0 then
-      lowestHP = per
-      lowestTarget = target
+  local spairs = function(t, order)
+    local keys = {}
+    for k in pairs(t) do keys[#keys+1] = k end
+    if order then
+        table.sort(keys, function(a,b) return order(t, a, b) end)
+    else
+        table.sort(keys)
+    end
+    local i = 0
+    return function()
+        i = i + 1
+        if keys[i] then
+            return keys[i], t[keys[i]]
+        end
     end
   end
-  if lowestTarget and lowestHP ~= 100 then
-    return lowestTarget
+  for k in spairs(ProbablyEngine.raid.roster, function(t, a, b) return t[b] > t[a] end) do
+    return k
   end
-  return false
+  return 'player'
+end
+
+ProbablyEngine.raid.raidPercent = function()
+  local total = 0
+  for k,v in pairs(ProbablyEngine.raid.roster) do
+    total = total + v
+  end
+  if total > 0 and #ProbablyEngine.raid.roster > 0 then
+    return total / #ProbablyEngine.raid.roster
+  end
+  return 100
 end
 
 ProbablyEngine.raid.needsHealing = function(threshold)

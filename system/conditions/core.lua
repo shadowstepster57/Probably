@@ -390,6 +390,10 @@ ProbablyEngine.condition.register("mana", function(target, spell)
   return 0
 end)
 
+ProbablyEngine.condition.register("raid.health", function()
+  return ProbablyEngine.raid.raidPercent()
+end)
+
 ProbablyEngine.condition.register("modifier.multitarget", function()
   return ProbablyEngine.condition["modifier.toggle"]('multitarget')
 end)
