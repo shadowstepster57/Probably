@@ -11,7 +11,7 @@ ProbablyEngine.keys.frame:SetPropagateKeyboardInput(true)
 
 ProbablyEngine.keys.frame:SetScript("OnKeyDown", function(self, key)
   ProbablyEngine.keys.setState(key, true)
-  print(key, 'up')
+  print(key, 'down')
 end)
 
 ProbablyEngine.keys.frame:SetScript("OnKeyUp", function(self, key)
