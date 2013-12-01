@@ -35,8 +35,8 @@ ProbablyEngine.rotation.list_custom = (function()
         else
           ProbablyEngine.rotation.activeOOCRotation = false
         end
+        ProbablyEngine.buttons.resetButtons()
         if ProbablyEngine.rotation.buttons[specId] then
-          ProbablyEngine.buttons.resetButtons()
           ProbablyEngine.rotation.add_buttons()
         end
         ProbablyEngine.print('Switched active rotation to: ' .. text)
@@ -66,8 +66,8 @@ ProbablyEngine.rotation.list_custom = (function()
         else
           ProbablyEngine.rotation.activeOOCRotation = false
         end
+        ProbablyEngine.buttons.resetButtons()
         if rotation.buttons then
-          ProbablyEngine.buttons.resetButtons()
           rotation.buttons()
         end
         ProbablyEngine.print('Switched active rotation to: ' .. text)
