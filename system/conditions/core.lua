@@ -557,10 +557,11 @@ ProbablyEngine.condition.register("time", function(target, range)
 end)
 
 ProbablyEngine.condition.register("deathin", function(target, range)
-  if ProbablyEngine.module.combatTrac​ker.enemy[UnitGUID(target)]['ttd'] then
-    return ProbablyEngine.module.combatTrac​ker.enemy[UnitGUID(target)]['ttd']
+  local guid = UnitGUID(target)
+  if ProbablyEngine.module.combatTracker.enemy[guid] then
+    return ProbablyEngine.module.combatTracker.enemy[guid]['ttd'] or 0
   end
-  return false
+  return 0
 end)
 
 ProbablyEngine.condition.register("ttd", function(target, range)
