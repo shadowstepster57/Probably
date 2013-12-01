@@ -4,6 +4,7 @@
 local ProbablyEngineTempTable1 = { }
 local rangeCheck = LibStub("LibRangeCheck-2.0")
 local LibDispellable = LibStub("LibDispellable-1.0")
+local LibBoss = LibStub("LibBoss-1.0")
 
 local UnitBuff = function(target, spell, owner)
   local buff, count, caster, expires, spellID
@@ -241,7 +242,7 @@ ProbablyEngine.condition.register("modifier.player", function()
 end)
 
 ProbablyEngine.condition.register("boss", function(target)
-  return UnitClassification(target) == "worldboss"
+  return LibBoss[UnitId(target)] == true
 end)
 
 ProbablyEngine.condition.register("toggle", function(toggle, spell)
@@ -553,4 +554,15 @@ end)
 
 ProbablyEngine.condition.register("time", function(target, range)
   return GetTime() - ProbablyEngine.module.player.combatTime
+end)
+
+ProbablyEngine.condition.register("deathin", function(target, range)
+  if ProbablyEngine.module.combatTrac​ker.enemy[UnitGUID(target)]['ttd'] then
+    return ProbablyEngine.module.combatTrac​ker.enemy[UnitGUID(target)]['ttd']
+  end
+  return false
+end)
+
+ProbablyEngine.condition.register("ttd", function(target, range)
+  return ProbablyEngine.condition["deathin"]()
 end)
