@@ -35,6 +35,10 @@ ProbablyEngine.rotation.list_custom = (function()
         else
           ProbablyEngine.rotation.activeOOCRotation = false
         end
+        if ProbablyEngine.rotation.buttons[specId] then
+          ProbablyEngine.buttons.resetButtons()
+          ProbablyEngine.rotation.add_buttons()
+        end
         ProbablyEngine.print('Switched active rotation to: ' .. text)
       end
       UIDropDownMenu_AddButton(info)
@@ -61,6 +65,10 @@ ProbablyEngine.rotation.list_custom = (function()
           ProbablyEngine.rotation.activeOOCRotation = rotation.oocrotation
         else
           ProbablyEngine.rotation.activeOOCRotation = false
+        end
+        if rotation.buttons then
+          ProbablyEngine.buttons.resetButtons()
+          rotation.buttons()
         end
         ProbablyEngine.print('Switched active rotation to: ' .. text)
       end
