@@ -24,3 +24,9 @@ GetItemID = function(item)
   local match = string.match(select(2, GetItemInfo(item)) or '', 'Hitem:(%d+):')
   if match then return tonumber(match) else return false end
 end
+
+UnitId = function(target)
+  return tonumber(UnitGUID(target):sub(6,10), 16)
+end
+
+UnitID = UnitId
