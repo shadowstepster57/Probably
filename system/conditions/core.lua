@@ -31,7 +31,7 @@ local UnitDebuff = function(target, spell, owner)
     local i = 0; local go = true
     while i <= 40 and go do
       i = i + 1
-      debuff,_,_,count,_,_,expires,caster,_,_,spellID = _G['UnitDebuff'](target, i)
+      debuff,_,_,count,_,_,expires,caster,_,_,spellID,_,_,_,power = _G['UnitDebuff'](target, i)
       if not owner then
         if spellID == tonumber(spell) and caster == "player" then go = false end
       elseif owner == "any" then
@@ -41,7 +41,7 @@ local UnitDebuff = function(target, spell, owner)
   else
     debuff,_,_,count,_,_,expires,caster = _G['UnitDebuff'](target, spell)
   end
-  return debuff, count, expires, caster
+  return debuff, count, expires, caster, power
 end
 
 ProbablyEngine.condition.register("dispellable", function(target, spell)
@@ -388,6 +388,10 @@ ProbablyEngine.condition.register("mana", function(target, spell)
     return math.floor((UnitMana(target) / UnitManaMax(target)) * 100)
   end
   return 0
+end)
+
+ProbablyEngine.condition.register("raid.health", function()
+  return ProbablyEngine.raid.raidPercent()
 end)
 
 ProbablyEngine.condition.register("modifier.multitarget", function()
