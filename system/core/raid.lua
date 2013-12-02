@@ -43,11 +43,17 @@ end
 
 ProbablyEngine.raid.calShieldHp = function(t)
 	local inc = UnitGetIncomingHeals(t) and UnitGetIncomingHeals(t) or 0
+	local cur
   -- Check for Malkorok Shields
-	local cur = select(15,UnitDebuff(t, 142863, 'any'))
-    or select(15,UnitDebuff(t, 142864, 'any'))
-    or select(15,UnitDebuff(t, 142865, 'any'))
-    or UnitHealth(t)
+  if UnitDebuff(t, 142861, 'any') then
+    cur = (select(5,UnitDebuff(t, 142863, 'any'))
+    or select(5,UnitDebuff(t, 142864, 'any'))
+    or select(5,UnitDebuff(t, 142865, 'any'))
+    or (UnitHealthMax(n) / 2)
+    or 400000)
+  else
+    cur = UnitHealth(t)
+  end
 	local pinc = 100 * ( cur + inc ) / UnitHealthMax(t)
 	local valinc = ( UnitHealthMax(t) - ( cur + inc ) )
 	if pinc and valinc then
