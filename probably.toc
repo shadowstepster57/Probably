@@ -5,6 +5,7 @@
 ## SavedVariablesPerCharacter: ProbablyEngine_ConfigData
 ## SavedVariables: ProbablyEngine_RotationData
 
+<<<<<<< HEAD
 # external libs
 external\LibStub-1.0\LibStub.lua
 external\CallbackHandler-1.0\CallbackHandler-1.0.xml
@@ -120,3 +121,6 @@ rotations\warlock\destruction.lua
 rotations\warrior\arms.lua
 rotations\warrior\fury.lua
 rotations\warrior\protection.lua
+=======
+probably.xml
+>>>>>>> refs/heads/locale
