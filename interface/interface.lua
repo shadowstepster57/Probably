@@ -40,9 +40,9 @@ end
 function ProbablyEngine_Minimap_OnEnter(self)
   GameTooltip:SetOwner( self, "ANCHOR_BOTTOMLEFT" )
   GameTooltip:AddLine("|cff" .. ProbablyEngine.addonColor .. ProbablyEngine.addonName.. "|r ".. ProbablyEngine.version)
-  GameTooltip:AddLine("|cff" .. ProbablyEngine.addonColor .. "Left-Click|r to open configuration.")
-  GameTooltip:AddLine("|cff" .. ProbablyEngine.addonColor .. "Right-Click|r to unlock buttons.")
-  GameTooltip:AddLine("|cff" .. ProbablyEngine.addonColor .. "Drag|r to move minimap button.")
+  GameTooltip:AddLine("|cff" .. ProbablyEngine.addonColor .. pelg('left_click') .. "|r " .. pelg('open_config'))
+  GameTooltip:AddLine("|cff" .. ProbablyEngine.addonColor .. pelg('right_click') .. "|r " .. pelg('unlock_buttons'))
+  GameTooltip:AddLine("|cff" .. ProbablyEngine.addonColor .. pelg('drag') .. "|r " ..  pelg('move_minimap'))
   GameTooltip:Show()
 end
 

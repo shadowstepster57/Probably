@@ -25,7 +25,7 @@ ProbablyEngine.command.register_handler = function(command, handler)
       ProbablyEngine.command.handlers[com] = handler
     end
   else
-    ProbablyEngine.command.print('Unknown Command Type: ' .. command_type)
+    ProbablyEngine.command.print(pelg('unknown_type') .. ': ' .. command_type)
   end
 end
 
@@ -34,7 +34,6 @@ ProbablyEngine.command.register('pe', function(msg, box)
   if ProbablyEngine.command.handlers[command] then
     ProbablyEngine.command.handlers[command](text)
   else
-    ProbablyEngine.command.print('Unknown command: ' .. command);
     ProbablyEngine.command.handlers['help']('help')
   end
 end)

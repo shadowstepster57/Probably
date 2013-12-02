@@ -41,7 +41,7 @@ ProbablyEngine.buttons.statusText:SetFont("Fonts\\ARIALN.TTF", 16)
 ProbablyEngine.buttons.statusText:SetShadowColor(0,0,0, 0.8)
 ProbablyEngine.buttons.statusText:SetShadowOffset(-1,-1)
 ProbablyEngine.buttons.statusText:SetPoint("CENTER", ProbablyEngine.buttons.frame)
-ProbablyEngine.buttons.statusText:SetText("|cffffffffDrag to Position|r")
+ProbablyEngine.buttons.statusText:SetText("|cffffffff"..pelg('drag_to_position').."|r")
 
 ProbablyEngine.buttons.frame.texture = ProbablyEngine.buttons.frame:CreateTexture()
 ProbablyEngine.buttons.frame.texture:SetAllPoints(ProbablyEngine.buttons.frame)
