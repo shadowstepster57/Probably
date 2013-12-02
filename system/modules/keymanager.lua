@@ -1,6 +1,6 @@
 -- ProbablyEngine Rotations - https://probablyengine.com/
 -- Released under modified BSD, see attached LICENSE.
-
+--[[
 ProbablyEngine.keys = {
   frame = CreateFrame("Frame", "PE_CaptureKeyFrame", WorldFrame),
   states = { }
@@ -11,12 +11,10 @@ ProbablyEngine.keys.frame:SetPropagateKeyboardInput(true)
 
 ProbablyEngine.keys.frame:SetScript("OnKeyDown", function(self, key)
   ProbablyEngine.keys.setState(key, true)
-  print(key, 'down')
 end)
 
 ProbablyEngine.keys.frame:SetScript("OnKeyUp", function(self, key)
   ProbablyEngine.keys.setState(key, nil)
-  print(key, 'up')
 end)
 
 ProbablyEngine.keys.getState = function(key)
@@ -25,4 +23,4 @@ end
 
 ProbablyEngine.keys.setState = function(key, state)
   ProbablyEngine.keys.states[key] = state
-end
+end]]
