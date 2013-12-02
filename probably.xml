@@ -60,7 +60,7 @@
   <Script file="system\timers\combatable.lua" />
 
   <!-- Interface -->
-  <Script file="interface\interface.xml" />
+  <Include file="interface\interface.xml" />
   <Script file="interface\interface.lua" />
   <Script file="interface\config.lua" />
   <Script file="interface\tracker.lua" />
