@@ -52,7 +52,7 @@ ProbablyEngine.raid.calShieldHp = function(t)
     or (UnitHealthMax(t) / 2)
     or 400000)
   else
-    cur = UnitHealthMax(t)
+    cur = UnitHealth(t)
   end
 	local pinc = 100 * ( cur + inc ) / UnitHealthMax(t)
 	local valinc = ( UnitHealthMax(t) - ( cur + inc ) )
