@@ -23,8 +23,8 @@ local E, L, V, P, G
 if IsAddOnLoaded("ElvUI") then
   E, L, V, P, G = unpack(ElvUI)
   ElvSkin = E:GetModule('ActionBars')
-  ProbablyEngine.buttons.padding = 2
-  ProbablyEngine.buttons.size = 32
+  ProbablyEngine.buttons.padding = 3
+  ProbablyEngine.buttons.size = 31
 end
 
 ProbablyEngine.buttons.frame:SetPoint("CENTER", UIParent)
@@ -95,13 +95,12 @@ ProbablyEngine.buttons.create = function(name, icon, callback, tooltipl1, toolti
   if ElvSkin then
     ElvSkin.db = E.db.actionbar
     button:CreateBackdrop("ClassColor")
-    button:Size(button:GetWidth() - 1, button:GetHeight() - 1)
     ElvSkin:StyleButton(button, nil, true)
     button:SetCheckedTexture(nil);
     button:SetPushedTexture(nil);
     button.customTheme = function ()
       local state = ProbablyEngine.config.data['button_states'][name]
-      if name == 'MasterToggle' then 
+      if name == 'MasterToggle' then
         state = ProbablyEngine.active
       end
       if state then
@@ -110,13 +109,11 @@ ProbablyEngine.buttons.create = function(name, icon, callback, tooltipl1, toolti
         button.backdrop:Hide()
       end
     end
-
     local originalCallback = callback or false
     callback = function (self, mouseButton)
       if originalCallback then
         originalCallback(self, mouseButton)
       end
-
       button.customTheme()
     end
   end
