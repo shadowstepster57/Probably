@@ -91,12 +91,35 @@ ProbablyEngine.buttons.create = function(name, icon, callback, tooltipl1, toolti
   if probablySkinGroup then
     probablySkinGroup:AddButton(button)
   end
-  --[[ theme it, ElvUI ?
+  -- theme it, ElvUI ?
   if ElvSkin then
     ElvSkin.db = E.db.actionbar
-    ElvSkin:StyleButton(button)
+    button:CreateBackdrop("ClassColor")
+    button:Size(button:GetWidth() - 1, button:GetHeight() - 1)
+    ElvSkin:StyleButton(button, nil, true)
+    button:SetCheckedTexture(nil);
+    button:SetPushedTexture(nil);
+    button.customTheme = function ()
+      local state = ProbablyEngine.config.data['button_states'][name]
+      if name == 'MasterToggle' then 
+        state = ProbablyEngine.active
+      end
+      if state then
+        button.backdrop:Show()
+      else
+        button.backdrop:Hide()
+      end
+    end
+
+    local originalCallback = callback or false
+    callback = function (self, mouseButton)
+      if originalCallback then
+        originalCallback(self, mouseButton)
+      end
+
+      button.customTheme()
+    end
   end
-  ]]
 
   if icon == nil then
     button.icon:SetTexture('Interface\\ICONS\\INV_Misc_QuestionMark')
@@ -139,6 +162,9 @@ ProbablyEngine.buttons.setActive = function(name)
   if _G['PE_Buttons_'.. name] then
     _G['PE_Buttons_'.. name].checked = true
     _G['PE_Buttons_'.. name]:SetChecked(1)
+    if _G['PE_Buttons_'.. name].customTheme then
+      _G['PE_Buttons_'.. name].customTheme()
+    end
     ProbablyEngine.config.data['button_states'][name] = true
   end
 end
@@ -148,6 +174,9 @@ ProbablyEngine.buttons.setInactive = function(name)
   if _G['PE_Buttons_'.. name] then
     _G['PE_Buttons_'.. name].checked = false
     _G['PE_Buttons_'.. name]:SetChecked(0)
+    if _G['PE_Buttons_'.. name].customTheme then
+      _G['PE_Buttons_'.. name].customTheme()
+    end
     ProbablyEngine.config.data['button_states'][name] = false
   end
 end
