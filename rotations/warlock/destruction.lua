@@ -1,20 +1,36 @@
 -- SPEC ID 267
 ProbablyEngine.rotation.register(267, {
 
-  { "Dark Intent", "!player.buff(Dark Intent)" },
-  { "Curse of the Elements", "!target.debuff(Curse of the Elements)" },
+  { "Dark Intent", "!player.buff" },
+  { "Curse of the Elements", "!target.debuff" },
 
   -- Cooldowns
-  { "Dark Soul: Instability", "modifier.cooldowns" },
-  { "Summon Doomguard", "modifier.cooldowns" },
+  { "Dark Soul: Instability",{ "modifier.shift", "modifier.cooldowns" }},
+  { "Summon Terrorguard",{ "modifier.control", "modifier.cooldowns" }},
+  { "Summon Doomguard",{ "modifier.control", "modifier.cooldowns" }},
 
   -- Rotation
-  { "Immolate", "target.debuff(Immolate).duration <= 4" },
+  { "Immolate",{ "!modifier.last(Immolate)", "target.debuff(Immolate).duration <= 3" }},
   { "Shadowburn", "target.health <= 20" },
-  { "Incinerate", "player.buff(Backdraft)" },
   { "Conflagrate" },
-  { "Rain of Fire", "modifier.shift", "ground" },
-  { "Chaos Bolt", "!modifier.control" },
-  { "Incinerate"}
-
+  { "Rain of Fire", "modifier.alt", "ground" },
+  {{
+    { "Chaos Bolt",{ "!modifier.last(Chaos Bolt)", "player.embers >= 35" }},
+    { "Chaos Bolt", "player.buff(Dark Soul: Instability)" },
+    { "Chaos Bolt", "player.buff(Skull Banner)" },
+  },{ "!player.moving", "target.health > 20" }},
+  {{ 
+    { "Incinerate", "player.spell(Kil'jaeden's Cunning).exists" },
+    { "Fel Flame", "!player.spell(Kil'jaeden's Cunning).exists" }, 
+  },{ "player.moving" }},
+  { "Incinerate",{ "!player.moving", "!player.spell(Kil'jaeden's Cunning).exists" }}
+  
+  -- Out of COmbat
+},{
+  { "Dark Intent", "!player.buff" },
+  {{
+    { "Summon Felhunter",{ "!modifier.last(Summon Felhunter)", "!player.spell(Grimoire of Supremacy).exists" }},
+    { "Summon Observer",{ "!modifier.last(Summon Observer)", "player.spell(Grimoire of Supremacy).exists" }},
+  },{ "!player.moving", "!pet.exists" }},
+  { "Grimoire of Sacrifice",{ "player.spell(Grimoire of Sacrifice).exists", "!player.buff", "pet.exists" }}
 })
