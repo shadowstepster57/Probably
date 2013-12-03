@@ -22,4 +22,7 @@ ProbablyEngine.listener.register("ADDON_LOADED", function(...)
   -- Turbo
   ProbablyEngine.config.read('pe_turbo', false)
 
+  -- Dynamic Cycle
+  ProbablyEngine.config.read('pe_dynamic', false)
+
 end)
