@@ -38,7 +38,7 @@ pels('k', 'k') -- Thousands postfix
 pels('all_units', 'All Units')
 pels('combat_tracker', 'Combat Tracker')
 pels('ttd', 'TTD') -- Time To Death shorthand
-pels('hrp', 'HPR') -- Health Points Remaining shorthand
+pels('hpr', 'HPR') -- Health Points Remaining shorthand
 
 -- commands
 pels('running_version', 'You are running build')
