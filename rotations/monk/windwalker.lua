@@ -2,7 +2,7 @@
 ProbablyEngine.rotation.register(269, {
 
   -- Get Fucked Button
-  { "Touch of Death", 'player.buff(Death Note)' },
+  { "Touch of Death", "player.buff(Death Note)" },
 
   -- Interrupts
   { "Spear Hand Strike", "modifier.interrupts" },

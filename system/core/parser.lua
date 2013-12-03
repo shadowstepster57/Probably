@@ -154,6 +154,7 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
     local target = arguments[3] or fallBackTarget
     local slotId = 0
     local itemName = ''
+    local itemTexture = ''
     local itemId = 0
     local stopCasting = false
 
@@ -162,6 +163,9 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
         if string.sub(event, 2, 2) == '/' then
           eventType = "macro"
         else
+          if string.sub(event, 2, 2) == '#' then
+            eventType = "item"
+          end
           event = event:sub(2)
           stopCasting = true
         end
@@ -223,12 +227,13 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
     if eventType == "item" then
       local slot = string.sub(event, 2)
       if ProbablyEngine.parser.items[slot] then
-        slotId = GetInventorySlotInfo(ProbablyEngine.parser.items[slot])
+        slotId, itemTexture = GetInventorySlotInfo(ProbablyEngine.parser.items[slot])
         if slotId then
           local itemStart, itemDuration, itemEnable = GetInventoryItemCooldown("player", slotId)
+          itemId = GetInventoryItemID("player", slotId)
           if itemStart > 0 then
             evaluation = false
-          elseif not GetItemSpell(GetInventoryItemID("player", slotId)) then
+          elseif not GetItemSpell(itemId) then
             evaluation = false
           end
         end
@@ -240,9 +245,11 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
         end
         itemId = item
         if itemId then
-          itemName = GetItemInfo(itemId)
+          itemName, _, _, _, _, _, _, _, _, itemTexture, _ = GetItemInfo(itemId)
           local itemStart, itemDuration, itemEnable = GetItemCooldown(itemId)
           if itemStart > 0 then
+            evaluation = false
+          elseif GetItemCount(itemId) == 0 then
             evaluation = false
           end
         end
@@ -257,10 +264,14 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
         RunMacroText(string.sub(event, 2))
         return false
       elseif eventType == "item" then
+        if stopCasting then SpellStopCasting() end
         UseInventoryItem(slotId)
+        ProbablyEngine.actionLog.insert('Use Inventory Item', itemName, itemTexture)
         return false
       elseif eventType == "bagItem" then
+        if stopCasting then SpellStopCasting() end
         UseItemByName(itemName, target)
+        ProbablyEngine.actionLog.insert('Use Bag Item', itemName, itemTexture)
         return false
       elseif event == "pause" then
         return false
