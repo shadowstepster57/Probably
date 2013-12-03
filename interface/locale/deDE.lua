@@ -15,7 +15,7 @@ pels('interrupt_tooltip', 'Zauber unterbrechen ein-/ausschalten')
 pels('drag_to_position', 'Ziehen zum Positionieren')
 
 -- Buttons Menu
-pels('rtn_default', 'Standart Rotationen')
+pels('rtn_default', 'Standard Rotationen')
 pels('rtn_custom', 'Benutzerdefinierte Rotationen')
 pels('rtn_switch', 'Aktive Rotation gewechselt zu: ')
 pels('rtn_nocustom', 'Keine benutzerdefinierten Rotationen geladen')
@@ -27,9 +27,9 @@ pels('drag', 'Ziehen')
 pels('rotation_loaded', 'Rotation geladen!')
 
 -- Minimap
-pels('open_config', 'zum öffnen der Optionen')
-pels('unlock_buttons', 'zum verschieben der Knöpfe')
-pels('move_minimap', 'zum verschieben des Minimap-Symbols')
+pels('open_config', 'zum Öffnen der Optionen')
+pels('unlock_buttons', 'zum Verschieben des Addons')
+pels('move_minimap', 'zum Verschieben des Minimap-Symbols')
 
 -- Combat Tracker
 pels('est', 'gesch.') -- Estimated
@@ -38,7 +38,7 @@ pels('k', 'k') -- Thousands postfix
 pels('all_units', 'Alle Einheiten')
 pels('combat_tracker', 'Kampf Tracker')
 pels('ttd', 'TTD') -- Time To Death shorthand
-pels('hpr', 'HPR') -- Health Points Remaining shorthand
+pels('hrp', 'HPR') -- Health Points Remaining shorthand
 
 -- commands
 pels('running_version', 'Du benutzt Version')
