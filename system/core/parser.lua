@@ -162,6 +162,9 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
         if string.sub(event, 2, 2) == '/' then
           eventType = "macro"
         else
+          if string.sub(event, 2, 2) == '#' then
+            eventType = "item"
+          end
           event = event:sub(2)
           stopCasting = true
         end
@@ -257,9 +260,11 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
         RunMacroText(string.sub(event, 2))
         return false
       elseif eventType == "item" then
+        if stopCasting then SpellStopCasting() end
         UseInventoryItem(slotId)
         return false
       elseif eventType == "bagItem" then
+        if stopCasting then SpellStopCasting() end
         UseItemByName(itemName, target)
         return false
       elseif event == "pause" then
