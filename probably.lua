@@ -10,7 +10,6 @@ ProbablyEngine = {
   full = false,
   debugging = false,
   rotations = { },
-  dynamicCycle = false,
   cycleTime = 50,
   lag = 0
 }
