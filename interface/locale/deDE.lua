@@ -4,7 +4,7 @@
 ProbablyEngine.locale.new('deDE')
 
 -- Buttons
-pels('toggle', 'Schalter')
+pels('toggle', 'An/Aus')
 pels('toggle_tooltip', 'Rotation ein-/ausschalten')
 pels('cooldowns', 'Cooldowns')
 pels('cooldowns_tooltip', 'Cooldowns ein-/ausschalten')
