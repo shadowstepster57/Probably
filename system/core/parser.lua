@@ -39,7 +39,7 @@ ProbablyEngine.turbo = {
   modifier = ProbablyEngine.config.read('turbo_modifier', 1.3)
 }
 
-ProbablyEngine.parser.can_cast =  function(spell, unit)
+ProbablyEngine.parser.can_cast =  function(spell, unit, stopCasting)
 
   local turbo = ProbablyEngine.config.data['pe_turbo']
   if turbo then
@@ -95,6 +95,12 @@ ProbablyEngine.parser.can_cast =  function(spell, unit)
   if UnitBuff("player", GetSpellInfo(3680)) then return false end  -- L. Invis
 
   if select(2, GetSpellCooldown(spell)) > 0 then return false end
+
+  if stopCasting then
+    SpellStopCasting()
+    return true
+  end
+
   if ProbablyEngine.module.player.casting == true and turbo == false then return false end
   -- handle Surging Mists manually :(
   if spellId == 116694 or spellId == 124682 or spellId == 123273 then return true end
@@ -149,10 +155,16 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
     local slotId = 0
     local itemName = ''
     local itemId = 0
+    local stopCasting = false
 
     if eventType == "string" then
       if string.sub(event, 1, 1) == '!' then
-        eventType = "macro"
+        if string.sub(event, 2, 2) == '/' then
+          eventType = "macro"
+        else
+          event = event:sub(2)
+          stopCasting = true
+        end
       elseif string.sub(event, 1, 1) == '#' then
         eventType = "item"
       end
@@ -253,7 +265,7 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
       elseif event == "pause" then
         return false
       else
-        if ProbablyEngine.parser.can_cast(event, target) then
+        if ProbablyEngine.parser.can_cast(event, target, stopCasting) then
           return event, target
         end
       end
