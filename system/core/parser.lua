@@ -247,6 +247,8 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
           local itemStart, itemDuration, itemEnable = GetItemCooldown(itemId)
           if itemStart > 0 then
             evaluation = false
+          elseif GetItemCount(itemId) == 0 then
+            evaluation = false
           end
         end
       end
