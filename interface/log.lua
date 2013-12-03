@@ -41,16 +41,27 @@ ActionLog:SetScript("OnHide", function(self)
   end
 end)
 ActionLog:SetScript("OnMouseWheel", function(self, mouse)
-  -- borked
-  --[[if IsShiftKeyDown() then
-    if delta == 1 then
+  local top = #ProbablyEngine.actionLog.log - log_items
+
+  if IsShiftKeyDown() then
+    if mouse == 1 then
+      delta = top
+    elseif mouse == -1 then
       delta = 0
-    else
-      delta = select('#', ProbablyEngine.actionLog.log)
     end
   else
-    delta = delta + mouse
-  end]]--
+    if mouse == 1 then
+      if delta < top then
+        delta = delta + mouse
+      end
+    elseif mouse == -1 then
+      if delta > 0 then
+        delta = delta + mouse
+      end
+    end
+  end
+
+  ProbablyEngine.actionLog.update()
 end)
 
 
@@ -169,7 +180,9 @@ for i = 1, (log_items) do
 
 end
 
-ProbablyEngine.actionLog = { }
+ProbablyEngine.actionLog = {
+  log = {}
+}
 
 ProbablyEngine.actionLog.insert = function(type, spell, spellIcon)
   if spellIcon then
@@ -183,28 +196,35 @@ ProbablyEngine.actionLog.insert = function(type, spell, spellIcon)
         count = 1,
         time = date("%H:%M:%S")
       })
+
+      if delta > 0 and delta < #ProbablyEngine.actionLog.log - log_items then
+        delta = delta + 1
+      end
     end
   end
 end
 
+ProbablyEngine.actionLog.updateRow = function (row, a, b, c)
+  ActionLogItem[row].itemA:SetText(a)
+  ActionLogItem[row].itemB:SetText(b)
+  ActionLogItem[row].itemC:SetText(c)
+end
 
-
-ProbablyEngine.actionLog.log = { }
+ProbablyEngine.actionLog.update = function ()
+  local offset = 0
+  for i = log_items, 1, -1 do
+    offset = offset + 1
+    local item = ProbablyEngine.actionLog.log[offset + delta]
+    if not item then
+      ProbablyEngine.actionLog.updateRow(i, '', '', '')
+    else
+      ProbablyEngine.actionLog.updateRow(i, item.event, 'x' .. item.count .. ' ' .. '|T' .. item.icon .. ':-1:-1:0:0|t' .. item.description, item.time)
+    end
+  end
+end
 
 ProbablyEngine.timer.register("updateActionLog", function()
   if not PE_ActionLog:IsShown() then return end
 
-  local offset = 0
-  local entries = select('#', ProbablyEngine.actionLog.log)
-  if delta < 0 then return end
-  for i = 1+delta, log_items + delta do
-    offset = offset + 1
-    if ProbablyEngine.actionLog.log[i] ~= nil then
-      local item = ProbablyEngine.actionLog.log[i]
-      ActionLogItem[offset].itemA:SetText(item.event)
-      ActionLogItem[offset].itemB:SetText('x' .. item.count .. ' ' .. '|T' .. item.icon .. ':-1:-1:0:0|t' .. item.description)
-      ActionLogItem[offset].itemC:SetText(item.time)
-    end
-  end
-
+  ProbablyEngine.actionLog.update()
 end, 100)
