@@ -102,7 +102,7 @@ UnitTrackerToggle:SetScript("OnClick", function(self, button)
   if displayTTD then
     UnitTrackerToggle.statusText:SetText(pelg('ttd'))
   else
-    UnitTrackerToggle.statusText:SetText(perl('hpr'))
+    UnitTrackerToggle.statusText:SetText(pelg('hpr'))
   end
   ProbablyEngine.config.write('ct_dttd', displayTTD)
 end)

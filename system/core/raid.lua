@@ -49,7 +49,7 @@ ProbablyEngine.raid.calShieldHp = function(t)
     cur = (select(5,UnitDebuff(t, 142863, 'any'))
     or select(5,UnitDebuff(t, 142864, 'any'))
     or select(5,UnitDebuff(t, 142865, 'any'))
-    or (UnitHealthMax(n) / 2)
+    or (UnitHealthMax(t) / 2)
     or 400000)
   else
     cur = UnitHealth(t)
@@ -104,10 +104,8 @@ end
 ProbablyEngine.raid.needsHealing = function(threshold)
   if not threshold then threshold = 80 end
   local needsHealing = 0
-  for target, health in pairs(ProbablyEngine.raid.roster) do
-    local max = UnitHealthMax(target)
-    local per = math.abs(math.floor(health/max*100))
-    if per <= threshold and health ~= 0 then
+  for target, per in pairs(ProbablyEngine.raid.roster) do
+    if per <= threshold and per ~= 0 then
       needsHealing = needsHealing + 1
     end
   end
