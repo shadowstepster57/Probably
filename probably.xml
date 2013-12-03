@@ -21,6 +21,7 @@
   <Script file="interface\locale\enUS.lua" />
   <Script file="interface\locale\enGB.lua" />
   <Script file="interface\locale\deDE.lua" />
+  <Script file="interface\locale\frFR.lua" />
 
   <!-- Core System -->
   <Script file="system\core\debug.lua" />
