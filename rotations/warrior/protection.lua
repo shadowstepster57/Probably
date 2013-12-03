@@ -36,6 +36,13 @@ ProbablyEngine.rotation.register(73, {
     { "Disrupting Shout" },
   }, "modifier.interrupts" },
 
+  -- Ranged
+  { "Heroic Throw", "target.range >= 10" },
+  { "Throw", {
+    "target.range >= 10",
+    "!player.moving"
+  }},
+
   -- Cooldowns
   {{
     { "Bloodbath" },
@@ -58,18 +65,26 @@ ProbablyEngine.rotation.register(73, {
 
   -- Rotation
   { "Shield Slam" },
-  { "Revenge" },
-  { "Devastate" },
+  { "Revenge", {
+    "player.rage <= 80"
+  }},
+  -- Bleed
+  { "Devastate", "!target.debuff(Deep Wounds)" },
+  -- Weakened Armor
+  { "Devastate", {
+    "target.debuff(Weakened Armor).count < 3"
+  }},
   { "Sunder Armor", {
     "player.level < 26",
     "target.debuff(Weakened Armor).count < 3"
   }},
-  { "Heroic Throw" },
-  { "Heroic Strike", "player.buff(Ultimatum)" },
+  -- Weakened Blows
   { "Thunder Clap", {
-    "!target.debuff(Weakened Blows)",
+    "!target.debuff(Weakened Blows).any",
     "target.range <= 5"
-  }}
+  }},
+  -- Filler
+  { "Devastate" },
 
 }, {
 
