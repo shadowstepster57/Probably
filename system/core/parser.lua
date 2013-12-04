@@ -86,8 +86,10 @@ ProbablyEngine.parser.can_cast =  function(spell, unit, stopCasting)
     if not UnitExists(unit) then return false end
     if not UnitIsVisible(unit) then return false end
     if UnitIsDeadOrGhost(unit) then return false end
-    if SpellHasRange(spell) == 1 and IsSpellInRange(spell, unit) == 0 then return false end
-    if IsHarmfulSpell(GetSpellInfo(spellId)) and not UnitCanAttack("player", unit) then return false end
+    if SpellHasRange(spell) == 1 then
+      if IsSpellInRange(spell, unit) == 0 then return false end
+      if IsHarmfulSpell(GetSpellInfo(spellId)) and not UnitCanAttack("player", unit) then return false end
+    end
   end
   if UnitBuff("player", GetSpellInfo(80169)) then return false end -- Eat
   if UnitBuff("player", GetSpellInfo(87959)) then return false end -- Drink
