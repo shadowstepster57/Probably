@@ -569,5 +569,5 @@ ProbablyEngine.condition.register("deathin", function(target, range)
 end)
 
 ProbablyEngine.condition.register("ttd", function(target, range)
-  return ProbablyEngine.condition["deathin"]()
+  return ProbablyEngine.condition["deathin"](target)
 end)
