@@ -562,6 +562,10 @@ end)
 
 ProbablyEngine.condition.register("deathin", function(target, range)
   local guid = UnitGUID(target)
+  local name = GetUnitName(target)
+  if name == "Training Dummy" or name == "Raider's Training Dummy" then
+    return 99
+  end
   if ProbablyEngine.module.combatTracker.enemy[guid] then
     return ProbablyEngine.module.combatTracker.enemy[guid]['ttd'] or 0
   end
