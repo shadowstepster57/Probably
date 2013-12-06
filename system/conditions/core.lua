@@ -571,3 +571,20 @@ end)
 ProbablyEngine.condition.register("ttd", function(target, range)
   return ProbablyEngine.condition["deathin"](target)
 end)
+
+ProbablyEngine.condition.register("role", function(target, role)
+  role = role:upper()
+
+  local damageAliases = { "DAMAGE", "DPS", "DEEPS" }
+
+  local targetRole = UnitGroupRolesAssigned(target)
+  if targetRole == role then return true
+  elseif role:find("HEAL") and targetRole == "HEALER" then return true
+  else
+    for i = 1, #damageAliases do
+      if role == damageAliases[i] then return true end
+    end
+  end
+
+  return false
+end)
