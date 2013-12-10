@@ -592,3 +592,7 @@ ProbablyEngine.condition.register("role", function(target, role)
 
   return false
 end)
+
+ProbablyEngine.condition.register("name", function (target, expectedName)
+  return UnitName(target):lower():find(expectedName:lower()) ~= nil
+end)
