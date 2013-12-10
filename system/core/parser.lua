@@ -56,7 +56,6 @@ ProbablyEngine.parser.can_cast =  function(spell, unit, stopCasting)
     end
   end
 
-  -- Credits to iLulz (JPS) for this function
   if spell == nil then return false end
   if unit == nil then unit = "target" end
   if unit == "ground" then unit = nil end
