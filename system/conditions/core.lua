@@ -245,6 +245,10 @@ ProbablyEngine.condition.register("boss", function(target)
   return (LibBoss[UnitId(target)] == true)
 end)
 
+ProbablyEngine.condition.register("id", function(target, id)
+  return UnitId(target) == id
+end)
+
 ProbablyEngine.condition.register("toggle", function(toggle, spell)
   return ProbablyEngine.condition["modifier.toggle"](toggle)
 end)
@@ -506,7 +510,10 @@ ProbablyEngine.condition.register("spell.usable", function(target, spell)
 end)
 
 ProbablyEngine.condition.register("spell.exists", function(target, spell)
-  return IsPlayerSpell(GetSpellID(spell))
+  if GetSpellID(spell) then
+    return IsPlayerSpell(GetSpellID(spell))
+  end
+  return false
 end)
 
 ProbablyEngine.condition.register("spell.casted", function(target, spell)
