@@ -68,7 +68,7 @@ ProbablyEngine.parser.can_cast =  function(spell, unit, stopCasting)
   end
 
   local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = ProbablyEngine.gsi.call(spellId)
-  local isUsable, notEnoughMana = IsUsableSpell(spell)
+  local isUsable, notEnoughMana = IsUsableSpell(name)
 
   -- Savage Roar is broken as fuuuuuck
   --if spellId ~= 127538 and spellId ~= 33876 then
