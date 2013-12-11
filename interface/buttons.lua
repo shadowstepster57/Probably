@@ -142,7 +142,14 @@ ProbablyEngine.buttons.create = function(name, icon, callback, tooltipl1, toolti
 
   button.checked = false
 
-  button:SetPushedTexture(nil);
+  button:SetPushedTexture(nil)
+
+  _G['PE_Buttons_'..name.."HotKey"]:SetText('Off')
+  _G['PE_Buttons_'..name.."HotKey"]:Hide()
+
+  if ProbablyEngine.config.read('buttonVisualText', false) then
+    _G['PE_Buttons_'..name.."HotKey"]:Show()
+  end
 
   ProbablyEngine.buttons.count = ProbablyEngine.buttons.count + 1
 
@@ -159,6 +166,7 @@ ProbablyEngine.buttons.setActive = function(name)
   if _G['PE_Buttons_'.. name] then
     _G['PE_Buttons_'.. name].checked = true
     _G['PE_Buttons_'.. name]:SetChecked(1)
+    _G['PE_Buttons_'..name.."HotKey"]:SetText('On')
     if _G['PE_Buttons_'.. name].customTheme then
       _G['PE_Buttons_'.. name].customTheme()
     end
@@ -171,6 +179,7 @@ ProbablyEngine.buttons.setInactive = function(name)
   if _G['PE_Buttons_'.. name] then
     _G['PE_Buttons_'.. name].checked = false
     _G['PE_Buttons_'.. name]:SetChecked(0)
+    _G['PE_Buttons_'..name.."HotKey"]:SetText('Off')
     if _G['PE_Buttons_'.. name].customTheme then
       _G['PE_Buttons_'.. name].customTheme()
     end
@@ -222,6 +231,12 @@ ProbablyEngine.buttons.resetButtons = function ()
   if ProbablyEngine.buttons.buttons then
     local defaultButtons = { 'MasterToggle', 'cooldowns', 'multitarget', 'interrupt' }
     for name, button in pairs(ProbablyEngine.buttons.buttons) do
+      -- button text toggles
+      if ProbablyEngine.config.read('buttonVisualText', false) then
+        _G['PE_Buttons_'..name.."HotKey"]:Show()
+      else
+        _G['PE_Buttons_'..name.."HotKey"]:Hide()
+      end
       local original = false
       for _, buttonName in pairs(defaultButtons) do
         if name == buttonName then

@@ -79,3 +79,13 @@ ProbablyEngine.command.register_handler({'turbo', 'godmode'}, function()
   end
 end)
 ProbablyEngine.command.register_help('turbo', pelg('help_turbo'))
+
+
+ProbablyEngine.command.register_handler({'bvt'}, function()
+  local state = ProbablyEngine.config.toggle('buttonVisualText')
+  ProbablyEngine.buttons.resetButtons()
+  if ProbablyEngine.rotation.buttons[ProbablyEngine.module.player.specId] then
+    ProbablyEngine.rotation.add_buttons()
+  end
+end)
+

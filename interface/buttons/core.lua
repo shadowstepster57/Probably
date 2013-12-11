@@ -9,6 +9,11 @@ ProbablyEngine.buttons.create('MasterToggle', nil, function(self, button)
     self.checked = not self.checked
     self:SetChecked(self.checked)
     ProbablyEngine.config.data['button_states']['MasterToggle'] = self.checked
+    if self.checked then
+      _G['PE_Buttons_MasterToggleHotKey']:SetText('On')
+    else
+      _G['PE_Buttons_MasterToggleHotKey']:SetText('Off')
+    end
   else
     local dropdown = CreateFrame("Frame", "Test_DropDown", self, "UIDropDownMenuTemplate");
     UIDropDownMenu_Initialize(dropdown, ProbablyEngine.rotation.list_custom, "MENU");
