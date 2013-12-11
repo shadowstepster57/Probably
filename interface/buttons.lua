@@ -96,10 +96,10 @@ ProbablyEngine.buttons.create = function(name, icon, callback, tooltipl1, toolti
     ElvSkin.db = E.db.actionbar
     button:CreateBackdrop("ClassColor")
     ElvSkin:StyleButton(button, nil, true)
-    button:SetCheckedTexture(nil);
-    button:SetPushedTexture(nil);
+    button:SetCheckedTexture(nil)
+    button:SetPushedTexture(nil)
     button.customTheme = function ()
-      local state = ProbablyEngine.config.data['button_states'][name]
+      local state = button.checked
       if name == 'MasterToggle' then
         state = ProbablyEngine.active
       end
