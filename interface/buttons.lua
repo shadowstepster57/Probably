@@ -100,9 +100,6 @@ ProbablyEngine.buttons.create = function(name, icon, callback, tooltipl1, toolti
     button:SetPushedTexture(nil)
     button.customTheme = function ()
       local state = button.checked
-      if name == 'MasterToggle' then
-        state = ProbablyEngine.active
-      end
       if state then
         button.backdrop:Show()
       else
@@ -162,7 +159,6 @@ ProbablyEngine.buttons.text = function(name, text)
 end
 
 ProbablyEngine.buttons.setActive = function(name)
-  if name == 'MasterToggle' then ProbablyEngine.active = true end
   if _G['PE_Buttons_'.. name] then
     _G['PE_Buttons_'.. name].checked = true
     _G['PE_Buttons_'.. name]:SetChecked(1)
@@ -175,7 +171,6 @@ ProbablyEngine.buttons.setActive = function(name)
 end
 
 ProbablyEngine.buttons.setInactive = function(name)
-  if name == 'MasterToggle' then ProbablyEngine.active = false end
   if _G['PE_Buttons_'.. name] then
     _G['PE_Buttons_'.. name].checked = false
     _G['PE_Buttons_'.. name]:SetChecked(0)
@@ -188,7 +183,6 @@ ProbablyEngine.buttons.setInactive = function(name)
 end
 
 ProbablyEngine.buttons.toggle = function(name)
-  if name == 'MasterToggle' then ProbablyEngine.active = not ProbablyEngine.active end
   if _G['PE_Buttons_'.. name] then
     local state = _G['PE_Buttons_'.. name].checked
     _G['PE_Buttons_'.. name].checked = not state

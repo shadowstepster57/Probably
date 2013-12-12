@@ -8,7 +8,7 @@ ProbablyEngine.cycle = function(skip_verify)
     IsMounted() ~= 1
     and UnitInVehicle("player") ~= 1
     and ProbablyEngine.module.player.combat
-    and ProbablyEngine.active
+    and ProbablyEngine.toggle.states.MasterToggle
     and ProbablyEngine.module.player.specId
 
   if cycle or skip_verify then
@@ -73,7 +73,7 @@ ProbablyEngine.timer.register("oocrotation", function()
     IsMounted() ~= 1
     and UnitInVehicle("player") ~= 1
     and ProbablyEngine.module.player.combat ~= true
-    and ProbablyEngine.active == true
+    and ProbablyEngine.toggle.states.MasterToggle
     and ProbablyEngine.module.player.specId ~= 0
     and ProbablyEngine.rotation.activeOOCRotation ~= false
 

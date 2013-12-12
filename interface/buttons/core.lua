@@ -5,7 +5,7 @@ local AceGUI = LibStub("AceGUI-3.0")
 
 ProbablyEngine.buttons.create('MasterToggle', nil, function(self, button)
   if button == "LeftButton" then
-    ProbablyEngine.active = not ProbablyEngine.active
+    ProbablyEngine.toggle.states.MasterToggle = not ProbablyEngine.toggle.states.MasterToggle
     self.checked = not self.checked
     self:SetChecked(self.checked)
     ProbablyEngine.config.data['button_states']['MasterToggle'] = self.checked
