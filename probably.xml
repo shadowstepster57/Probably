@@ -14,6 +14,7 @@
 
   <!-- shebang -->
   <Script file="probably.lua" />
+  <Script file="build.lua" />
   <Script file="system\core\overloads.lua" />
 
   <!-- Locales -->
