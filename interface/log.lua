@@ -186,7 +186,7 @@ ProbablyEngine.actionLog = {
 
 ProbablyEngine.actionLog.insert = function(type, spell, spellIcon)
   if spellIcon then
-    if ProbablyEngine.actionLog.log[1] and ProbablyEngine.actionLog.log[1]['description'] == spell then
+    if ProbablyEngine.actionLog.log[1] and ProbablyEngine.actionLog.log[1]['event'] == type and ProbablyEngine.actionLog.log[1]['description'] == spell then
       ProbablyEngine.actionLog.log[1]['count'] = ProbablyEngine.actionLog.log[1]['count'] + 1
     else
       table.insert(ProbablyEngine.actionLog.log, 1, {
