@@ -1,7 +1,9 @@
 -- SPEC ID 261
 ProbablyEngine.rotation.register(261, {
+  -- Interrupts
+  { "Kick", "modifier.interrupts" },
   -- Buffs
-  { "Deadly Poison", "!player.buff(Deadly Poison)" },
+  { "Deadly Poison", { "!player.buff(Deadly Poison)", "!player.moving" } },
   { "Leeching Poison", "!player.buff(Leeching Poison)" },
   -- Cooldowns
   { "Shadow Blades", "modifier.cooldowns" },
@@ -20,10 +22,10 @@ ProbablyEngine.rotation.register(261, {
     { "Fan of Knives", "modifier.multitarget" },
     { "Backstab", "player.behind" },
     { "Hemorrhage", "!player.behind" },
+    { "Hemorrhage", { "!player.spell(Backstab).exists", "player.behind" } },
   }, "player.combopoints < 5" },
 
 }, {
-  { "Ambush", {
-    "player.buff(Vanish)"
-  }, "target" },
+  { "Deadly Poison", { "!player.buff(Deadly Poison)", "!player.moving" } },
+  { "Ambush", { "player.buff(Stealth)", "target.spell(Ambush).range" }, "target" },
 })
