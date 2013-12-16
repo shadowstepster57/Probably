@@ -542,9 +542,20 @@ ProbablyEngine.condition.register("enemy", function(target, spell)
 end)
 
 ProbablyEngine.condition.register("glyph", function(target, spell)
+  local spellId = tonumber(spell)
+  local glyphName, glyphId
+
   for i = 1, 6 do
-    if select(4, GetGlyphSocketInfo(i)) == spell then
-      return true
+    glyphId = select(4, GetGlyphSocketInfo(i))
+    if spellId then
+      if select(4, GetGlyphSocketInfo(i)) == spellId then
+        return true
+      end
+    else
+      local glyphName = GetSpellName(glyphId)
+      if glyphName:find(spell) then
+        return true
+      end
     end
   end
   return false
