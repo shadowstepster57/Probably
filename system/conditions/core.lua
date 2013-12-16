@@ -547,14 +547,16 @@ ProbablyEngine.condition.register("glyph", function(target, spell)
 
   for i = 1, 6 do
     glyphId = select(4, GetGlyphSocketInfo(i))
-    if spellId then
-      if select(4, GetGlyphSocketInfo(i)) == spellId then
-        return true
-      end
-    else
-      local glyphName = GetSpellName(glyphId)
-      if glyphName:find(spell) then
-        return true
+    if glyphId then
+      if spellId then
+        if select(4, GetGlyphSocketInfo(i)) == spellId then
+          return true
+        end
+      else
+        glyphName = GetSpellName(glyphId)
+        if glyphName:find(spell) then
+          return true
+        end
       end
     end
   end
