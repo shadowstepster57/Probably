@@ -616,3 +616,15 @@ end)
 ProbablyEngine.condition.register("name", function (target, expectedName)
   return UnitName(target):lower():find(expectedName:lower()) ~= nil
 end)
+
+ProbablyEngine.condition.register("modifier.party", function()
+  return IsInGroup()
+end)
+
+ProbablyEngine.condition.register("modifier.raid", function()
+  return IsInRaid()
+end)
+
+ProbablyEngine.condition.register("modifier.members", function()
+  return (GetNumGroupMembers() or 0)
+end)
