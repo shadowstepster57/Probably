@@ -67,6 +67,16 @@ ProbablyEngine.raid.calShieldHp = function(t)
 	end
 end
 
+local canHeal = function (unit)
+if not UnitExists(unit) then return false end
+if GetUnitName("player") == GetUnitName(unit) then return true end
+if not select(1,UnitInRange(unit)) then return false end
+if UnitCanAssist("player",unit)~=1 then return false end
+if UnitIsFriend("player",unit)~=1 then return false end
+if UnitInVehicle(unit)==1 then return false end
+return true
+end
+
 ProbablyEngine.raid.lowestHP = function()
   local spairs = function(t, order)
     local keys = {}
@@ -85,10 +95,9 @@ ProbablyEngine.raid.lowestHP = function()
     end
   end
   for k in spairs(ProbablyEngine.raid.roster, function(t, a, b) return t[b] > t[a] end) do
-    return k
+    if canHeal(k) then
+   return k
   end
-  return 'player'
-end
 
 ProbablyEngine.raid.raidPercent = function()
   local total = 0
