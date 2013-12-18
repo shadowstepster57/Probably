@@ -149,7 +149,7 @@ ProbablyEngine.raid.raidPercent = function ()
   end
 
   local total = 0
-  for i = 0, rosterLength do
+  for i = 0, groupMembers - 1 do
     total = total + ProbablyEngine.raid.roster[i].health
   end
 
@@ -160,7 +160,7 @@ ProbablyEngine.raid.needsHealing = function (threshold)
   if not threshold then threshold = 80 end
 
   local needsHealing = 0
-  for i = 0, #ProbablyEngine.raid.roster do
+  for i = 0, GetNumGroupMembers() - 1 do
     if ProbablyEngine.raid.roster[i].health <= threshold then
       needsHealing = needsHealing + 1
     end
