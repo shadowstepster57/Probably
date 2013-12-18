@@ -1,6 +1,8 @@
 -- ProbablyEngine Rotations - https://probablyengine.com/
 -- Released under modified BSD, see attached LICENSE.
 
+local BOOKTYPE_SPELL = BOOKTYPE_SPELL
+
 -- lets write to the global, how dirty...
 
 -- since this doesn't exist, make it!
@@ -17,6 +19,20 @@ GetSpellName = function(spell)
     return GetSpellInfo(spellID)
   end
   return spell
+end
+
+GetSpellBookIndex = function (spell)
+  local spellID = tonumber(spell)
+  if spellID then
+    spell = GetSpellName(spellID)
+  end
+
+  local _, _, offset, numSpells = GetSpellTabInfo(GetNumSpellTabs())
+  for i = 1, (offset + numSpells) do
+    if GetSpellBookItemName(i, BOOKTYPE_SPELL) == spell then return i end
+  end
+
+  return nil
 end
 
 GetItemID = function(item)
