@@ -161,12 +161,14 @@ end
 
 ProbablyEngine.raid.needsHealing = function(threshold)
   if not threshold then threshold = 80 end
+
   local needsHealing = 0
-  for target, per in pairs(ProbablyEngine.raid.roster) do
-    if per <= threshold and per ~= 0 then
+  for i = 0, #ProbablyEngine.raid.roster do
+    if ProbablyEngine.raid.roster[i].health <= threshold then
       needsHealing = needsHealing + 1
     end
   end
+
   return needsHealing
 end
 
