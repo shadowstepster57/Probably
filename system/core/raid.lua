@@ -5,9 +5,11 @@ ProbablyEngine.raid = {
   roster = {}
 }
 
+local GetSpellInfo = GetSpellInfo
 local GetNumGroupMembers = GetNumGroupMembers
 local IsInRaid = IsInRaid
 local UnitCanAssist = UnitCanAssist
+local UnitDebuff = UnitDebuff
 local UnitExists = UnitExists
 local UnitGetIncomingHeals = UnitGetIncomingHeals
 local UnitGetTotalHealAbsorbs = UnitGetTotalHealAbsorbs
@@ -39,6 +41,23 @@ local function canHeal(unit)
   return false
 end
 
+local ancientBarrierDebuffs = { GetSpellInfo(142861), GetSpellInfo(142863), GetSpellInfo(142864), GetSpellInfo(142865) }
+local function ancientBarrier(unit)
+  if not UnitDebuff(unit, ancientBarrierDebuffs[1]) then
+    return false
+  end
+
+	local amount
+	for i= 2, 4 do
+		amount = select(15, UnitDebuff('player', ancientBarrierDebuffs[i]))
+		if amount then
+      return amount
+		end
+	end
+
+	return false
+end
+
 local function updateHealth(index)
   if not ProbablyEngine.raid.roster[index] then
     return
@@ -51,6 +70,11 @@ local function updateHealth(index)
 
   local health = UnitHealth(unit) + incomingHeals - absorbs
   local maxHealth = UnitHealthMax(unit)
+
+  local ancientBarrierShield = ancientBarrier(unit)
+  if ancientBarrierShield then
+    health = ancientBarrierShield
+  end
 
   ProbablyEngine.raid.roster[index].health = health / maxHealth * 100
   ProbablyEngine.raid.roster[index].healthMissing = maxHealth - health
@@ -99,33 +123,6 @@ ProbablyEngine.raid.build = function()
     ProbablyEngine.raid.roster[i] = nil
   end
 end
-
-ProbablyEngine.raid.calShieldHp = function(t)
-	local inc = UnitGetIncomingHeals(t) and UnitGetIncomingHeals(t) or 0
-	local cur
-  -- Check for Malkorok Shields
-  if UnitDebuff(t, 142861, 'any') then
-    cur = (select(5,UnitDebuff(t, 142863, 'any'))
-    or select(5,UnitDebuff(t, 142864, 'any'))
-    or select(5,UnitDebuff(t, 142865, 'any'))
-    or (UnitHealthMax(t) / 2)
-    or 400000)
-  else
-    cur = UnitHealth(t)
-  end
-	local pinc = 100 * ( cur + inc ) / UnitHealthMax(t)
-	local valinc = ( UnitHealthMax(t) - ( cur + inc ) )
-	if pinc and valinc then
-    if pinc > 0 then
-      return pinc, valinc
-    else
-      return 100,UnitHealthMax("player")
-    end
-	else
-		return 100,UnitHealthMax("player")
-	end
-end
-
 
 ProbablyEngine.raid.lowestHP = function()
   local lowestUnit = 'player'
