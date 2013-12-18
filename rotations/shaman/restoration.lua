@@ -5,9 +5,9 @@ ProbablyEngine.library.register('coreHealing', {
     return ProbablyEngine.raid.needsHealing(tonumber(percent)) >= count
   end,
   needsDispelled = function(spell)
-    for unit,_ in pairs(ProbablyEngine.raid.roster) do
-      if UnitDebuff(unit, spell) then
-        ProbablyEngine.dsl.parsedTarget = unit
+    for _, unit in pairs(ProbablyEngine.raid.roster) do
+      if UnitDebuff(unit.unit, spell) then
+        ProbablyEngine.dsl.parsedTarget = unit.unit
         return true
       end
     end
