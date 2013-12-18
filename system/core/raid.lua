@@ -67,14 +67,21 @@ ProbablyEngine.raid.calShieldHp = function(t)
 	end
 end
 
-local canHeal = function (unit)
-if not UnitExists(unit) then return false end
-if GetUnitName("player") == GetUnitName(unit) then return true end
-if not select(1,UnitInRange(unit)) then return false end
-if UnitCanAssist("player",unit)~=1 then return false end
-if UnitIsFriend("player",unit)~=1 then return false end
-if UnitInVehicle(unit)==1 then return false end
-return true
+local function canHeal(unit)
+  if UnitExists(unit)
+     and UnitCanAssist('player', unit)
+     and UnitIsFriend('player', unit)
+     and not UnitIsDeadOrGhost(unit)
+     and not UnitUsingVehicle(unit) then
+
+     if UnitInParty(unit) and not UnitInRange(unit) then
+       return false
+     end
+
+     return true
+  end
+
+  return false
 end
 
 ProbablyEngine.raid.lowestHP = function()
