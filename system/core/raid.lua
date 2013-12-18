@@ -1,14 +1,26 @@
 -- ProbablyEngine Rotations - https://probablyengine.com/
 -- Released under modified BSD, see attached LICENSE.
 
+ProbablyEngine.raid = {
+  roster = {}
+}
+
+local GetNumGroupMembers = GetNumGroupMembers
+local IsInRaid = IsInRaid
 local UnitCanAssist = UnitCanAssist
 local UnitExists = UnitExists
+local UnitGetIncomingHeals = UnitGetIncomingHeals
+local UnitGetTotalHealAbsorbs = UnitGetTotalHealAbsorbs
+local UnitGroupRolesAssigned = UnitGroupRolesAssigned
+local UnitHealth = UnitHealth
+local UnitHealthMax = UnitHealthMax
 local UnitInParty = UnitInParty
 local UnitInRange = UnitInRange
 local UnitIsConnected = UnitIsConnected
 local UnitIsDeadOrGhost = UnitIsDeadOrGhost
 local UnitIsFriend = UnitIsFriend
 local UnitUsingVehicle = UnitUsingVehicle
+
 local function canHeal(unit)
   if UnitExists(unit)
      and UnitCanAssist('player', unit)
@@ -27,9 +39,21 @@ local function canHeal(unit)
   return false
 end
 
-ProbablyEngine.raid = {
-  roster = {}
-}
+local function updateHealth(index)
+  if not ProbablyEngine.raid.roster[index] then
+    return
+  end
+
+  local unit = ProbablyEngine.raid.roster[index].unit
+
+  local incomingHeals = UnitGetIncomingHeals(unit) or 0
+  local absorbs = UnitGetTotalHealAbsorbs(unit) or 0
+
+  local health = UnitHealth(unit) + incomingHeals - absorbs
+
+  ProbablyEngine.raid.roster[index].health = health / UnitHealthMax(unit) * 100
+  ProbablyEngine.raid.roster[index].healthMissing = UnitHealthMax(unit) - health
+end
 
 ProbablyEngine.raid.acquireTank = function()
   if UnitExists('focus') then
@@ -40,29 +64,30 @@ ProbablyEngine.raid.acquireTank = function()
 end
 
 ProbablyEngine.raid.build = function()
-  if UnitInRaid("player") then
-    for i = 1, 40 do
-      local name, rank, subgroup, level, class, fileName, zone, online, isDead = GetRaidRosterInfo(i);
-      if online and UnitExists('raid' .. i)  then
-        ProbablyEngine.raid.roster['raid' .. i] = ProbablyEngine.raid.calShieldHp('raid' .. i)
-      elseif ProbablyEngine.raid.roster['raid' .. i] then
-        ProbablyEngine.raid.roster['raid' .. i] = nil
-      end
-    end
-    if online and UnitExists('target') then ProbablyEngine.raid.roster['target'] = ProbablyEngine.raid.calShieldHp('target') end
-    if online and UnitExists('focus') then ProbablyEngine.raid.roster['focus'] = ProbablyEngine.raid.calShieldHp('focus') end
-    -- needs controls
-  elseif UnitInParty("player") then
-    for i = 1, GetNumGroupMembers() do
-      local name, rank, subgroup, level, class, fileName, zone, online, isDead = GetRaidRosterInfo(i);
-      if online and UnitExists('party' .. i) then
-        ProbablyEngine.raid.roster['party' .. i] = ProbablyEngine.raid.calShieldHp('party' .. i)
-      elseif ProbablyEngine.raid.roster['party' .. i] then
-         ProbablyEngine.raid.roster['party' .. i] = nil
-      end
+  local groupMembers = GetNumGroupMembers()
+  local rosterLength = #ProbablyEngine.raid.roster
+  local prefix = (IsInRaid() and 'raid') or 'party'
+
+  local i, unit
+  for i = -2, groupMembers do
+    unit = (i == -2 and 'focus') or (i == -1 and 'target') or (i == 0 and 'player') or prefix .. i
+
+    if not ProbablyEngine.raid.roster[i] then ProbablyEngine.raid.roster[i] = {} end
+
+    ProbablyEngine.raid.roster[i].unit = unit
+    if UnitExists(unit) and not UnitIsDeadOrGhost(unit) and UnitIsConnected(unit) then
+      ProbablyEngine.raid.roster[i].role = UnitGroupRolesAssigned(unit)
+      updateHealth(i)
     end
   end
-  ProbablyEngine.raid.roster['player'] = ProbablyEngine.raid.calShieldHp('player')
+
+  if groupMembers > rosterLength then
+    return
+  end
+
+  for i = groupMembers + 1, rosterLength do
+    ProbablyEngine.raid.roster[i] = nil
+  end
 end
 
 ProbablyEngine.raid.calShieldHp = function(t)
