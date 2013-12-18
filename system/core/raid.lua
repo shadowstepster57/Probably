@@ -50,9 +50,11 @@ local function updateHealth(index)
   local absorbs = UnitGetTotalHealAbsorbs(unit) or 0
 
   local health = UnitHealth(unit) + incomingHeals - absorbs
+  local maxHealth = UnitHealthMax(unit)
 
-  ProbablyEngine.raid.roster[index].health = health / UnitHealthMax(unit) * 100
-  ProbablyEngine.raid.roster[index].healthMissing = UnitHealthMax(unit) - health
+  ProbablyEngine.raid.roster[index].health = health / maxHealth * 100
+  ProbablyEngine.raid.roster[index].healthMissing = maxHealth - health
+  ProbablyEngine.raid.roster[index].maxHealth = maxHealth  
 end
 
 ProbablyEngine.raid.updateHealth = function (unit)
