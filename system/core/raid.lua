@@ -78,7 +78,7 @@ local function updateHealth(index)
 
   ProbablyEngine.raid.roster[index].health = health / maxHealth * 100
   ProbablyEngine.raid.roster[index].healthMissing = maxHealth - health
-  ProbablyEngine.raid.roster[index].maxHealth = maxHealth  
+  ProbablyEngine.raid.roster[index].maxHealth = maxHealth
 end
 
 ProbablyEngine.raid.updateHealth = function (unit)
@@ -97,13 +97,13 @@ ProbablyEngine.raid.updateHealth = function (unit)
   end
 end
 
-ProbablyEngine.raid.build = function()
+ProbablyEngine.raid.build = function ()
   local groupMembers = GetNumGroupMembers()
   local rosterLength = #ProbablyEngine.raid.roster
   local prefix = (IsInRaid() and 'raid') or 'party'
 
   local i, unit
-  for i = -2, groupMembers -1 do
+  for i = -2, groupMembers - 1 do
     unit = (i == -2 and 'focus') or (i == -1 and 'target') or (i == 0 and 'player') or prefix .. i
 
     if not ProbablyEngine.raid.roster[i] then ProbablyEngine.raid.roster[i] = {} end
@@ -124,7 +124,7 @@ ProbablyEngine.raid.build = function()
   end
 end
 
-ProbablyEngine.raid.lowestHP = function()
+ProbablyEngine.raid.lowestHP = function ()
   local lowestUnit = 'player'
   if canHeal('focus') then lowestUnit = 'focus' end
 
@@ -140,7 +140,7 @@ ProbablyEngine.raid.lowestHP = function()
   return lowestUnit
 end
 
-ProbablyEngine.raid.raidPercent = function()
+ProbablyEngine.raid.raidPercent = function ()
   local groupMembers = GetNumGroupMembers()
   local rosterLength = #ProbablyEngine.raid.roster
 
@@ -156,7 +156,7 @@ ProbablyEngine.raid.raidPercent = function()
   return total / groupMembers
 end
 
-ProbablyEngine.raid.needsHealing = function(threshold)
+ProbablyEngine.raid.needsHealing = function (threshold)
   if not threshold then threshold = 80 end
 
   local needsHealing = 0
@@ -169,7 +169,7 @@ ProbablyEngine.raid.needsHealing = function(threshold)
   return needsHealing
 end
 
-ProbablyEngine.raid.tank = function()
+ProbablyEngine.raid.tank = function ()
   if canHeal('focus') then
     return 'focus'
   end
