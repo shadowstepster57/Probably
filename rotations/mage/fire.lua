@@ -2,42 +2,42 @@
 ProbablyEngine.rotation.register(63, {
 
   -- Cooldowns
-  { "Ice Block", {"modifier.cooldowns", "player.health <= 30"} },
-  { "Cold Snap", {"modifier.cooldowns", "player.health <= 25", "player.spell(Ice Block).cooldown"} },
-  { "Mirror Image", "modifier.cooldowns" },
-  { "Alter Time", "modifier.cooldowns" },
-  { "Presence of Mind", "modifier.cooldowns" },
-  { "Temporal Shield", { "modifier.cooldowns", "player.health <= 80"} },
+  { "45438", {"modifier.cooldowns", "player.health <= 30"} }, -- Ice Block
+  { "11958", {"modifier.cooldowns", "player.health <= 25", "player.spell(45438).cooldown"} }, -- Cold Snap
+  { "55342", "modifier.cooldowns" }, -- Mirror Image
+  { "108978", "modifier.cooldowns" }, -- Alter Time
+  { "12043", "modifier.cooldowns" }, -- Presence of Mind
+  { "115610", { "modifier.cooldowns", "player.health <= 80"} }, -- Temporal Shield
   
     -- Interrupts
-  { "Counterspell", "modifier.interrupts" },
-  { "Frostjaw", "modifier.interrupts" },
+  { "2139", "modifier.interrupts" }, -- Counterspell
+  { "102051", "modifier.interrupts" }, -- Frostjaw
   
   -- AoE
-  --{ "Blizzard", "modifier.ctrl", "ground" }, -- Unimplemented
-  { "Flamestrike", "modifier.control", "ground" },
-  { "Ring of Frost", "modifier.alt", "ground" },
+  --{ "10", "modifier.ctrl", "ground" }, -- Blizzard -- Unimplemented 
+  { "2120", "modifier.control", "ground" }, -- Flamestrike
+  { "113724", "modifier.alt", "ground" }, -- Ring of Frost
 	
   -- Mage Bombs
-  { "Nether Tempest", "!target.debuff(Nether Tempest)", "target" }, 
-  { "Nether Tempest", "target.debuff(Nether Tempest).duration <= 2", "target" },
-  { "Living Bomb", "!target.debuff(Living Bomb)", "target" },
-  { "Frost Bomb", "player.spell(Frost Bomb).cooldown = 0", "target" },
+  { "114923", "!target.debuff(114923)", "target" }, -- Nether Tempest
+  { "114923", "target.debuff(114923).duration <= 2", "target" }, -- Nether Tempest
+  { "44457", "!target.debuff(44457)", "target" }, -- Living Bomb
+  { "112948", "player.spell(112948).cooldown = 0", "target" }, -- Frost Bomb
   
   -- Survivability
-  { "Frost Nova", "target.range <= 9" },
-  { "Blink", "target.range <= 3" },
-  { "Dragon's Breath", "target.range <= 5"},
-  { "Rune of Power", "modifier.shift", "ground" },
-  { "Ice Barrier", "player.health <= 80" },
+  { "122", "target.range <= 9" }, -- Frost Nova
+  { "1953", "target.range <= 3" }, -- Blink
+  { "31661", "target.range <= 5"}, -- Dragon's Breath
+  { "116011", "modifier.shift", "ground" }, -- Rune of Power
+  { "11426", "player.health <= 80" }, -- Ice Barrier
   
   -- Rotation
-  { "Combustion",  "target.debuff(Ignite)" },
-  { "Pyroblast", "player.buff(Pyroblast!)" },
-  { "Inferno Blast", "player.buff(Heating Up)" },
-  { "Living Bomb", "target.debuff(Living Bomb).duration <= 3" },
-  { "Scorch", "player.moving" },
-  { "Fireball" }
+  { "11129",  "target.debuff(12654)" }, -- Combustion
+  { "11366", "player.buff(48108)" }, -- Pyroblast
+  { "108853", "player.buff(48107)" }, -- Inferno Blast
+  { "44457", "target.debuff(44457).duration <= 3" }, -- Living Bomb
+  { "2948", "player.moving" }, -- Scorch
+  { "133" } -- Fireball
   },
-{{ "Arcane Brilliance", "!player.buff" },
- { "Molten Armor", "!player.buff(Molten Armor)" },})
+{{ "1459", "!player.buff" }, -- Arcane Brilliance
+ { "30482", "!player.buff(30482)" },}) -- Molten Armor
