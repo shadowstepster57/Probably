@@ -128,27 +128,19 @@ end
 
 
 ProbablyEngine.raid.lowestHP = function()
-  local spairs = function(t, order)
-    local keys = {}
-    for k in pairs(t) do keys[#keys+1] = k end
-    if order then
-        table.sort(keys, function(a,b) return order(t, a, b) end)
-    else
-        table.sort(keys)
-    end
-    local i = 0
-    return function()
-        i = i + 1
-        if keys[i] then
-            return keys[i], t[keys[i]]
-        end
+  local lowestUnit = 'player'
+  if canHeal('focus') then lowestUnit = 'focus' end
+
+  local lowest = 100
+
+  for _, unit in pairs(ProbablyEngine.raid.roster) do
+    if canHeal(unit.unit) and unit.health and unit.health < lowest then
+      lowest = unit.health
+      lowestUnit = unit.unit
     end
   end
-  for k in spairs(ProbablyEngine.raid.roster, function(t, a, b) return t[b] > t[a] end) do
-    if canHeal(k) then
-      return k
-    end
-  end
+
+  return lowestUnit
 end
 
 ProbablyEngine.raid.raidPercent = function()
