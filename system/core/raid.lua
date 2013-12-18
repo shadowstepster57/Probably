@@ -166,7 +166,7 @@ ProbablyEngine.raid.needsHealing = function(threshold)
 end
 
 ProbablyEngine.raid.tank = function()
-  if UnitExists('focus') then
+  if canHeal('focus') then
     return 'focus'
   end
 
@@ -177,12 +177,12 @@ ProbablyEngine.raid.tank = function()
   for _, unit in pairs(ProbablyEngine.raid.roster) do
     if canHeal(unit.unit) then
       if unit.role == 'TANK' then
-        if unit.health < lowest then
+        if unit.health and unit.health < lowest then
           lowest = unit.health
           tank = unit.unit
         end
       else
-        if unit.maxHealth > highest then
+        if unit.maxHealth and unit.maxHealth > highest then
           highest = unit.maxHealth
           highestUnit = unit.unit
         end
