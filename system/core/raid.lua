@@ -79,7 +79,7 @@ ProbablyEngine.raid.build = function()
   local prefix = (IsInRaid() and 'raid') or 'party'
 
   local i, unit
-  for i = -2, groupMembers do
+  for i = -2, groupMembers -1 do
     unit = (i == -2 and 'focus') or (i == -1 and 'target') or (i == 0 and 'player') or prefix .. i
 
     if not ProbablyEngine.raid.roster[i] then ProbablyEngine.raid.roster[i] = {} end
