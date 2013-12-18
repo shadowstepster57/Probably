@@ -55,6 +55,22 @@ local function updateHealth(index)
   ProbablyEngine.raid.roster[index].healthMissing = UnitHealthMax(unit) - health
 end
 
+ProbablyEngine.raid.updateHealth = function (unit)
+  if type(unit) == 'number' then
+    return updateHealth(unit)
+  end
+
+  if unit == 'focus' then return updateHealth(-2) end
+  if unit == 'target' then return updateHealth(-1) end
+  if unit == 'player' then return updateHealth(0) end
+
+
+  local prefix = (IsInRaid() and 'raid') or 'party'
+  if unit:find(prefix) then
+    return updateHealth(tonumber(unit:sub(#prefix + 1)))
+  end
+end
+
 ProbablyEngine.raid.acquireTank = function()
   if UnitExists('focus') then
     return 'focus'
