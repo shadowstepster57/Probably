@@ -144,14 +144,19 @@ ProbablyEngine.raid.lowestHP = function()
 end
 
 ProbablyEngine.raid.raidPercent = function()
+  local groupMembers = GetNumGroupMembers()
+  local rosterLength = #ProbablyEngine.raid.roster
+
+  if groupMembers == 0 then
+    return 100
+  end
+
   local total = 0
-  for k,v in pairs(ProbablyEngine.raid.roster) do
-    total = total + v
+  for i = 0, rosterLength do
+    total = total + ProbablyEngine.raid.roster[i].health
   end
-  if total > 0 and #ProbablyEngine.raid.roster > 0 then
-    return total / #ProbablyEngine.raid.roster
-  end
-  return 100
+
+  return total / groupMembers
 end
 
 ProbablyEngine.raid.needsHealing = function(threshold)
