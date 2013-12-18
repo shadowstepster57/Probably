@@ -145,7 +145,7 @@ ProbablyEngine.raid.raidPercent = function ()
   local rosterLength = #ProbablyEngine.raid.roster
 
   if groupMembers == 0 then
-    return 100
+    return ProbablyEngine.raid.roster[0].health
   end
 
   local total = 0
