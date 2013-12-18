@@ -5,6 +5,7 @@ local UnitCanAssist = UnitCanAssist
 local UnitExists = UnitExists
 local UnitInParty = UnitInParty
 local UnitInRange = UnitInRange
+local UnitIsConnected = UnitIsConnected
 local UnitIsDeadOrGhost = UnitIsDeadOrGhost
 local UnitIsFriend = UnitIsFriend
 local UnitUsingVehicle = UnitUsingVehicle
@@ -12,6 +13,7 @@ local function canHeal(unit)
   if UnitExists(unit)
      and UnitCanAssist('player', unit)
      and UnitIsFriend('player', unit)
+     and UnitIsConnected(unit)
      and not UnitIsDeadOrGhost(unit)
      and not UnitUsingVehicle(unit) then
 
