@@ -1,10 +1,26 @@
 -- ProbablyEngine Rotations - https://probablyengine.com/
 -- Released under modified BSD, see attached LICENSE.
 
+local function canHeal(unit)
+  if UnitExists(unit)
+     and UnitCanAssist('player', unit)
+     and UnitIsFriend('player', unit)
+     and not UnitIsDeadOrGhost(unit)
+     and not UnitUsingVehicle(unit) then
+
+     if UnitInParty(unit) and not UnitInRange(unit) then
+       return false
+     end
+
+     return true
+  end
+
+  return false
+end
+
 ProbablyEngine.raid = {
   roster = {}
 }
-
 
 ProbablyEngine.raid.acquireTank = function()
   if UnitExists('focus') then
@@ -66,22 +82,6 @@ ProbablyEngine.raid.calShieldHp = function(t)
 	end
 end
 
-local function canHeal(unit)
-  if UnitExists(unit)
-     and UnitCanAssist('player', unit)
-     and UnitIsFriend('player', unit)
-     and not UnitIsDeadOrGhost(unit)
-     and not UnitUsingVehicle(unit) then
-
-     if UnitInParty(unit) and not UnitInRange(unit) then
-       return false
-     end
-
-     return true
-  end
-
-  return false
-end
 
 ProbablyEngine.raid.lowestHP = function()
   local spairs = function(t, order)
