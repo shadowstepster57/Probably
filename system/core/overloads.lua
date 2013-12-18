@@ -2,6 +2,11 @@
 -- Released under modified BSD, see attached LICENSE.
 
 local BOOKTYPE_SPELL = BOOKTYPE_SPELL
+local BOOKTYPE_PET = BOOKTYPE_PET
+local GetNumSpellTabs = GetNumSpellTabs
+local GetSpellBookItemName = GetSpellBookItemName
+local GetSpellTabInfo = GetSpellTabInfo
+local HasPetSpells = HasPetSpells
 
 -- lets write to the global, how dirty...
 
@@ -28,8 +33,16 @@ GetSpellBookIndex = function (spell)
   end
 
   local _, _, offset, numSpells = GetSpellTabInfo(GetNumSpellTabs())
+  local i
   for i = 1, (offset + numSpells) do
-    if GetSpellBookItemName(i, BOOKTYPE_SPELL) == spell then return i end
+    if GetSpellBookItemName(i, BOOKTYPE_SPELL) == spell then return i, BOOKTYPE_SPELL end
+  end
+
+  local numPetSpells = HasPetSpells()
+  if numPetSpells then
+    for i = 1, numPetSpells do
+      if GetSpellBookItemName(i, BOOKTYPE_PET) == spell then return i, BOOKTYPE_PET end
+    end
   end
 
   return nil
