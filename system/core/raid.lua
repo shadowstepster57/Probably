@@ -2,8 +2,7 @@
 -- Released under modified BSD, see attached LICENSE.
 
 ProbablyEngine.raid = {
-  roster = { },
-  roster_fast = { }
+  roster = {}
 }
 
 
