@@ -1,6 +1,13 @@
 -- ProbablyEngine Rotations - https://probablyengine.com/
 -- Released under modified BSD, see attached LICENSE.
 
+local UnitCanAssist = UnitCanAssist
+local UnitExists = UnitExists
+local UnitInParty = UnitInParty
+local UnitInRange = UnitInRange
+local UnitIsDeadOrGhost = UnitIsDeadOrGhost
+local UnitIsFriend = UnitIsFriend
+local UnitUsingVehicle = UnitUsingVehicle
 local function canHeal(unit)
   if UnitExists(unit)
      and UnitCanAssist('player', unit)
