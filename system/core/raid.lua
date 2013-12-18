@@ -73,38 +73,6 @@ ProbablyEngine.raid.updateHealth = function (unit)
   end
 end
 
-ProbablyEngine.raid.acquireTank = function()
-  if UnitExists('focus') then
-    return 'focus'
-  end
-
-  local tank = 'player'
-  local highestUnit
-
-  local lowest, highest = 100, 0
-  for _, unit in pairs(ProbablyEngine.raid.roster) do
-    if canHeal(unit.unit) then
-      if unit.role == 'TANK' then
-        if unit.health < lowest then
-          lowest = unit.health
-          tank = unit.unit
-        end
-      else
-        if unit.maxHealth > highest then
-          highest = unit.maxHealth
-          highestUnit = unit.unit
-        end
-      end
-    end
-  end
-
-  if GetNumGroupMembers() > 0 and tank == 'player' then
-    tank = highestUnit
-  end
-
-  return tank
-end
-
 ProbablyEngine.raid.build = function()
   local groupMembers = GetNumGroupMembers()
   local rosterLength = #ProbablyEngine.raid.roster
@@ -206,14 +174,33 @@ ProbablyEngine.raid.needsHealing = function(threshold)
 end
 
 ProbablyEngine.raid.tank = function()
-  local possibleTank = false
-  local highestHP = 100
-  for target, health in pairs(ProbablyEngine.raid.roster) do
-    local max = UnitHealthMax(target)
-    if max > highestHP and health ~= 0 then
-      highestHP = max
-      possibleTank = target
+  if UnitExists('focus') then
+    return 'focus'
+  end
+
+  local tank = 'player'
+  local highestUnit
+
+  local lowest, highest = 100, 0
+  for _, unit in pairs(ProbablyEngine.raid.roster) do
+    if canHeal(unit.unit) then
+      if unit.role == 'TANK' then
+        if unit.health < lowest then
+          lowest = unit.health
+          tank = unit.unit
+        end
+      else
+        if unit.maxHealth > highest then
+          highest = unit.maxHealth
+          highestUnit = unit.unit
+        end
+      end
     end
   end
-  return possibleTank
+
+  if GetNumGroupMembers() > 0 and tank == 'player' then
+    tank = highestUnit
+  end
+
+  return tank
 end
