@@ -103,8 +103,10 @@ ProbablyEngine.raid.lowestHP = function()
   end
   for k in spairs(ProbablyEngine.raid.roster, function(t, a, b) return t[b] > t[a] end) do
     if canHeal(k) then
-   return k
+      return k
+    end
   end
+end
 
 ProbablyEngine.raid.raidPercent = function()
   local total = 0
