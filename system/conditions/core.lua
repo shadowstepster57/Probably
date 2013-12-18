@@ -44,6 +44,8 @@ local UnitDebuff = function(target, spell, owner)
   return debuff, count, expires, caster, power
 end
 
+local BOOKTYPE_SPELL = BOOKTYPE_SPELL
+
 ProbablyEngine.condition.register("dispellable", function(target, spell)
   if LibDispellable:CanDispelWith(target, GetSpellID(GetSpellName(spell))) then
     return true
@@ -529,7 +531,7 @@ ProbablyEngine.condition.register("spell.cd", function(target, spell)
 end)
 
 ProbablyEngine.condition.register("spell.range", function(target, spell)
-  return IsSpellInRange(GetSpellName(spell), target) == 1
+  return IsSpellInRange(GetSpellBookIndex(spell), BOOKTYPE_SPELL, target) == 1
 end)
 
 
