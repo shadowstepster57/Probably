@@ -4,7 +4,7 @@
 ProbablyEngine.locale.new('ruRU')
 
 -- Buttons
-pels('toggle', 'Переключить')
+pels('toggle', 'Ротация')
 pels('toggle_tooltip', 'Включить или отключить ротацию.')
 pels('cooldowns', 'Кулдауны')
 pels('cooldowns_tooltip', 'Позволяет использование длинных кулдаунов.')
@@ -35,8 +35,8 @@ pels('move_minimap', 'что бы сдвинуть кнопку у миника�
 pels('est', 'Est.') -- Estimated
 pels('na', 'n/a') -- not/available
 pels('k', 'k') -- Thousands postfix
-pels('all_units', 'All Units')
-pels('combat_tracker', 'Combat Tracker')
+pels('all_units', 'Все цели')
+pels('combat_tracker', 'Трекер боя')
 pels('ttd', 'TTD') -- Time To Death shorthand
 pels('hpr', 'HPR') -- Health Points Remaining shorthand
 
@@ -44,12 +44,12 @@ pels('hpr', 'HPR') -- Health Points Remaining shorthand
 pels('running_version', 'Вы используете версию')
 pels('build', 'версия')
 pels('help_cycle', 'Ручной цикл ротации.')
-pels('help_toggle', 'Включить/Выключить аддон.')
+pels('help_toggle', 'Включить/Выключить ротацию.')
 pels('help_ct', 'Отобразить трекер боя.')
 pels('help_al', 'Отобразить лог действий.')
 pels('help_version', 'Показать текущую версию.')
 pels('help_help', 'Показать это сообщение.')
-pels('help_turbo', 'Переключение Турбо Мод.')
+pels('help_turbo', 'Включить/Выключить Турбо Мод.')
 pels('unknown_type', 'Неизвестная комманда')
 
 pels('turbo_enable', 'Турбо Мод Включён!')
@@ -78,7 +78,7 @@ pels('survival_hunter', 'Сурв Хант')
 pels('discipline_priest', 'Дисц Прист')
 pels('holy_priest', 'Холи Прист')
 pels('shadow_priest', 'Шэдоу Прист')
-pels('assassination_rogue', 'Assassination Rogue')
+pels('assassination_rogue', 'Мути Рог')
 pels('combat_rogue', 'Комбат Рог')
 pels('subtlety_rogue', 'Саб Рог')
 pels('elemental_shaman', 'Элем Шаман')
