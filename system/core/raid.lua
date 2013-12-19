@@ -82,20 +82,13 @@ local function updateHealth(index)
   ProbablyEngine.raid.roster[index].maxHealth = maxHealth
 end
 
+local unitLookup = {}
 ProbablyEngine.raid.updateHealth = function (unit)
   if type(unit) == 'number' then
     return updateHealth(unit)
   end
 
-  if unit == 'focus' then return updateHealth(-2) end
-  if unit == 'target' then return updateHealth(-1) end
-  if unit == 'player' then return updateHealth(0) end
-
-
-  local prefix = (IsInRaid() and 'raid') or 'party'
-  if unit:find(prefix) then
-    return updateHealth(tonumber(unit:sub(#prefix + 1)))
-  end
+  return updateHealth(unitLookup[unit])
 end
 
 ProbablyEngine.raid.build = function ()
@@ -108,6 +101,7 @@ ProbablyEngine.raid.build = function ()
     unit = (i == -2 and 'focus') or (i == -1 and 'target') or (i == 0 and 'player') or prefix .. i
 
     if not ProbablyEngine.raid.roster[i] then ProbablyEngine.raid.roster[i] = {} end
+    if not unitLookup[unit] then unitLookup[unit] = i end
 
     ProbablyEngine.raid.roster[i].unit = unit
     if UnitExists(unit) and not UnitIsDeadOrGhost(unit) and UnitIsConnected(unit) then
