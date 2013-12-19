@@ -4,9 +4,7 @@
 local GetCursorPosition = GetCursorPosition
 local InterfaceOptionsFrame_OpenToCategory = InterfaceOptionsFrame_OpenToCategory
 
-ProbablyEngine.interface.minimap = {
-  position = 45
-}
+ProbablyEngine.interface.minimap = {}
 
 local minimap = ProbablyEngine.interface.minimap
 
