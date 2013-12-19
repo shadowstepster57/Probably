@@ -5,6 +5,7 @@ ProbablyEngine.raid = {
   roster = {}
 }
 
+local max = math.max
 local GetSpellInfo = GetSpellInfo
 local GetNumGroupMembers = GetNumGroupMembers
 local IsInRaid = IsInRaid
@@ -98,12 +99,12 @@ ProbablyEngine.raid.updateHealth = function (unit)
 end
 
 ProbablyEngine.raid.build = function ()
-  local groupMembers = GetNumGroupMembers()
+  local groupMembers = max(GetNumGroupMembers() - 1, 0)
   local rosterLength = #ProbablyEngine.raid.roster
   local prefix = (IsInRaid() and 'raid') or 'party'
 
   local i, unit
-  for i = -2, groupMembers - 1 do
+  for i = -2, groupMembers do
     unit = (i == -2 and 'focus') or (i == -1 and 'target') or (i == 0 and 'player') or prefix .. i
 
     if not ProbablyEngine.raid.roster[i] then ProbablyEngine.raid.roster[i] = {} end
@@ -141,7 +142,7 @@ ProbablyEngine.raid.lowestHP = function ()
 end
 
 ProbablyEngine.raid.raidPercent = function ()
-  local groupMembers = GetNumGroupMembers()
+  local groupMembers = max(GetNumGroupMembers() - 1, 0)
   local rosterLength = #ProbablyEngine.raid.roster
 
   if groupMembers == 0 then
@@ -152,7 +153,7 @@ ProbablyEngine.raid.raidPercent = function ()
   local groupCount = 0
 
   local unit
-  for i = 0, groupMembers - 1 do
+  for i = 0, groupMembers do
     unit = ProbablyEngine.raid.roster[i]
     if unit and unit.health then
       total = total + ProbablyEngine.raid.roster[i].health
@@ -166,9 +167,10 @@ end
 ProbablyEngine.raid.needsHealing = function (threshold)
   if not threshold then threshold = 80 end
 
+  local groupMembers = max(GetNumGroupMembers() - 1, 0)
   local needsHealing = 0
   local unit
-  for i = 0, GetNumGroupMembers() - 1 do
+  for i = 0, groupMembers do
     unit = ProbablyEngine.raid.roster[i]
     if unit and unit.health and unit.health <= threshold then
       needsHealing = needsHealing + 1

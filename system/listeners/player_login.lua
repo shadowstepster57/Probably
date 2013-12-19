@@ -9,4 +9,6 @@ ProbablyEngine.listener.register("PLAYER_LOGIN", function(...)
   end
 
   ProbablyEngine.interface.init()
+
+  ProbablyEngine.raid.build()
 end)
