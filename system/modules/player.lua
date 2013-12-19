@@ -1,6 +1,8 @@
 -- ProbablyEngine Rotations - https://probablyengine.com/
 -- Released under modified BSD, see attached LICENSE.
 
+local UnitClass = UnitClass
+
 local player = {
   castCache = {},
   behind = false,
@@ -8,6 +10,11 @@ local player = {
   infront = true,
   infrontTime = 0
 }
+
+function player.init()
+  local _, _, classID = UnitClass('player')
+  player.classID = classID
+end
 
 local nextCastIndex = 1
 function player.cast(spell)
