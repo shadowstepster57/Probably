@@ -97,7 +97,7 @@ function minimap.create()
 
   minimap.button = button
 
-  minimap.position = ProbablyEngine.config.read('minimap_position')
+  minimap.position = ProbablyEngine.config.read('minimap_position', 45)
   reposition()
 
 	button:Show()
