@@ -67,9 +67,6 @@ local myOptionsTable = {
 AceConfig:RegisterOptionsTable("Probably", myOptionsTable, {"/prb"} )
 AceConfigDialog:AddToBlizOptions("Probably", "ProbablyEngine")
 
-ProbablyEngine.interface = {
-
-}
 
 ProbablyEngine.interface.config = {
   shown = false,
@@ -139,8 +136,6 @@ ProbablyEngine.interface.config.build = function()
 
 end
 
-
-
-
-
-
+function ProbablyEngine.interface.init()
+  ProbablyEngine.interface.minimap.create()
+end

@@ -7,4 +7,6 @@ ProbablyEngine.listener.register("PLAYER_LOGIN", function(...)
   if not ProbablyEngine.full then
     ProbablyEngine.full_check()
   end
+
+  ProbablyEngine.interface.init()
 end)
