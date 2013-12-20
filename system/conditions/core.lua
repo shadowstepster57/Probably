@@ -633,3 +633,13 @@ end)
 ProbablyEngine.condition.register("creatureType", function (target, expectedType)
   return UnitCreatureType(target) == expectedType
 end)
+
+ProbablyEngine.condition.register("class", function (target, expectedClass)
+  local class, _, classID = UnitClass(target)
+
+  if tonumber(expectedClass) then
+    return tonumber(expectedClass) == classID
+  else
+    return expectedClass == class
+  end
+end)
