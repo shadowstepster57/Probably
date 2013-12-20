@@ -629,3 +629,7 @@ end)
 ProbablyEngine.condition.register("modifier.members", function()
   return (GetNumGroupMembers() or 0)
 end)
+
+ProbablyEngine.condition.register("creatureType", function (target, expectedType)
+  return UnitCreatureType(target) == expectedType
+end)
