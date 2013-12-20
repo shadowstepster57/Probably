@@ -21,8 +21,8 @@ ProbablyEngine.rotation.register(264, {
   { "Water Shield", "!player.buff" },
 
   -- tank
-  { "Earth Shield", "!tank.buff" },
-  { "Riptide", "!tank.buff" },
+  { "Earth Shield", "!tank.buff", "tank" },
+  { "Riptide", "!tank.buff", "tank" },
 
   -- healing totem
   { "Healing Stream Totem" },
@@ -45,20 +45,20 @@ ProbablyEngine.rotation.register(264, {
   { "Healing Wave", {
     "lowest.health < 91",
     "lowest.debuff(Chomp)"
-  }},
+  }, "lowest" },
 
   -- regular healing
-  { "Healing Surge", "lowest.health < 40" },
+  { "Healing Surge", "lowest.health < 40", "lowest" },
   { "Greater Healing Wave", {
     "lowest.health < 55",
     "player.buff(Tidal Waves).count = 2"
-  }},
+  }, "lowest" },
   { "Chain Heal", "@coreHealing.needsHealing(80, 4)", "lowest" },
-  { "Healing Wave", "lowest.health < 75" },
+  { "Healing Wave", "lowest.health < 75", "lowest" },
   { "Riptide", {
     "!lowest.buff",
     "lowest.health < 80"
-  }},
+  }, "lowest" },
 
   -- caus we dps too right ?!?
   { "Searing Totem", {
@@ -74,6 +74,6 @@ ProbablyEngine.rotation.register(264, {
 {
   { "Earthliving Weapon", "!player.enchant.mainhand" },
   { "Water Shield", "!player.buff" },
-  { "Healing Wave", "@coreHealing.needsHealing(80, 1)" },
-  { "Healing Wave", "lowest.health < 85" },
+  { "Healing Wave", "@coreHealing.needsHealing(80, 1)", "lowest" },
+  { "Healing Wave", "lowest.health < 85", "lowest" },
 })
