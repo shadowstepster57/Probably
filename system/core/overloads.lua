@@ -32,10 +32,12 @@ GetSpellBookIndex = function (spell)
     spell = GetSpellName(spellID)
   end
 
-  local _, _, offset, numSpells = GetSpellTabInfo(GetNumSpellTabs())
-  local i
-  for i = 1, (offset + numSpells) do
-    if GetSpellBookItemName(i, BOOKTYPE_SPELL) == spell then return i, BOOKTYPE_SPELL end
+  for t = 1, 2 do
+    local _, _, offset, numSpells = GetSpellTabInfo(t)
+    local i
+    for i = 1, (offset + numSpells) do
+      if GetSpellBookItemName(i, BOOKTYPE_SPELL) == spell then return i, BOOKTYPE_SPELL end
+    end
   end
 
   local numPetSpells = HasPetSpells()
