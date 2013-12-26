@@ -2,11 +2,12 @@
 -- Released under modified BSD, see attached LICENSE.
 
 ProbablyEngine.module = {}
+local module = ProbablyEngine.module
 
-ProbablyEngine.module.register = function (module, struct)
-  ProbablyEngine.module[module] = struct
+function module.register(name, struct)
+  module[name] = struct
 end
 
-ProbablyEngine.module.unregister = function (module)
-  ProbablyEngine.module[module] = nil
+function module.unregister(name)
+  module[name] = nil
 end
