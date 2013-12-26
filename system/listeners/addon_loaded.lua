@@ -1,6 +1,10 @@
 -- ProbablyEngine Rotations - https://probablyengine.com/
 -- Released under modified BSD, see attached LICENSE.
 
+local pelg = ProbablyEngine.locale.get
+local build = ProbablyEngine.build
+local stringFormat = string.format
+
 ProbablyEngine.listener.register("ADDON_LOADED", function(...)
 
   local addon = ...
@@ -22,4 +26,8 @@ ProbablyEngine.listener.register("ADDON_LOADED", function(...)
   -- Dynamic Cycle
   ProbablyEngine.config.read('pe_dynamic', false)
 
+  ProbablyEngine.version = 'Development Release'
+  if build then
+    ProbablyEngine.version = string.format('%s v%d (%s)', pelg('build'), build.version, build.commit)
+  end
 end)

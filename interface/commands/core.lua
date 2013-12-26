@@ -10,16 +10,12 @@ ProbablyEngine.command.register_help = function(key, help)
 end
 
 ProbablyEngine.command.register_handler({'version', 'ver', 'v'}, function()
-  if ProbablyEngine.build then
-    ProbablyEngine.command.print(pelg('running_version') .. " " .. ProbablyEngine.build.version .. ' (' .. ProbablyEngine.build.commit .. ')')
-  else
-    ProbablyEngine.command.print("Development Release")
-  end
+  ProbablyEngine.command.print('|cff' .. ProbablyEngine.addonColor .. 'ProbablyEngine |r' .. ProbablyEngine.version)
 end)
 ProbablyEngine.command.register_help('version', pelg('help_version'))
 
 ProbablyEngine.command.register_handler({'help', '?', 'wat'}, function()
-  ProbablyEngine.command.print('|cff' .. ProbablyEngine.addonColor .. 'ProbablyEngine '..pelg('build')..'|r ' .. ProbablyEngine.version)
+  ProbablyEngine.command.print('|cff' .. ProbablyEngine.addonColor .. 'ProbablyEngine |r' .. ProbablyEngine.version)
   for command, help in pairs(ProbablyEngine.command.help) do
     ProbablyEngine.command.print('|cff' .. ProbablyEngine.addonColor .. '/pe ' ..command .. '|r ' .. help)
   end
