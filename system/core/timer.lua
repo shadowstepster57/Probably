@@ -13,7 +13,7 @@ local function onUpdate(self, elapsed)
     struct.last = struct.last + elapsed
     if (struct.last > struct.period) then
       debug.print('Timer Fire: ' .. timer , 'timer')
-      struct.event()
+      struct.event(elapsed)
       struct.last = 0
     end
   end

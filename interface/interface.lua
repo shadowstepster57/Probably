@@ -27,19 +27,23 @@ CycleLag.text:SetText("Action")
 
 CycleLag:SetScript("OnMouseDown", function(self, button)
   if not self.isMoving then
-   self:StartMoving()
-   self.isMoving = true
+    self:StartMoving()
+    self.isMoving = true
   end
 end)
 CycleLag:SetScript("OnMouseUp", function(self, button)
   if self.isMoving then
-   self:StopMovingOrSizing()
-   self.isMoving = false
+    self:StopMovingOrSizing()
+    self.isMoving = false
   end
 end)
 CycleLag:SetScript("OnHide", function(self)
   if self.isMoving then
-   self:StopMovingOrSizing()
-   self.isMoving = false
+    self:StopMovingOrSizing()
+    self.isMoving = false
   end
 end)
+
+ProbablyEngine.timer.register('cycleLag', function(elapsed)
+  PE_CycleLag.text:SetText(math.floor(elapsed * 1000) .. 'ms')
+end, 1000)
