@@ -3,6 +3,8 @@
 
 local GetSpellInfo = GetSpellInfo
 
+ProbablyEngine.cycleTime = ProbablyEngine.cycleTime or 50
+
 ProbablyEngine.cycle = function(skip_verify)
 
   local turbo = ProbablyEngine.config.data['pe_turbo']
@@ -114,4 +116,4 @@ ProbablyEngine.timer.register("oocrotation", function()
     end
     SetCVar("deselectOnClick", stickyValue)
   end
-end, 100)
+end, ProbablyEngine.cycleTime)

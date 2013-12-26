@@ -1,42 +1,46 @@
 -- ProbablyEngine Rotations - https://probablyengine.com/
 -- Released under modified BSD, see attached LICENSE.
 
-ProbablyEngine.timer = {
-  interval = 0.01,
-  timers = {},
-}
+local debug = ProbablyEngine.debug
 
--- create the frame to register timers
-ProbablyEngine.timer.timerFrame = CreateFrame("FRAME")
+ProbablyEngine.timer = {}
+local timer = ProbablyEngine.timer
 
-ProbablyEngine.timer.register = function (module, _event, _period)
-  ProbablyEngine.timer.timers[module] = {
+local timers = {}
+
+local function onUpdate(self, elapsed)
+  for timer, struct in pairs(timers) do
+    struct.last = struct.last + elapsed
+    if (struct.last > struct.period) then
+      debug.print('Timer Fire: ' .. timer , 'timer')
+      struct.event()
+      struct.last = 0
+    end
+  end
+end
+
+local frame = CreateFrame('Frame')
+frame:SetScript('OnUpdate', onUpdate);
+
+function timer.register(module, _event, _period)
+  debug.print('Timer Registered: ' .. module, 'timer')
+  if not tonumber(_period) then
+    ProbablyEngine.print('Timer Error: ' .. module .. ' has no time period.')
+    return
+  end
+
+  timers[module] = {
     event = _event,
     period = (_period / 1000),
     last = 0
   }
 end
 
-ProbablyEngine.timer.unregister = function (module)
-  ProbablyEngine.timer.timers[module] = nil
+function timer.unregister(module)
+  debug.print('Timer Unregistered: ' .. module, 'timer')
+  timers[module] = nil
 end
 
--- listen and fire events
-ProbablyEngine.timer.handle = function (self, elapsed)
-  for timer, struct in pairs(ProbablyEngine.timer.timers) do
-    struct.last = struct.last + elapsed
-    if (struct.last > struct.period) then
-      ProbablyEngine.debug.print("Timer Fire: " .. timer , 'timer')
-      struct.event()
-      struct.last = 0
-    end
-  end
-  PE_CycleLag.text:SetText(math.floor(elapsed * 1000) .. 'ms')
+function timer.updatePeriod(module, period)
+  timers[module].period = (period / 1000)
 end
-
-ProbablyEngine.timer.updatePeriod = function(module, peroid)
-  ProbablyEngine.timer.timers[module]['period'] = (peroid / 1000)
-end
-
--- register our handler
-ProbablyEngine.timer.timerFrame:SetScript("OnUpdate", ProbablyEngine.timer.handle)
