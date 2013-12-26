@@ -34,7 +34,6 @@
   <Script file="system\core\buttons.lua" />
   <Script file="system\core\command.lua" />
   <Script file="system\core\timer.lua" />
-  <Script file="system\core\spellcache.lua" />
   <Script file="system\core\parser.lua" />
   <Script file="system\core\rotation.lua" />
   <Script file="system\core\tooltip.lua" />

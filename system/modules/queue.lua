@@ -1,6 +1,8 @@
 -- ProbablyEngine Rotations - https://probablyengine.com/
 -- Released under modified BSD, see attached LICENSE.
 
+local GetSpellInfo = GetSpellInfo
+
 ProbablyEngine.module.register("queue", {
   queue = nil,
   macro_queue = nil
@@ -29,7 +31,7 @@ hooksecurefunc("UseAction", function(...)
     if select(3, ...) ~= nil then
       local type, id, subType, spellID = GetActionInfo(select(1,...))
       if type == "spell" then
-        local name,_,_,_,_,_,_,_,_ = ProbablyEngine.gsi.call(id)
+        local name,_,_,_,_,_,_,_,_ = GetSpellInfo(id)
         ProbablyEngine.module.queue.add_spell(name)
       end
     end

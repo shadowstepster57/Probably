@@ -1,6 +1,8 @@
 -- ProbablyEngine Rotations - https://probablyengine.com/
 -- Released under modified BSD, see attached LICENSE.
 
+local GetSpellInfo = GetSpellInfo
+
 ProbablyEngine.parser = {
   lastCast = '',
   items = {
@@ -67,7 +69,7 @@ ProbablyEngine.parser.can_cast =  function(spell, unit, stopCasting)
     spellId = spellGlobalId
   end
 
-  local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = ProbablyEngine.gsi.call(spellId)
+  local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = GetSpellInfo(spellId)
   local isUsable, notEnoughMana = IsUsableSpell(name)
 
   -- Savage Roar is broken as fuuuuuck

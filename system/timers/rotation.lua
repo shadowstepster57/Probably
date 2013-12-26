@@ -1,6 +1,8 @@
 -- ProbablyEngine Rotations - https://probablyengine.com/
 -- Released under modified BSD, see attached LICENSE.
 
+local GetSpellInfo = GetSpellInfo
+
 ProbablyEngine.cycle = function(skip_verify)
 
   local turbo = ProbablyEngine.config.data['pe_turbo']
@@ -33,7 +35,7 @@ ProbablyEngine.cycle = function(skip_verify)
 
     if spell then
 
-      local name, _, icon, _, _, _, _, _, _ = ProbablyEngine.gsi.call(spell)
+      local name, _, icon, _, _, _, _, _, _ = GetSpellInfo(spell)
 
       if target ~= "ground" then
         ProbablyEngine.debug.print("Casting |T"..icon..":10:10|t ".. name .. " on ( " .. UnitName((target or 'target')) .. " )", 'spell_cast')
@@ -84,7 +86,7 @@ ProbablyEngine.timer.register("oocrotation", function()
 
     if target == nil then target = 'player' end
     if spell then
-      local name, _, icon, _, _, _, _, _, _ = ProbablyEngine.gsi.call(spell)
+      local name, _, icon, _, _, _, _, _, _ = GetSpellInfo(spell)
 
       if target ~= "ground" then
         ProbablyEngine.debug.print("Casting |T"..icon..":10:10|t ".. name .. " on ( " .. UnitName((target or 'target')) .. " )", 'spell_cast')
