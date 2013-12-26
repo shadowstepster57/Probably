@@ -1,85 +1,51 @@
 -- ProbablyEngine Rotations - https://probablyengine.com/
 -- Released under modified BSD, see attached LICENSE.
 
-ProbablyEngine.listener = {
-  handlers = { },
-  listeners = { },
-}
+local debug = ProbablyEngine.debug
 
-ProbablyEngine.listener.register = function(...)
+ProbablyEngine.listener = {}
+local listener = ProbablyEngine.listener
 
-  local name = false
-  local callback = false
+local listeners = {}
 
-  if select('#', ...) == 3 then
-    name, _ = select(1, ...)
-    event, _ = select(2, ...)
-    callback = select(3, ...)
-  else
-    name = 'default'
-    event, _ = select(1, ...)
-    callback = select(2, ...)
+local function onEvent(self, event, ...)
+  if not listeners[event] then return end
+  debug.print('Event Called: ' .. event, 'listener')
+
+  for i = 1, #listeners[event] do
+    listeners[event][i](...)
+  end
+end
+
+local frame = CreateFrame('Frame', 'PE_Events')
+frame:SetScript('OnEvent', onEvent)
+
+function listener.register(event, callback)
+  debug.print('Event Registered: ' .. event, 'listener')
+
+  if not listeners[event] then
+    frame:RegisterEvent(event)
+    listeners[event] = {}
   end
 
-  ProbablyEngine.debug.print("Event Registered: " .. event, 'listener')
+  table.insert(listeners[event], callback)
+end
 
-  -- is this our first handler ?
-  if not ProbablyEngine.listener.handlers[name] then
-    ProbablyEngine.listener.handlers[name] = { }
-  end
+function listener.unregister(event, callback)
+  debug.print('Event Unregistered: ' .. event, 'listener')
 
-  -- do we have a listener ?
-  if not ProbablyEngine.listener.listeners[name] then
-    ProbablyEngine.listener.listeners[name] = CreateFrame("Frame", "PE_Events_" .. name, UIParent)
-    ProbablyEngine.listener.listeners[name].handlerName = name
-    ProbablyEngine.listener.listeners[name].eventHandle = function (self, event, ...)
-      local handler = self.handlerName
-      local action = false
-      if ProbablyEngine.listener.handlers[handler][event] then
-        ProbablyEngine.listener.handlers[handler][event](...)
-      end
+  for i = 1, #listeners[event] do
+    if listeners[event][i] == callback then
+      table.remove(listeners[event], i)
     end
-    ProbablyEngine.listener.listeners[name]:SetScript("OnEvent", ProbablyEngine.listener.listeners[name].eventHandle)
   end
 
-  -- assign
-  ProbablyEngine.listener.handlers[name][event] = callback
-  ProbablyEngine.listener.listeners[name]:RegisterEvent(event)
-
+  if #listeners[event] == 0 then
+    listeners[event] = nil
+    frame:UnregisterEvent(event)
+  end
 end
 
-ProbablyEngine.listener.unregister = function(event, arg1, arg2)
-  ProbablyEngine.debug.print("Event Unregistered: " .. event, 'listener')
-
-  local name = false
-  local callback = false
-
-  if type(arg1) == "string" then
-    name = arg1
-    callback = arg2
-  else
-    name = 'default'
-    callback = arg1
-  end
-
-  ProbablyEngine.listener.handlers[name][event] = nil
-  ProbablyEngine.listener.listeners[name]:UnregisterEvent(event)
-
-end
-
-
-ProbablyEngine.listener.trigger = function(...)
-
-  local name, event, args, _
-  if select('#', ...) >= 3 then
-    name, _ = select(1, ...)
-    event, _ = select(2, ...)
-    args = select(3, ...)
-  else
-    name = 'default'
-    event, _ = select(1, ...)
-    args = select(2, ...)
-  end
-  ProbablyEngine.listener.handlers[name][event](args)
-
+function listener.trigger(event, ...)
+  onEvent(nil, event, ...)
 end
