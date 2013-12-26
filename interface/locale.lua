@@ -1,34 +1,41 @@
 -- ProbablyEngine Rotations - https://probablyengine.com/
 -- Released under modified BSD, see attached LICENSE.
 
-ProbablyEngine.locale = {
-  locale = GetLocale(),
-  writeTo = GetLocale(),
-  locales = { },
-  fallback = true,
-  warn = false,
-}
+local GetLocale = GetLocale
 
-ProbablyEngine.locale.new = function(id)
-  ProbablyEngine.locale.locales[id] = { }
-  ProbablyEngine.locale.writeTo = id
+ProbablyEngine.locale = {}
+local locale = ProbablyEngine.locale
+
+local locales = {}
+local playerLocale = GetLocale()
+local writeTo = playerLocale
+local fallback = true
+local warn = false
+
+function locale.new(id)
+  writeTo = id
+  if id ~= playerLocale then return end
+  if not locales[id] then locales[id] = {} end
 end
 
-ProbablyEngine.locale.get = function(key)
-  if ProbablyEngine.locale.locales[ProbablyEngine.locale.locale]
-    and ProbablyEngine.locale.locales[ProbablyEngine.locale.locale][key] then
-    return ProbablyEngine.locale.locales[ProbablyEngine.locale.locale][key]
-  elseif ProbablyEngine.locale.locales['enUS'][key] and ProbablyEngine.locale.fallback then
-    if ProbablyEngine.locale.warn then print('Warning, local not found for key:' .. key) end
-    return ProbablyEngine.locale.locales['enUS'][key]
+function locale.get(key)
+  if locales[playerLocale] and locales[playerLocale][key] then
+    return locales[playerLocale][key]
+  elseif fallback and locales['enUS'][key] then
+    if warn then print('Warning, locale not found for key:' .. key) end
+    return locales['enUS'][key]
   end
-  return 'nolocal:' .. key
+  return 'nolocale:' .. key
 end
 
-ProbablyEngine.locale.set = function(key, text)
-  ProbablyEngine.locale.locales[ProbablyEngine.locale.writeTo][key] = text
+function locale.set(key, text)
+  if writeTo ~= playerLocale then return end
+
+  if not locales[writeTo] then
+    print('Error must create the following locale first:', writeTo)
+  end
+
+  locales[writeTo][key] = text
 end
 
-pel = ProbablyEngine.locale
-pelg = ProbablyEngine.locale.get
-pels = ProbablyEngine.locale.set
+pelg = locale.get
