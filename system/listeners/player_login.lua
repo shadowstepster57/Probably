@@ -4,9 +4,9 @@
 ProbablyEngine.listener.register("PLAYER_LOGIN", function(...)
   ProbablyEngine.rotation.auto_unregister()
   ProbablyEngine.listener.trigger("PLAYER_SPECIALIZATION_CHANGED", "player")
-  if not ProbablyEngine.full then
-    ProbablyEngine.full_check()
-  end
+  -- if not ProbablyEngine.full then
+  --   ProbablyEngine.full_check()
+  -- end
 
   ProbablyEngine.interface.init()
   ProbablyEngine.module.player.init()
