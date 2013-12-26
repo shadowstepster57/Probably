@@ -1,6 +1,10 @@
 -- ProbablyEngine Rotations - https://probablyengine.com/
 -- Released under modified BSD, see attached LICENSE.
 
+local GetTime = GetTime
+local UnitCastingInfo = UnitCastingInfo
+local UnitChannelInfo = UnitChannelInfo
+
 local ProbablyEngineTempTable1 = { }
 local rangeCheck = LibStub("LibRangeCheck-2.0")
 local LibDispellable = LibStub("LibDispellable-1.0")
@@ -426,7 +430,6 @@ ProbablyEngine.condition.register("modifier.interrupt", function()
   return false
 end)
 
-
 ProbablyEngine.condition.register("modifier.last", function(target, spell)
   return ProbablyEngine.parser.lastCast == GetSpellName(spell)
 end)
@@ -465,12 +468,13 @@ ProbablyEngine.condition.register("totem.duration", function(target, totem)
   return 0
 end)
 
-ProbablyEngine.condition.register("casting.delta", function(target, spell)
-  local castName,_,_,_,_,endTime,_,_,notInterruptibleCast = UnitCastingInfo(target)
-  local channelName,_,_,_,_,endTime,_,notInterruptibleChannel = UnitChannelInfo(target)
-  spell = GetSpellName(spell)
-  if notInterruptibleCast == false or notInterruptibleChannel == false then
-    return floor(endTime - GetTime())
+ProbablyEngine.condition.register('casting.delta', function(target, spell)
+  local _, _, _, _, startTime, endTime, _, _, notInterruptibleCast = UnitCastingInfo(target) 
+  local _, _, _, _, startTime, endTime, _, notInterruptibleChannel = UnitChannelInfo(target)
+  if not notInterruptibleCast or not notInterruptibleChannel then
+    local castLength = (endTime - startTime) / 1000
+    local secondsLeft = endTime / 1000  - GetTime()
+    return secondsLeft, castLength
   end
   return false
 end)
@@ -483,6 +487,27 @@ ProbablyEngine.condition.register("casting", function(target, spell)
     return true
   elseif notInterruptibleCast == false or notInterruptibleChannel == false then
     return true
+  end
+  return false
+end)
+
+ProbablyEngine.condition.register('interruptsLate', function (target, spell)
+  if ProbablyEngine.condition['modifier.toggle']('interrupt') then
+    local secondsLeft, castLength = ProbablyEngine.condition['casting.delta'](target)
+    if secondsLeft and 100 - (secondsLeft / castLength * 100) < spell then
+      SpellStopCasting()
+      return true
+    end
+  end
+  return false
+end)
+
+ProbablyEngine.condition.register('interruptLate', function (target, spell)
+  if ProbablyEngine.condition['modifier.toggle']('interrupt') then
+    local secondsLeft, castLength = ProbablyEngine.condition['casting.delta'](target)
+    if secondsLeft and 100 - (secondsLeft / castLength * 100) < spell then
+      return true
+    end
   end
   return false
 end)
