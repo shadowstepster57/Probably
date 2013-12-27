@@ -6,7 +6,8 @@ ProbablyEngine.rotation.register(103, {
   { "Cenarion Ward", "player.health <75" },
   { "Survival Instincts", "player.health <75" },
   { "Cenarion Ward", "player.health <75" },
-
+  { "Might of Ursoc", "player.health <= 45" },
+  
   -- Cat
   { "Cat Form", "!player.buff(Cat Form)" },
 
