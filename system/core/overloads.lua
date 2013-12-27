@@ -13,6 +13,7 @@ local stringLower = string.lower
 local stringMatch = string.match
 
 local spellCache = {}
+local spellIndexCache = {}
 local itemCache = {}
 
 function GetSpellID(spell)
@@ -43,18 +44,27 @@ end
 function GetSpellBookIndex(spell)
   local spellName = GetSpellName(spell)
 
+  local cache = spellIndexCache[spellName]
+  if cache then return cache[1], cache[2] end
+
   for t = 1, 2 do
     local _, _, offset, numSpells = GetSpellTabInfo(t)
     local i
     for i = 1, (offset + numSpells) do
-      if GetSpellBookItemName(i, BOOKTYPE_SPELL) == spellName then return i, BOOKTYPE_SPELL end
+      if GetSpellBookItemName(i, BOOKTYPE_SPELL) == spellName then
+        spellIndexCache[spellName] = { i, BOOKTYPE_SPELL }
+        return i, BOOKTYPE_SPELL
+      end
     end
   end
 
   local numPetSpells = HasPetSpells()
   if numPetSpells then
     for i = 1, numPetSpells do
-      if GetSpellBookItemName(i, BOOKTYPE_PET) == spellName then return i, BOOKTYPE_PET end
+      if GetSpellBookItemName(i, BOOKTYPE_PET) == spellName then
+        spellIndexCache[spellName] = { i, BOOKTYPE_SPELL }
+        return i, BOOKTYPE_PET
+      end
     end
   end
 
