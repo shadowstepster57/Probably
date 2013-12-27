@@ -106,7 +106,7 @@ ProbablyEngine.rotation.register(105, {
    }, "player" },
    
   -- Regular Healing
-  { "Nature's Cure", "@coreHealing.needsDispelled"
+  { "Nature's Cure", "@coreHealing.needsDispelled" },
   { "Rejuvenation", "lowest.health <= 85", "lowest" },
   { "Healing Touch", "lowest.health <= 65", "lowest" },
   { "Wild Growth", "@coreHealing.needsHealing(75, 5)", "lowest" },
