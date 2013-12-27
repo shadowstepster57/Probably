@@ -99,6 +99,7 @@ ProbablyEngine.buttons.create = function(name, icon, callback, tooltipl1, toolti
     button:SetCheckedTexture(nil)
     button:SetPushedTexture(nil)
     button.customTheme = function ()
+      button:SetCheckedTexture(nil)
       local state = button.checked
       if state then
         button.backdrop:Show()
