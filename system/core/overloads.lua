@@ -58,6 +58,21 @@ function GetSpellBookIndex(spell)
     end
   end
 
+  local numFlyouts = GetNumFlyouts()
+  for f = 1, numFlyouts do
+    local flyoutID = GetFlyoutID(f)
+    local name, description, numSlots, isKnown = GetFlyoutInfo(flyoutID)
+    if isKnown then
+      for g = 1, numSlots do
+        local spellID, isKnownSpell = GetFlyoutSlotInfo(flyoutID, g)
+        if isKnownSpell and GetSpellName(spellID) == spellName then
+          spellIndexCache[spellName:lower()] = { spellID, nil }
+          return spellID, nil
+        end
+      end
+    end
+  end
+
   local numPetSpells = HasPetSpells()
   if numPetSpells then
     for i = 1, numPetSpells do

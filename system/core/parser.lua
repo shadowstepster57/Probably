@@ -44,7 +44,6 @@ ProbablyEngine.turbo = {
 }
 
 ProbablyEngine.parser.can_cast =  function(spell, unit, stopCasting)
-
   local turbo = ProbablyEngine.config.read('pe_turbo', false)
   if turbo then
     -- Turbo Mode Engage
@@ -67,13 +66,24 @@ ProbablyEngine.parser.can_cast =  function(spell, unit, stopCasting)
   if not spellIndex then
     return false
   end
-  local _, spellId = GetSpellBookItemInfo(spellIndex, spellBook)
-  if not spellId then
-    return false
+  if spellBook ~= nil then
+    local _, spellId = GetSpellBookItemInfo(spellIndex, spellBook)
+    if not spellId then
+      return false
+    end
+  else
+    spellId = spellIndex
+  end
+  local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange
+  local isUsable, notEnoughMana
+  if spellBook ~= nil then
+    isUsable, notEnoughMana = IsUsableSpell(spellIndex, spellBook)
+    name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = GetSpellInfo(spellIndex, spellBook)
+  else
+    isUsable, notEnoughMana = IsUsableSpell(spellId)
+    name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = GetSpellInfo(spellId)
   end
 
-  local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = GetSpellInfo(spellIndex, spellBook)
-  local isUsable, notEnoughMana = IsUsableSpell(spellIndex, spellBook)
 
   -- Savage Roar is broken as fuuuuuck
   --if spellId ~= 127538 and spellId ~= 33876 then
@@ -100,7 +110,8 @@ ProbablyEngine.parser.can_cast =  function(spell, unit, stopCasting)
   if UnitBuff("player", GetSpellInfo(11392)) then return false end -- Invis
   if UnitBuff("player", GetSpellInfo(3680)) then return false end  -- L. Invis
 
-  if select(2, GetSpellCooldown(spellIndex, spellBook)) > 0 then return false end
+  if spellBook ~= nil and select(2, GetSpellCooldown(spellIndex, spellBook)) > 0 then return false end
+  if spellBook == nil and select(2, GetSpellCooldown(spellId)) > 0 then return false end
 
   if spellBook == BOOKTYPE_PET then
     if not UnitExists('pet') then return false end

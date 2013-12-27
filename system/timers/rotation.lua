@@ -37,8 +37,14 @@ ProbablyEngine.cycle = function(skip_verify)
 
     if spell then
       local spellIndex, spellBook = GetSpellBookIndex(spell)
-      local _, spellID = GetSpellBookItemInfo(spellIndex, spellBook)
-      local name, _, icon, _, _, _, _, _, _ = GetSpellInfo(spellIndex, spellBook)
+      local spellID, name, icon
+      if spellBook ~= nil then
+        _, spellID = GetSpellBookItemInfo(spellIndex, spellBook)
+        name, _, icon, _, _, _, _, _, _ = GetSpellInfo(spellIndex, spellBook)
+      else
+        spellID = spellIndex
+        name, _, icon, _, _, _, _, _, _ = GetSpellInfo(spellID)
+      end
 
       if target ~= "ground" then
         ProbablyEngine.debug.print("Casting |T"..icon..":10:10|t ".. name .. " on ( " .. UnitName((target or 'target')) .. " )", 'spell_cast')
@@ -90,8 +96,14 @@ ProbablyEngine.timer.register("oocrotation", function()
     if target == nil then target = 'player' end
     if spell then
       local spellIndex, spellBook = GetSpellBookIndex(spell)
-      local _, spellID = GetSpellBookItemInfo(spellIndex, spellBook)
-      local name, _, icon, _, _, _, _, _, _ = GetSpellInfo(spellIndex, spellBook)
+      local spellID, name, icon
+      if spellBook ~= nil then
+        _, spellID = GetSpellBookItemInfo(spellIndex, spellBook)
+        name, _, icon, _, _, _, _, _, _ = GetSpellInfo(spellIndex, spellBook)
+      else
+        spellID = spellIndex
+        name, _, icon, _, _, _, _, _, _ = GetSpellInfo(spellID)
+      end
 
       if target ~= "ground" then
         ProbablyEngine.debug.print("Casting |T"..icon..":10:10|t ".. name .. " on ( " .. UnitName((target or 'target')) .. " )", 'spell_cast')
