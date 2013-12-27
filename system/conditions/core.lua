@@ -203,6 +203,10 @@ ProbablyEngine.condition.register("target", function(target, spell)
   return ( UnitGUID(target .. "target") == UnitGUID(spell) )
 end)
 
+ProbablyEngine.condition.register("player", function(target, spell)
+  return UnitName('player') == UnitName(target)
+end)
+
 ProbablyEngine.condition.register("exists", function(target)
   return (UnitExists(target) == 1)
 end)

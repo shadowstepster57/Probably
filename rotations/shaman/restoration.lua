@@ -18,10 +18,10 @@ ProbablyEngine.rotation.register(264, {
 
   -- buffs
   { "Earthliving Weapon", "!player.enchant.mainhand" },
-  { "Water Shield", "!player.buff" },
+  { "Water Shield", "!player.buff(Water Shield)" },
 
   -- tank
-  { "Earth Shield", "!tank.buff", "tank" },
+  { "Earth Shield", { "!tank.buff(Earth Shield)", "!tank.player" }, "tank" },
   { "Riptide", "!tank.buff", "tank" },
 
   -- healing totem
