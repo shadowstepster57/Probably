@@ -2,6 +2,7 @@
 -- Released under modified BSD, see attached LICENSE.
 
 local GetTime = GetTime
+local GetSpellBookIndex = GetSpellBookIndex
 local UnitCastingInfo = UnitCastingInfo
 local UnitChannelInfo = UnitChannelInfo
 
@@ -546,8 +547,8 @@ ProbablyEngine.condition.register("spell.usable", function(target, spell)
 end)
 
 ProbablyEngine.condition.register("spell.exists", function(target, spell)
-  if GetSpellID(spell) then
-    return IsPlayerSpell(GetSpellID(spell))
+  if GetSpellBookIndex(spell) then
+    return true
   end
   return false
 end)

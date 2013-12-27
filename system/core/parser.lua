@@ -1,6 +1,7 @@
 -- ProbablyEngine Rotations - https://probablyengine.com/
 -- Released under modified BSD, see attached LICENSE.
 
+local GetSpellBookIndex = GetSpellBookIndex
 local GetSpellInfo = GetSpellInfo
 local BOOKTYPE_PET = BOOKTYPE_PET
 
