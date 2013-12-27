@@ -64,8 +64,7 @@ ProbablyEngine.command.register_handler({'lag', 'cycletime'}, function()
 end)
 
 ProbablyEngine.command.register_handler({'turbo', 'godmode'}, function()
-  ProbablyEngine.config.toggle('pe_turbo')
-  local state = ProbablyEngine.config.data['pe_turbo']
+  local state = ProbablyEngine.config.toggle('pe_turbo')
   if state then
     ProbablyEngine.print(pelg('turbo_enable'))
     SetCVar('maxSpellStartRecoveryOffset', 1)

@@ -188,8 +188,8 @@ ProbablyEngine.buttons.toggle = function(name)
     _G['PE_Buttons_'.. name].checked = not state
     _G['PE_Buttons_'.. name]:SetChecked(not state)
   end
-  ProbablyEngine.toggle.states[name] = not ProbablyEngine.config.data['button_states'][name]
-  ProbablyEngine.config.data['button_states'][name] = not ProbablyEngine.config.data['button_states'][name]
+  ProbablyEngine.config.write('button_states', name, state)
+  ProbablyEngine.toggle.states[name] = ProbablyEngine.config.read('button_states', name, state)
 end
 
 ProbablyEngine.buttons.icon = function(name, icon)
