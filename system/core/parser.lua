@@ -61,7 +61,11 @@ ProbablyEngine.parser.can_cast =  function(spell, unit, stopCasting)
   if spell == nil then return false end
   if unit == nil then unit = "target" end
   if unit == "ground" then unit = nil end
-  local skillType, spellId = GetSpellBookItemInfo(GetSpellBookIndex(spell))
+  local spellIndex, spellBook = GetSpellBookIndex(spell)
+  if not spellIndex then
+    return false
+  end
+  local skillType, spellId = GetSpellBookItemInfo(spellIndex, spellBook)
   if not spellId then
     return false
   end
