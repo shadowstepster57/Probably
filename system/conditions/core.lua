@@ -468,15 +468,22 @@ ProbablyEngine.condition.register("totem.duration", function(target, totem)
   return 0
 end)
 
+local function checkCasting(target)
+  local name, _, _, _, startTime, endTime, _, _, notInterruptible = UnitCastingInfo(target) 
+  if name then return name, startTime, endTime, notInterruptible end
+
+  local name_, _, _, _, startTime, endTime, _, notInterruptible = UnitChannelInfo(target)
+  if name then return name, startTime, endTime, notInterruptible end
+
+  return false
+end
+
 ProbablyEngine.condition.register('casting.delta', function(target, spell)
-  local _, _, _, _, startTime, endTime, _, _, notInterruptibleCast = UnitCastingInfo(target) 
-  local _, _, _, _, startTime, endTime, _, notInterruptibleChannel = UnitChannelInfo(target)
-  if not notInterruptibleCast or not notInterruptibleChannel then
-    if endTime and startTime then
-      local castLength = (endTime - startTime) / 1000
-      local secondsLeft = endTime / 1000  - GetTime()
-      return secondsLeft, castLength
-    end
+  local name, startTime, endTime, notInterruptible = checkCasting(target)
+  if name and not notInterruptible then
+    local castLength = (endTime - startTime) / 1000
+    local secondsLeft = endTime / 1000  - GetTime()
+    return secondsLeft, castLength
   end
   return false
 end)
@@ -493,10 +500,11 @@ ProbablyEngine.condition.register("casting", function(target, spell)
   return false
 end)
 
-ProbablyEngine.condition.register('interruptsLate', function (target, spell)
+ProbablyEngine.condition.register('interruptsAt', function (target, spell)
   if ProbablyEngine.condition['modifier.toggle']('interrupt') then
+    local stopAt = tonumber(spell) or 95
     local secondsLeft, castLength = ProbablyEngine.condition['casting.delta'](target)
-    if secondsLeft and 100 - (secondsLeft / castLength * 100) < spell then
+    if secondsLeft and 100 - (secondsLeft / castLength * 100) > stopAt then
       SpellStopCasting()
       return true
     end
@@ -504,11 +512,11 @@ ProbablyEngine.condition.register('interruptsLate', function (target, spell)
   return false
 end)
 
-ProbablyEngine.condition.register('interruptLate', function (target, spell)
+ProbablyEngine.condition.register('interruptAt', function (target, spell)
   if ProbablyEngine.condition['modifier.toggle']('interrupt') then
     local stopAt = tonumber(spell) or 95
     local secondsLeft, castLength = ProbablyEngine.condition['casting.delta'](target)
-    if secondsLeft and 100 - (secondsLeft / castLength * 100) < stopAt then
+    if secondsLeft and 100 - (secondsLeft / castLength * 100) > stopAt then
       return true
     end
   end
