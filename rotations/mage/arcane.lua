@@ -13,7 +13,7 @@ ProbablyEngine.rotation.register(62, {
     "player.buff(12042)",
     "!player.buff(108978)",
     "toggle.alter"
-  }},
+  }}, -- Alter Time
   
   -- Interrupts
   { "2139", "modifier.interrupts" }, -- Counterspell
@@ -60,8 +60,8 @@ ProbablyEngine.rotation.register(62, {
       "player.debuff(36032).count >= 4",
       "!player.buff(5143)"
   }}, -- Arcane Barrage
-  { "30451" }
-  }, -- Arcane Blast
+  { "30451" } -- Arcane Blast
+  },
   { { "1459", "!player.buff" }, -- Arcane Brilliance
   { "7302", "!player.buff(30482)", "!player.spell(30482).exists" }, -- Frost Armor
   { "30482", "!player.buff(30482)", "!player.spell(6117).exists" }, -- Molten Armor
