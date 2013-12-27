@@ -472,9 +472,11 @@ ProbablyEngine.condition.register('casting.delta', function(target, spell)
   local _, _, _, _, startTime, endTime, _, _, notInterruptibleCast = UnitCastingInfo(target) 
   local _, _, _, _, startTime, endTime, _, notInterruptibleChannel = UnitChannelInfo(target)
   if not notInterruptibleCast or not notInterruptibleChannel then
-    local castLength = (endTime - startTime) / 1000
-    local secondsLeft = endTime / 1000  - GetTime()
-    return secondsLeft, castLength
+    if endTime and startTime then
+      local castLength = (endTime - startTime) / 1000
+      local secondsLeft = endTime / 1000  - GetTime()
+      return secondsLeft, castLength
+    end
   end
   return false
 end)
