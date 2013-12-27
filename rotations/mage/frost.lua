@@ -2,40 +2,40 @@
 ProbablyEngine.rotation.register(64, {
 
   -- Cooldowns
-  { "Icy Veins", "modifier.cooldowns" },
-  { "Ice Block", {"modifier.cooldowns", "player.health <= 30"} },
-  { "Cold Snap", {"modifier.cooldowns", "player.health <= 25", "player.spell(Ice Block).cooldown"} },
-  { "Mirror Image", "modifier.cooldowns" },
-  { "Alter Time", "modifier.cooldowns" },
-  { "Presence of Mind", "modifier.cooldowns" },
-  { "Temporal Shield", { "modifier.cooldowns", "player.health <= 80"} },
+  { "12472", "modifier.cooldowns" }, -- Icy Veins
+  { "45438", {"modifier.cooldowns", "player.health <= 30"} }, -- Ice Block
+  { "11958", {"modifier.cooldowns", "player.health <= 25", "player.spell(45438).cooldown"} }, -- Cold Snap
+  { "55342", "modifier.cooldowns" }, -- Mirror Image
+  { "108978", "modifier.cooldowns" }, -- Alter Time
+  { "12043", "modifier.cooldowns" }, -- Presence of Mind
+  { "115610", { "modifier.cooldowns", "player.health <= 80"} }, -- Temporal Shield
   
   -- Interrupts
-  { "Counterspell", "modifier.interrupts" },
-  { "Frostjaw", "modifier.interrupts" },
+  { "2139", "modifier.interrupts" }, -- Counterspell
+  { "102051", "modifier.interrupts" }, -- Frostjaw
 
   -- AoE
-  { "Blizzard", "modifier.control", "ground" },
-  { "Ring of Frost", "modifier.alt", "ground" },
+  { "10", "modifier.control", "ground" }, -- Blizzard
+  { "113724", "modifier.alt", "ground" }, -- Ring of Frost
   
   -- Mage Bombs
-  {"Nether Tempest", "!target.debuff(Nether Tempest)", "target"}, 
-  {"Nether Tempest", "target.debuff(Nether Tempest).duration <= 2", "target"},
-  {"Living Bomb", "!target.debuff(Living Bomb)", "target"},
-  {"Frost Bomb", "player.spell(Frost Bomb).cooldown = 0", "target"},
+  {"114923", "!target.debuff(114923)", "target"}, -- Nether Tempest
+  {"114923", "target.debuff(114923).duration <= 2", "target"}, -- Nether Tempest
+  {"44457", "!target.debuff(44457)", "target"}, -- Living Bomb
+  {"112948", "player.spell(112948).cooldown = 0", "target"}, -- Frost Bomb
   
   -- Survivability
-  { "Frost Nova", "target.range <= 9" },
-  { "Blink", "target.range <= 3" },
-  { "Rune of Power", "modifier.shift", "ground" },
-  { "Ice Barrier", "player.health <= 80" },
+  { "122", "target.range <= 9" }, -- Frost Nova
+  { "1953", "target.range <= 3" }, -- Blink
+  { "116011", "modifier.shift", "ground" }, -- Rune of Power
+  { "11426", "player.health <= 80" }, -- Ice Barrier
   
   -- Rotation
-  { "Frozen Orb", "player.buff(Fingers of Frost).count < 2" },
-  { "Ice Lance", "player.buff(Fingers of Frost)" },
-  { "Frostfire Bolt", "player.buff(Brain Freeze)" },
-  { "Ice Lance", "player.moving" },
-  { "Frostbolt" }},
+  { "84714", "player.buff(112965).count < 2" }, -- Frozen Orb
+  { "30455", "player.buff(112965)" }, -- Ice Lance
+  { "44614", "player.buff(44549)" }, -- Frostfire Bolt
+  { "30455", "player.moving" }, -- Ice Lance
+  { "116" }}, -- Frostbolt
   
-{{ "Arcane Brilliance", "!player.buff" },
-  { "Frost Armor", "!player.buff" }})
+{{ "1459", "!player.buff" }, -- Arcane Brilliance
+  { "7302", "!player.buff" }}) -- Frost Armor
