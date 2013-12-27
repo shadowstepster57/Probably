@@ -117,6 +117,7 @@ ProbablyEngine.raid.build = function ()
 
     ProbablyEngine.raid.roster[i].unit = unit
     if UnitExists(unit) and not UnitIsDeadOrGhost(unit) and UnitIsConnected(unit) then
+      ProbablyEngine.raid.roster[i].class = select(3, UnitClass(unit))
       ProbablyEngine.raid.roster[i].role = UnitGroupRolesAssigned(unit)
       updateHealth(i)
     end
