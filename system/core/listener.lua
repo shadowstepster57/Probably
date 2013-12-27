@@ -10,32 +10,39 @@ local listeners = {}
 
 local function onEvent(self, event, ...)
   if not listeners[event] then return end
-  debug.print('Event Called: ' .. event, 'listener')
 
   for i = 1, #listeners[event] do
-    listeners[event][i](...)
+    debug.print('Event Called: ' .. event .. ', ' .. listeners[event][i].name, 'listener')
+    listeners[event][i].callback(...)
   end
 end
 
 local frame = CreateFrame('Frame', 'PE_Events')
 frame:SetScript('OnEvent', onEvent)
 
-function listener.register(event, callback)
-  debug.print('Event Registered: ' .. event, 'listener')
+function listener.register(name, event, callback)
+  if not callback then
+    name, event, callback = 'default', name, event
+  end
+
+  debug.print('Event Registered: ' .. event .. ', ' .. name, 'listener')
 
   if not listeners[event] then
     frame:RegisterEvent(event)
     listeners[event] = {}
   end
 
-  table.insert(listeners[event], callback)
+  table.insert(listeners[event], { name = name, callback = callback })
 end
 
-function listener.unregister(event, callback)
-  debug.print('Event Unregistered: ' .. event, 'listener')
+function listener.unregister(event, name, callback)
+  if not callback then
+    name, callback = 'default', name
+  end
 
   for i = 1, #listeners[event] do
-    if listeners[event][i] == callback then
+    if listeners[event][i].name == name or listeners[event][i].callback == callback then
+      debug.print('Event Unregistered: ' .. event .. ', ' .. name, 'listener')
       table.remove(listeners[event], i)
     end
   end
