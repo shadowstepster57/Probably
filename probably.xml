@@ -104,6 +104,7 @@
   <Script file="rotations\druid\balance.lua" />
   <Script file="rotations\druid\feral.lua" />
   <Script file="rotations\druid\guardian.lua" />
+  <Script file="rotations\druid\restoration.lua" />
   <Script file="rotations\hunter\beastmastery.lua" />
   <Script file="rotations\hunter\marksmanship.lua" />
   <Script file="rotations\hunter\survival.lua" />
