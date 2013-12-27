@@ -7,7 +7,7 @@ ProbablyEngine.cycleTime = ProbablyEngine.cycleTime or 50
 
 ProbablyEngine.cycle = function(skip_verify)
 
-  local turbo = ProbablyEngine.config.data['pe_turbo']
+  local turbo = ProbablyEngine.config.read('pe_turbo', false)
   local cycle =
     IsMounted() ~= 1
     and UnitInVehicle("player") ~= 1

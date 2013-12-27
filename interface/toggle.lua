@@ -15,7 +15,7 @@ ProbablyEngine.toggle.create = function(toggle_name, icon, tooltipl1, tooltipl2)
     else
       ProbablyEngine.buttons.setInactive(toggle_name)
     end
-    ProbablyEngine.config.data['button_states'][toggle_name] = self.checked
+    ProbablyEngine.config.write('button_states', toggle_name, self.checked)
   end
   ProbablyEngine.buttons.create(toggle_name, icon, toggleCallback, tooltipl1, tooltipl2)
   ProbablyEngine.buttons.loadStates()

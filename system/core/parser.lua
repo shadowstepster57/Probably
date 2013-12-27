@@ -43,7 +43,7 @@ ProbablyEngine.turbo = {
 
 ProbablyEngine.parser.can_cast =  function(spell, unit, stopCasting)
 
-  local turbo = ProbablyEngine.config.data['pe_turbo']
+  local turbo = ProbablyEngine.config.read('pe_turbo', false)
   if turbo then
     -- Turbo Mode Engage
     local castEnds = select(6, UnitCastingInfo("player"))

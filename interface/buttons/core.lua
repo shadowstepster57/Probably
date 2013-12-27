@@ -8,7 +8,7 @@ ProbablyEngine.buttons.create('MasterToggle', nil, function(self, button)
     ProbablyEngine.toggle.states.MasterToggle = not ProbablyEngine.toggle.states.MasterToggle
     self.checked = not self.checked
     self:SetChecked(self.checked)
-    ProbablyEngine.config.data['button_states']['MasterToggle'] = self.checked
+    ProbablyEngine.config.write('button_states', 'MasterToggle', self.checked)
     if self.checked then
       _G['PE_Buttons_MasterToggleHotKey']:SetText('On')
     else

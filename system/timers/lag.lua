@@ -7,7 +7,7 @@ ProbablyEngine.timer.register("lag", function()
   local bandwidthIn, bandwidthOut, latencyHome, latencyWorld = GetNetStats()
   ProbablyEngine.lag = latencyWorld
   -- Dynamic rotation timing
-  if ProbablyEngine.config.data['pe_dynamic'] then
+  if ProbablyEngine.config.read('pe_dynamic', false) then
     if ProbablyEngine.lag < 500 then
       ProbablyEngine.cycleTime = ProbablyEngine.lag
       ProbablyEngine.timer.updatePeriod("rotation", ProbablyEngine.cycleTime)

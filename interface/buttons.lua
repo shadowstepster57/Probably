@@ -166,7 +166,7 @@ ProbablyEngine.buttons.setActive = function(name)
     if _G['PE_Buttons_'.. name].customTheme then
       _G['PE_Buttons_'.. name].customTheme()
     end
-    ProbablyEngine.config.data['button_states'][name] = true
+    ProbablyEngine.config.write('button_states', name, true)
   end
 end
 
@@ -178,7 +178,7 @@ ProbablyEngine.buttons.setInactive = function(name)
     if _G['PE_Buttons_'.. name].customTheme then
       _G['PE_Buttons_'.. name].customTheme()
     end
-    ProbablyEngine.config.data['button_states'][name] = false
+    ProbablyEngine.config.write('button_states', name, false)
   end
 end
 
@@ -209,7 +209,7 @@ ProbablyEngine.buttons.loadStates = function()
     ProbablyEngine.config.write('uishown', true)
   end
 
-  local states = ProbablyEngine.config.read('button_states', { })
+  local states = ProbablyEngine.config.read('button_states', {})
   for button, state in pairs(states) do
     if state == true then
       ProbablyEngine.buttons.setActive(button)
