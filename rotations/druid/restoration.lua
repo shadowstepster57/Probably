@@ -70,7 +70,7 @@ ProbablyEngine.rotation.register(105, {
   { "Stampeding Roar", "modifier.alt" },
 
   -- On Tank
-  { "Lifebloom", { "tank.buff(Lifebloom) <= 3", "tank.buff(Lifebloom).count <= 2" }, "focus" },
+  { "Lifebloom", { "tank.buff(Lifebloom) <= 3", "tank.buff(Lifebloom).count <= 2" }, "tank" },
   { "Rejuvenation", "tank.health <= 99", "tank" },
   { "Regrowth", "tank.health <= 65", "tank" },
   
