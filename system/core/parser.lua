@@ -70,7 +70,7 @@ ProbablyEngine.parser.can_cast =  function(spell, unit, stopCasting)
     return false
   end
 
-  local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = GetSpellInfo(spellId)
+  local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = GetSpellInfo(spellIndex, spellBook)
   local isUsable, notEnoughMana = IsUsableSpell(name)
 
   -- Savage Roar is broken as fuuuuuck
@@ -90,7 +90,7 @@ ProbablyEngine.parser.can_cast =  function(spell, unit, stopCasting)
     if UnitIsDeadOrGhost(unit) then return false end
     if SpellHasRange(spell) == 1 then
       if IsSpellInRange(spell, unit) == 0 then return false end
-      if IsHarmfulSpell(GetSpellInfo(spellId)) and not UnitCanAttack("player", unit) then return false end
+      if IsHarmfulSpell(GetSpellInfo(spellIndex, spellBook)) and not UnitCanAttack("player", unit) then return false end
     end
   end
   if UnitBuff("player", GetSpellInfo(80169)) then return false end -- Eat
