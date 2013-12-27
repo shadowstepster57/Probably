@@ -47,7 +47,7 @@ local function getGroupMembers()
 
   if IsInRaid() then
     start = 1
-  else
+  elseif groupMembers > 0 then
     groupMembers = groupMembers - 1
   end
 
