@@ -66,8 +66,9 @@ ProbablyEngine.parser.can_cast =  function(spell, unit, stopCasting)
   if not spellIndex then
     return false
   end
+  local skillType, spellId
   if spellBook ~= nil then
-    local skillType, spellId = GetSpellBookItemInfo(spellIndex, spellBook)
+    skillType, spellId = GetSpellBookItemInfo(spellIndex, spellBook)
     if skillType == 'FUTURESPELL' or not spellId then
       return false
     end
