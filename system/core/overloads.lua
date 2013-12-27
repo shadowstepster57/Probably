@@ -77,7 +77,7 @@ function GetSpellBookIndex(spell)
   if numPetSpells then
     for i = 1, numPetSpells do
       if GetSpellBookItemName(i, BOOKTYPE_PET) == spellName then
-        spellIndexCache[spellName:lower()] = { i, BOOKTYPE_SPELL }
+        spellIndexCache[spellName:lower()] = { i, BOOKTYPE_PET }
         return i, BOOKTYPE_PET
       end
     end
