@@ -5,6 +5,7 @@ local GetTime = GetTime
 local GetSpellBookIndex = GetSpellBookIndex
 local UnitCastingInfo = UnitCastingInfo
 local UnitChannelInfo = UnitChannelInfo
+local UnitName = UnitName
 
 local ProbablyEngineTempTable1 = { }
 local rangeCheck = LibStub("LibRangeCheck-2.0")
@@ -503,6 +504,7 @@ end)
 
 ProbablyEngine.condition.register('interruptsAt', function (target, spell)
   if ProbablyEngine.condition['modifier.toggle']('interrupt') then
+    if UnitName('player') == UnitName(target) then return false end
     local stopAt = tonumber(spell) or 95
     local secondsLeft, castLength = ProbablyEngine.condition['casting.delta'](target)
     if secondsLeft and 100 - (secondsLeft / castLength * 100) > stopAt then
@@ -515,6 +517,7 @@ end)
 
 ProbablyEngine.condition.register('interruptAt', function (target, spell)
   if ProbablyEngine.condition['modifier.toggle']('interrupt') then
+    if UnitName('player') == UnitName(target) then return false end
     local stopAt = tonumber(spell) or 95
     local secondsLeft, castLength = ProbablyEngine.condition['casting.delta'](target)
     if secondsLeft and 100 - (secondsLeft / castLength * 100) > stopAt then
