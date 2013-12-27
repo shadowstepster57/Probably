@@ -88,7 +88,8 @@ ProbablyEngine.timer.register("oocrotation", function()
 
     if target == nil then target = 'player' end
     if spell then
-      local name, _, icon, _, _, _, _, _, _ = GetSpellInfo(spell)
+      local _, spellID = GetSpellBookItemInfo(GetSpellBookIndex(spell))
+      local name, _, icon, _, _, _, _, _, _ = GetSpellInfo(spellID)
 
       if target ~= "ground" then
         ProbablyEngine.debug.print("Casting |T"..icon..":10:10|t ".. name .. " on ( " .. UnitName((target or 'target')) .. " )", 'spell_cast')
@@ -101,14 +102,14 @@ ProbablyEngine.timer.register("oocrotation", function()
       if target == "ground" then
         SetCVar("deselectOnClick", "0")
         CameraOrSelectOrMoveStart(1) -- this is unlocked
-        CastSpellByName(GetSpellName(name))
+        CastSpellByID(spellID)
         CameraOrSelectOrMoveStop(1) -- this isn't unlocked
         SetCVar("deselectOnClick", "1")
         if icon then
           ProbablyEngine.actionLog.insert('Ground Cast', GetSpellName(name), icon)
         end
       else
-        CastSpellByName(GetSpellName(name), target)
+        CastSpellByID(spellID, target)
         if icon then
           ProbablyEngine.actionLog.insert('Spell Cast', GetSpellName(name), icon)
         end
