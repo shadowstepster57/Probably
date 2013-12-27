@@ -1,13 +1,16 @@
 -- ProbablyEngine Rotations - https://probablyengine.com/
 -- Released under modified BSD, see attached LICENSE.
 
-ProbablyEngine.listener.register("UNIT_SPELLCAST_CHANNEL_START", function(...)
-  local unitID = ...
-  if unitID == "player" then
+local function channelStart(unitID)
+  if unitID == 'player' then
     if ProbablyEngine.module.queue.queue == name then
       ProbablyEngine.module.queue.queue = nil
     end
     ProbablyEngine.module.player.casting = true
-    ProbablyEngine.parser.lastCast = UnitCastingInfo("player")
+    ProbablyEngine.parser.lastCast = UnitCastingInfo('player')
+  elseif unitID == 'pet' then
+    ProbablyEngine.module.pet.casting = true
   end
-end)
+end
+
+ProbablyEngine.listener.register('UNIT_SPELLCAST_CHANNEL_START', channelStart)

@@ -48,6 +48,7 @@
 
   <!-- Modules -->
   <Script file="system\modules\player.lua" />
+  <Script file="system\modules\pet.lua" />
   <Script file="system\modules\target.lua" />
   <Script file="system\modules\keymanager.lua" />
   <Script file="system\modules\combat_tracker.lua" />

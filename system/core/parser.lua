@@ -2,6 +2,7 @@
 -- Released under modified BSD, see attached LICENSE.
 
 local GetSpellInfo = GetSpellInfo
+local BOOKTYPE_PET = BOOKTYPE_PET
 
 ProbablyEngine.parser = {
   lastCast = '',
@@ -98,7 +99,15 @@ ProbablyEngine.parser.can_cast =  function(spell, unit, stopCasting)
   if UnitBuff("player", GetSpellInfo(11392)) then return false end -- Invis
   if UnitBuff("player", GetSpellInfo(3680)) then return false end  -- L. Invis
 
-  if select(2, GetSpellCooldown(spell)) > 0 then return false end
+  if select(2, GetSpellCooldown(spellIndex, spellBook)) > 0 then return false end
+
+  if spellBook == BOOKTYPE_PET then
+    if not UnitExists('pet') then return false end
+    if ProbablyEngine.module.pet.casting then return false end
+    if UnitCastingInfo('pet') ~= nil then return false end
+    if UnitChannelInfo('pet') ~= nil then return false end
+    return true
+  end
 
   if stopCasting then
     SpellStopCasting()
