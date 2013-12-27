@@ -258,7 +258,7 @@ ProbablyEngine.condition.register("toggle", function(toggle, spell)
 end)
 
 ProbablyEngine.condition.register("modifier.toggle", function(toggle)
-  return ProbablyEngine.toggle.states[toggle] or false;
+  return ProbablyEngine.config.read('button_states', toggle, false)
 end)
 
 ProbablyEngine.condition.register("modifier.taunt", function()

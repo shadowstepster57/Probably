@@ -1,14 +1,10 @@
 -- ProbablyEngine Rotations - https://probablyengine.com/
 -- Released under modified BSD, see attached LICENSE.
 
-ProbablyEngine.toggle = {
-  states = { }
-}
+ProbablyEngine.toggle = {}
 
 ProbablyEngine.toggle.create = function(toggle_name, icon, tooltipl1, tooltipl2)
-  ProbablyEngine.toggle.states[toggle_name] = false
   local toggleCallback = function(self)
-    ProbablyEngine.toggle.states[toggle_name] = not ProbablyEngine.toggle.states[toggle_name]
     self.checked = not self.checked
     if self.checked then
       ProbablyEngine.buttons.setActive(toggle_name)

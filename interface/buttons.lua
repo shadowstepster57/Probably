@@ -185,11 +185,12 @@ end
 ProbablyEngine.buttons.toggle = function(name)
   if _G['PE_Buttons_'.. name] then
     local state = _G['PE_Buttons_'.. name].checked
-    _G['PE_Buttons_'.. name].checked = not state
-    _G['PE_Buttons_'.. name]:SetChecked(not state)
+    if state then
+      ProbablyEngine.buttons.setInactive(name)
+    else
+      ProbablyEngine.buttons.setActive(name)
+    end
   end
-  ProbablyEngine.config.write('button_states', name, state)
-  ProbablyEngine.toggle.states[name] = ProbablyEngine.config.read('button_states', name, state)
 end
 
 ProbablyEngine.buttons.icon = function(name, icon)
@@ -213,10 +214,8 @@ ProbablyEngine.buttons.loadStates = function()
   for button, state in pairs(states) do
     if state == true then
       ProbablyEngine.buttons.setActive(button)
-      ProbablyEngine.toggle.states[button] = true
     else
       ProbablyEngine.buttons.setInactive(button)
-      ProbablyEngine.toggle.states[button] = false
     end
   end
 end
