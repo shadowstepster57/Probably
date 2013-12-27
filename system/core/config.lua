@@ -8,9 +8,13 @@ local config = ProbablyEngine.config
 local data = {}
 
 function config.load(tbl)
-  if tbl == nil then tbl = {} end
   debug.print('Config Data Loaded', 'config')
-  data = tbl
+  if tbl == nil then
+    ProbablyEngine_ConfigData = {}
+    data = ProbablyEngine_ConfigData
+  else
+    data = tbl
+  end
 end
 
 function config.read(key, ...)
