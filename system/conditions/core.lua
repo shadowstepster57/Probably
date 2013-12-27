@@ -506,8 +506,9 @@ end)
 
 ProbablyEngine.condition.register('interruptLate', function (target, spell)
   if ProbablyEngine.condition['modifier.toggle']('interrupt') then
+    local stopAt = tonumber(spell) or 95
     local secondsLeft, castLength = ProbablyEngine.condition['casting.delta'](target)
-    if secondsLeft and 100 - (secondsLeft / castLength * 100) < spell then
+    if secondsLeft and 100 - (secondsLeft / castLength * 100) < stopAt then
       return true
     end
   end
