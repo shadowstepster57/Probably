@@ -208,7 +208,6 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
         evaluation = ProbablyEngine.library.parse(event, evaluation, target)
       elseif evaluationType == "nil" then
         evaluation = true
-        target = "target"
       end
     elseif eventType == "table" or eventType == "macro" or eventType == "item" then
       if evaluationType == "string"  then
