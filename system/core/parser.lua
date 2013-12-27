@@ -166,6 +166,7 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
       if string.sub(event, 1, 1) == '!' then
         if string.sub(event, 2, 2) == '/' then
           eventType = "macro"
+          event = string.sub(event, 2)
         else
           if string.sub(event, 2, 2) == '#' then
             eventType = "item"
@@ -175,6 +176,9 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
         end
       elseif string.sub(event, 1, 1) == '#' then
         eventType = "item"
+      elseif string.sub(event, 1, 1) == '/' then
+        eventType = "macro"
+        event = string.sub(event, 1)
       end
     end
 
@@ -264,7 +268,7 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
         local tableNestSpell, tableNestTarget = ProbablyEngine.parser.table(event, target)
         if tableNestSpell ~= false then return tableNestSpell, tableNestTarget end
       elseif eventType == "macro" then
-        RunMacroText(string.sub(event, 2))
+        RunMacroText(event)
         return false
       elseif eventType == "item" then
         if stopCasting then SpellStopCasting() end
