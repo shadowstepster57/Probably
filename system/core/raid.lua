@@ -20,7 +20,6 @@ local UnitHealthMax = UnitHealthMax
 local UnitInParty = UnitInParty
 local UnitInRange = UnitInRange
 local UnitIsConnected = UnitIsConnected
-local UnitIsDeadOrGhost = UnitIsDeadOrGhost
 local UnitIsFriend = UnitIsFriend
 local UnitUsingVehicle = UnitUsingVehicle
 
@@ -29,7 +28,6 @@ local function canHeal(unit)
      and UnitCanAssist('player', unit)
      and UnitIsFriend('player', unit)
      and UnitIsConnected(unit)
-     and not UnitIsDeadOrGhost(unit)
      and not UnitUsingVehicle(unit) then
 
      if UnitInParty(unit) and not UnitInRange(unit) then
@@ -116,7 +114,7 @@ ProbablyEngine.raid.build = function ()
     if not unitLookup[unit] then unitLookup[unit] = i end
 
     ProbablyEngine.raid.roster[i].unit = unit
-    if UnitExists(unit) and not UnitIsDeadOrGhost(unit) and UnitIsConnected(unit) then
+    if UnitExists(unit) and UnitIsConnected(unit) then
       ProbablyEngine.raid.roster[i].class = select(3, UnitClass(unit))
       ProbablyEngine.raid.roster[i].role = UnitGroupRolesAssigned(unit)
       updateHealth(i)
