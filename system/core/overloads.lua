@@ -9,12 +9,19 @@ local GetSpellInfo = GetSpellInfo
 local GetSpellLink = GetSpellLink
 local GetSpellTabInfo = GetSpellTabInfo
 local HasPetSpells = HasPetSpells
+local listener = ProbablyEngine.listener
 local stringLower = string.lower
 local stringMatch = string.match
 
 local spellCache = {}
 local spellIndexCache = {}
 local itemCache = {}
+
+function clearOverloadCache()
+  spellCache = {}
+  spellIndexCache = {}
+  itemCache = {}
+end
 
 function GetSpellID(spell)
   if type(spell) == 'number' then return spell end
