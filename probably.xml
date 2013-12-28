@@ -81,6 +81,7 @@
   <Script file="system\listeners\addon_loaded.lua" />
   <Script file="system\listeners\player_specialization_changed.lua" />
   <Script file="system\listeners\player_login.lua" />
+  <Script file="system\listeners\spells_changed.lua" />
   <Script file="system\listeners\combat_log_event_unfiltered.lua" />
   <Script file="system\listeners\group_roster_update.lua" />
   <Script file="system\listeners\unit_health_frequent.lua" />
