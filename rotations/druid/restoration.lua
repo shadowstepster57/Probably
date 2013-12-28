@@ -76,14 +76,7 @@ ProbablyEngine.rotation.register(105, {
   
   -- Basic Buffing
   { "Mark of the Wild", "!player.buff(Mark of the Wild)", "player" },
-  { "Treant Form", {
-    "!player.buff(Cat Form)", 
-    "!player.buff(Bear Form)", 
-    "!player.buff(Travel Form)", 
-    "!player.buff(Aquatic Form)", 
-    "!player.buff(Flight Form)", 
-    "!player.buff(Swift Flight Form)", 
-  }, "player" },
+  { "Treant Form", "player.form = 0" },
    
   -- Regular Healing
   { "Nature's Cure", "@coreHealing.needsDispelled()" },
