@@ -29,7 +29,7 @@ function config.read(key, ...)
   if length <= 1 then
     if data[key] then
       return data[key]
-    elseif default then
+    elseif default ~= nil then
       data[key] = default
       return data[key]
     else
@@ -56,7 +56,7 @@ function config.read(key, ...)
 
   if _key[__key] then
     return _key[__key]
-  elseif default then
+  elseif default ~= nil then
     _key[__key] = default
     return default
   end
