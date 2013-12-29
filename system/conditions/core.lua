@@ -9,6 +9,9 @@ local UnitClassification = UnitClassification
 local UnitIsDeadOrGhost = UnitIsDeadOrGhost
 local UnitIsPlayer = UnitIsPlayer
 local UnitName = UnitName
+local stringFind = string.find
+local stringLower = string.lower
+local stringGmatch = string.gmatch
 
 local ProbablyEngineTempTable1 = { }
 local rangeCheck = LibStub("LibRangeCheck-2.0")
@@ -260,6 +263,21 @@ end)
 
 ProbablyEngine.condition.register("modifier.player", function()
   return UnitIsPlayer("target") == 1
+end)
+
+ProbablyEngine.condition.register("classification", function (target, spell)
+  if not spell then return false end
+  local classification = UnitClassification(target)
+  if stringFind(spell, '[%s,]+') then
+    for classificationExpected in stringGmatch(spell, '%a+') do
+      if classification == stringLower(classificationExpected) then
+        return true
+      end
+    end
+    return false
+  else
+    return UnitClassification(target) == stringLower(spell)
+  end
 end)
 
 ProbablyEngine.condition.register('boss', function (target, spell)
