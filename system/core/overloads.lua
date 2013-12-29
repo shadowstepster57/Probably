@@ -49,7 +49,9 @@ function GetSpellName(spell)
 end
 
 function GetSpellBookIndex(spell)
-  local spellName = stringLower(GetSpellName(spell))
+  local spellName = GetSpellName(spell)
+  if not spellName then return false end
+  spellName = stringLower(spellName)
 
   local cache = spellIndexCache[spellName]
   if cache then return cache[1], cache[2] end
