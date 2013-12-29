@@ -14,7 +14,7 @@ local warn = false
 
 function locale.new(id)
   writeTo = id
-  if id ~= playerLocale then return end
+  if id ~= playerLocale and id ~= 'enUS' then return end
   if not locales[id] then locales[id] = {} end
 end
 
@@ -29,7 +29,7 @@ function locale.get(key)
 end
 
 function locale.set(key, text)
-  if writeTo ~= playerLocale then return end
+  if writeTo ~= playerLocale and writeTo ~= 'enUS' then return end
 
   if not locales[writeTo] then
     print('Error must create the following locale first:', writeTo)
