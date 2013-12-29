@@ -5,6 +5,9 @@ local GetTime = GetTime
 local GetSpellBookIndex = GetSpellBookIndex
 local UnitCastingInfo = UnitCastingInfo
 local UnitChannelInfo = UnitChannelInfo
+local UnitClassification = UnitClassification
+local UnitIsDeadOrGhost = UnitIsDeadOrGhost
+local UnitIsPlayer = UnitIsPlayer
 local UnitName = UnitName
 
 local ProbablyEngineTempTable1 = { }
@@ -199,12 +202,20 @@ ProbablyEngine.condition.register("alive", function(target, spell)
   return false
 end)
 
+ProbablyEngine.condition.register('dead', function (target)
+  return UnitIsDeadOrGhost(target)
+end)
+
 ProbablyEngine.condition.register("target", function(target, spell)
   return ( UnitGUID(target .. "target") == UnitGUID(spell) )
 end)
 
 ProbablyEngine.condition.register("player", function(target, spell)
   return UnitName('player') == UnitName(target)
+end)
+
+ProbablyEngine.condition.register("isPlayer", function (target)
+  return UnitIsPlayer(target)
 end)
 
 ProbablyEngine.condition.register("exists", function(target)
@@ -251,8 +262,15 @@ ProbablyEngine.condition.register("modifier.player", function()
   return UnitIsPlayer("target") == 1
 end)
 
-ProbablyEngine.condition.register("boss", function(target)
-  return (LibBoss[UnitId(target)] == true)
+ProbablyEngine.condition.register('boss', function (target, spell)
+  local classification = UnitClassification(target)
+  if spell == 'true' and (classification == 'rareelite' or classification == 'rare') then
+    return true
+  end
+  if classification == 'worldboss' or LibBoss[UnitId(target)] then
+    return true
+  end
+  return false
 end)
 
 ProbablyEngine.condition.register("id", function(target, id)
