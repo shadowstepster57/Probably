@@ -230,7 +230,7 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
       end
     end
 
-    if eventType == "string" then
+    if eventType == "string" or eventType == "number" then
       if evaluationType == "string"  then
         evaluation = ProbablyEngine.dsl.parse(evaluation, event)
       elseif evaluationType == "table" then

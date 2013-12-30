@@ -206,6 +206,18 @@ ProbablyEngine.dsl.get = function(condition)
   end
 end
 
+ProbablyEngine.dsl.notEval = function (condition, target, spell)
+  return function () 
+    return not ProbablyEngine.dsl.get(condition)(target, spell)
+  end
+end
+
+ProbablyEngine.dsl.eval = function (condition, target, spell)
+  return function ()
+    return ProbablyEngine.dsl.get(condition)(target, spell)
+  end
+end
+
 ProbablyEngine.dsl.register = function (condition, evaluation)
   ProbablyEngine.dsl[condition] = evaluation
 end
