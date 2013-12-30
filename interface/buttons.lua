@@ -211,12 +211,12 @@ ProbablyEngine.buttons.loadStates = function()
     ProbablyEngine.config.write('uishown', true)
   end
 
-  local states = ProbablyEngine.config.read('button_states', {})
-  for button, state in pairs(states) do
+  for name in pairs(ProbablyEngine.buttons.buttons) do
+    local state = ProbablyEngine.config.read('button_states', name, false)
     if state == true then
-      ProbablyEngine.buttons.setActive(button)
+      ProbablyEngine.buttons.setActive(name)
     else
-      ProbablyEngine.buttons.setInactive(button)
+      ProbablyEngine.buttons.setInactive(name)
     end
   end
 end

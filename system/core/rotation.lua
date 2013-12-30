@@ -167,7 +167,19 @@ ProbablyEngine.rotation.auto_unregister = function()
 end
 
 ProbablyEngine.rotation.add_buttons = function()
+  -- Default Buttons
   if ProbablyEngine.rotation.buttons[ProbablyEngine.module.player.specId] then
     ProbablyEngine.rotation.buttons[ProbablyEngine.module.player.specId]()
+  end
+
+  -- Custom Buttons
+  if ProbablyEngine.rotation.custom[ProbablyEngine.module.player.specId] then
+    for _, rotation in pairs(ProbablyEngine.rotation.custom[ProbablyEngine.module.player.specId]) do
+      if ProbablyEngine.rotation.currentStringComp == rotation.desc then
+        if rotation.buttons then
+          rotation.buttons()
+        end
+      end
+    end
   end
 end
