@@ -95,6 +95,7 @@ function GetItemID(item)
 end
 
 function UnitID(target)
+  if not target then return false end
   return tonumber(UnitGUID(target):sub(6, 10), 16)
 end
 UnitId = UnitID
