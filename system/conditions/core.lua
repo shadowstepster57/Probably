@@ -510,8 +510,15 @@ ProbablyEngine.condition.register("totem.duration", function(target, totem)
   return 0
 end)
 
-local function checkCasting(target)
+local function checkChanneling(target)
   local name, _, _, _, startTime, endTime, _, _, notInterruptible = UnitCastingInfo(target) 
+  if name then return name, startTime, endTime, notInterruptible end
+
+  return false
+end
+
+local function checkCasting(target)
+  local name, startTime, endTime, notInterruptible = checkChanneling(target)
   if name then return name, startTime, endTime, notInterruptible end
 
   local name_, _, _, _, startTime, endTime, _, notInterruptible = UnitChannelInfo(target)
@@ -534,6 +541,10 @@ ProbablyEngine.condition.register('casting.delta', function(target, spell)
     return secondsLeft, castLength
   end
   return false
+end)
+
+ProbablyEngine.condition.register('channeling', function (target, spell)
+  return checkChanneling(target)
 end)
 
 ProbablyEngine.condition.register("casting", function(target, spell)
