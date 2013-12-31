@@ -101,15 +101,17 @@ ProbablyEngine.parser.can_cast =  function(spell, unit, stopCasting)
     if not UnitExists(unit) then return false end
     if not UnitIsVisible(unit) then return false end
     if UnitIsDeadOrGhost(unit) then return false end
-    if spellBook ~= nil then
-      if SpellHasRange(spellIndex, spellBook) == 1 then
-        if IsSpellInRange(spellIndex, spellBook, unit) == 0 then return false end
-        if IsHarmfulSpell(spellIndex, spellBook) and not UnitCanAttack("player", unit) then return false end
-      end
-    else
-      if SpellHasRange(name) == 1 then
-        if IsSpellInRange(name, unit) == 0 then return false end
-        if IsHarmfulSpell(name) and not UnitCanAttack("player", unit) then return false end
+    if spellBook ~= BOOKTYPE_PET then
+      if spellBook ~= nil then
+        if SpellHasRange(spellIndex, spellBook) == 1 then
+          if IsSpellInRange(spellIndex, spellBook, unit) == 0 then return false end
+          if IsHarmfulSpell(spellIndex, spellBook) and not UnitCanAttack("player", unit) then return false end
+        end
+      else
+        if SpellHasRange(name) == 1 then
+          if IsSpellInRange(name, unit) == 0 then return false end
+          if IsHarmfulSpell(name) and not UnitCanAttack("player", unit) then return false end
+        end
       end
     end
   end
