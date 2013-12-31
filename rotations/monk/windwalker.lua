@@ -1,70 +1,184 @@
+local DSL = ProbablyEngine.dsl.get
+
+local buffs = {
+  { 'Legacy of the White Tiger', {
+    '!player.buff(Legacy of the White Tiger).any',
+    '!player.buff(Leader of the Pack).any',
+    '!player.buff(Arcane Brilliance).any',
+    '!player.buff(Dalaran Brilliance).any',
+    '!player.buff(Bellowing Roar).any',
+    '!player.buff(Furious Howl).any',
+    '!player.buff(Terrifying Roar).any',
+    '!player.buff(Fearless Roar).any',
+    '!player.buff(Still Water).any'
+  }},
+  { 'Legacy of the Emperor', {
+    '!player.buff(Legacy of the Emperor).any',
+    '!player.buff(Mark of the Wild).any',
+    '!player.buff(Blessing of Kings).any',
+    '!player.buff(Embrace of the Shale Spider).any',
+    '!player.buff(Blessing of the Forgotten Kings).any'
+  }}
+}
+
+local multitarget = {
+  { 'Rushing Jade Wind', 'modifier.cooldowns' },
+  { 'Zen Sphere', '!target.debuff(Zen Sphere)' },
+  { 'Chi Wave' },
+  { 'Chi Burst' },
+  { 'Rising Sun Kick' },
+  { 'Spinning Crane Kick', '!player.spell(Rushing Jade Wind).exists' }
+}
+
+local combatTable = {
+  { 'Touch of Death', 'player.buff(Death Note)' },
+
+  { 'Paralysis', {
+    'modifier.ctrl',
+    'mouseover.enemy',
+    '!mouseover.dead'
+  }, 'mouseover' },
+  { 'Crackling Jade Lightning', {
+    'modifier.shift',
+    'modifier.alt'
+  }},
+  { 'Healing Sphere', 'modifier.alt', 'ground' }, 
+ 
+  { "Tiger's Lust", 'target.range >= 15' },
+
+  { 'Expel Harm', { 'player.health < 80', 'player.chi <= 2' }},
+
+  { 'Fortifying Brew', {
+    'modifier.cooldowns',
+    'player.health <= 30',
+    '!player.buff(Touch of Karma)',
+    '!player.buff(Diffuse Magic)',
+    '!player.buff(Dampen Harm)'
+  }},
+
+  { 'Diffuse Magic', {
+    'player.health <= 45',
+    '!player.buff(Fortifying Brew)',
+    '!player.buff(Touch of Karma)',
+    '!player.buff(Dampen Harm)'
+  }},
+
+  { 'Dampen Harm', {
+    'player.health <= 45',
+    '!player.buff(Fortifying Brew)',
+    '!player.buff(Touch of Karma)',
+    '!player.buff(Diffuse Magic)'
+  }},
+
+  { 'Touch of Karma', {
+    'player.health <= 50',
+    '!player.buff(Fortifying Brew)',
+    '!player.buff(Dampen Harm)',
+    '!player.buff(Diffuse Magic)'
+  }},
+
+  {{
+    { 'Charging Ox Wave', {
+      '!target.debuff(Spear Hand Strike)',
+      'player.spell(Spear Hand Strike).cooldown < 11',
+      'player.spell(Spear Hand Strike).cooldown > 0'
+    } },
+    { 'Leg Sweep', {
+      '!target.debuff(Spear Hand Strike)',
+      'player.spell(Spear Hand Strike).cooldown < 11',
+      'player.spell(Spear Hand Strike).cooldown > 0'
+    } },
+    { 'Spear Hand Strike', {
+      '!target.debuff(Charging Ox Wave)',
+      '!target.debuff(Leg Sweep)',
+      'player.spell(Charging Ox Wave).cooldown < 27',
+      'player.spell(Charging Ox Wave).cooldown > 0',
+      'player.spell(Leg Sweep).cooldown < 40',
+      'player.spell(Leg Sweep).cooldown > 0'
+    } },
+    { 'Spear Hand Strike', {
+      '!target.debuff(Charging Ox Wave)',
+      '!target.debuff(Leg Sweep)',
+      'player.spell(Charging Ox Wave).cooldown = 0',
+      'player.spell(Leg Sweep).cooldown = 0'
+    } },
+  }, 'target.interruptsAt(20)' },
+
+  { 'Chi Brew', {
+    'player.chi <= 2',
+    'player.spell(Chi Brew).charges = 1',
+    'player.spell(Chi Brew).recharge <= 10'
+  }},
+  { 'Chi Brew', {
+    'player.chi <= 2',
+    'player.spell(Chi Brew).charges = 2'
+  }},
+  { 'Chi Brew', {
+    'player.chi <= 2',
+    'target.ttd < 10'
+  }},
+  { 'Tiger Palm', 'player.buff(Tiger Power).duration <= 3' },
+  { 'Tigereye Brew', {
+    '!player.buff(116740)',
+    'player.spell(Rising Sun Kick).cooldown = 0',
+    'player.chi >= 2',
+    'target.debuff(Rising Sun Kick)',
+    'player.buff(Tiger Power)',
+    'player.buff(125195).count >= 15',
+  }},
+  { 'Tigereye Brew', {
+    '!player.buff(116740)',
+    'player.spell(Rising Sun Kick).cooldown = 0',
+    'player.chi >= 2',
+    'target.debuff(Rising Sun Kick)',
+    'player.buff(Tiger Power)',
+    'target.ttd < 40'
+  }},
+  { 'Energizing Brew', 'player.timetomax > 5' },
+  { 'Rising Sun Kick', '!target.debuff(Rising Sun Kick)' },
+  { 'Tiger Palm', {
+    '!player.buff(Tiger Power)',
+    'target.debuff(Rising Sun Kick).duration > 1',
+    'player.timetomax > 1'
+  }},
+  { 'Invoke Xuen, the White Tiger', 'modifier.cooldowns' },
+
+  { multitarget, 'modifier.shift' },
+  { multitarget, 'modifier.multitarget' },
+
+  { 'Rising Sun Kick' },
+  { 'Fists of Fury', {
+    '!player.buff(Energizing Brew)',
+    'player.timetomax > 4',
+    'player.buff(Tiger Power).duration > 4'
+  }},
+  { 'Chi Wave', 'player.timetomax > 2' },
+  { 'Chi Burst', 'player.timetomax > 2' },
+  { 'Zen Sphere', {
+    'player.timetomax > 2',
+    '!target.debuff(Zen Sphere)'
+  }},
+  { 'Blackout Kick', 'player.buff(Combo Breaker: Blackout Kick)' },
+  { 'Tiger Palm', {
+    'player.buff(Combo Breaker: Tiger Palm)',
+    'player.buff(Combo Breaker: Tiger Palm).duration <= 2',
+    'player.timetomax >= 2',
+  }},
+
+  { 'Jab', { 'player.chi <= 2', '!player.spell(Ascension).exists' }},
+  { 'Jab', { 'player.chi <= 3', 'player.spell(Ascension).exists' }},
+
+  { 'Blackout Kick', function ()
+    return DSL('energy')('player') + select(2, GetPowerRegen('player')) * DSL('spell.cooldown')('player', 'Rising Sun Kick') >= 40
+  end }
+}
+
+local outOfCombatTable = {
+}
+for _, buff in pairs(buffs) do
+  combatTable[#combatTable + 1] = buff
+  outOfCombatTable[#outOfCombatTable + 1] = buff
+end
+
 -- SPEC ID 269
-ProbablyEngine.rotation.register(269, {
-
-  -- Get Fucked Button
-  { "Touch of Death", "player.buff(Death Note)" },
-
-  -- Interrupts
-  { "Spear Hand Strike", "modifier.interrupts" },
-  { "Grapple Weapon", "modifier.interrupts" },
-  { "Leg Sweep", "modifier.interrupts", "target.range <= 5" },
-
-  -- Survival
-  { "Expel Harm", "player.health < 80" },
-  { "Fortifying Brew", "player.health <= 30" },
-  { "Touch of Karma", "player.health <= 50" },
-  { "Nimble Brew", "player.state.fear" },
-  { "Nimble Brew", "player.state.stun" },
-  { "Nimble Brew", "player.state.root" },
-  { "Nimble Brew", "player.state.horror" },
-  { "Dampen Harm", "player.health <= 45" },
-  { "Diffuse Magic", "player.health <= 45" },
-  
-  -- Keybinds
-  { "Paralysis", "modifier.shift", "mouseover" },
-  { "Healing Sphere", "modifier.alt", "ground" }, 
-  { "Crackling Jade Lightning", "modifier.control", "target" },
-  
-  -- Cooldowns
-  { "Invoke Xuen: The White Tiger", "modifier.cooldowns" },
-  
-  -- Talents
-  { "Chi Wave" },
-  { "Zen Sphere", "!player.buff(Zen Sphere)", "player" },
-  { "Chi Burst" },
-  { "Invoke Xuen, the White Tiger" },
-  { "Tiger's Lust", "target.range >= 15" },
-  
-  -- Multi-Target
-  { "Rushing Jade Wind", "modifier.multitarget" },
-  { "Spinning Crane Kick", "modifier.multitarget" },
-  { "Fists of Fury", "modifier.multitarget", "player.energy < 30", "target.range <= 8", "player.chi >= 3" },
-  
-  --Brews
-  { "Energizing Brew", "player.energy <= 45" },
-  { "Tigereye Brew", "player.buff(Tigereye Brew).count >= 10" },
-  { "Chi Brew", "player.chi <= 1" },
-  
-  -- Rotation
-  { "Jab" },
-  { "Rising Sun Kick" },
-  { "Tiger Palm", "player.buff(Tiger Power).duration <= 2" },
-  { "Tiger Palm", "player.buff(Combo Breaker: Tiger Palm)" },
-  { "Blackout Kick", "player.buff(Combo Breaker: Blackout Kick)" },
-  { "Blackout Kick", { "player.chi >= 2", "target.debuff(Rising Sun Kick)", "player.buff(Tiger Power)"} },
-  { "Fists of Fury", "player.energy < 30", "target.range <= 8" },
-  },
-  { 
-  { "Expel Harm", "player.health < 80" },
-  { "Fortifying Brew", "player.health <= 30" },
-  { "Touch of Karma", "player.health <= 50" },
-  
-  -- Keybinds
-  { "Paralysis", "modifier.shift", "mouseover" },
-  { "Healing Sphere", "modifier.alt", "ground" }, 
-  { "Crackling Jade Lightning", "modifier.control", "target" },
-  
-  -- Buffs
-  { "Legacy of the White Tiger", "!player.buff(Legacy of the White Tiger)" },
-  { "Legacy of the Emperor", "!player.buff(Legacy of the Emperor)" },
-  })
+ProbablyEngine.rotation.register(269, combatTable, outOfCombatTable)
