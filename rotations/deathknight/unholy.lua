@@ -20,7 +20,6 @@ ProbablyEngine.rotation.register(252, {
   { "Icebound Fortitude", "player.health <= 50" },
   { "Conversion", "player.health <= 55" },
   
-  
   -- Interrupts
   
   { "Asphyxiate", {"modifier.interrupt", "target.casting", "player.spell(Asphyxiate).exists"} },
@@ -50,16 +49,14 @@ ProbablyEngine.rotation.register(252, {
   }},
   
   -- Rotation
-  
-  { "Outbreak", "!target.debuff(Frost Fever)" },
-  { "Icy Touch", "target.debuff(Frost Fever).duration < 4" },
-  { "Plague Strike", "target.debuff(Blood Plague).duration < 4" },
+  { "Dark Transformation" },
+  { "Outbreak", "!target.debuff(Frost Fever)", "!target.debuff(Blood Plague)" },
+  { "Plague Strike", "target.debuff(Blood Plague).duration < 4", "target.debuff(Frost Fever).duration < 4" },
   { "Soul Reaper", "target.health < 35" },
   { "Death Coil", "player.buff(Sudden Doom)" },
-  { "Scourge Strike" },
   { "Festering Strike" },
-  { "Death Coil", "player.runicpower > 90"},
-  { "Blood Strike" },
+  { "Scourge Strike" },
+  { "Death Coil" },
 
 },{
   { "Path of Frost", "!player.buff(Path of Frost)" },
