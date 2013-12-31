@@ -55,7 +55,7 @@ ProbablyEngine.rotation.register(105, {
   { "Tranquility", "player.buff(Incarnation: Tree of Life)", "@coreHealing.needsHealing(55, 4)" },
   
   -- Because Fuck Wild Mushrooms
-  { "Wild Mushroom", "!tank.dead", "ground" },
+{ "Wild Mushroom", {"!player.spell(Wild Mushroom).casted = 1", "!modifier.last(Wild Mushroom)", "!tank.dead"}, "tank" },
 }, 
 {
   -- Out of Combat
