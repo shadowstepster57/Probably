@@ -23,13 +23,13 @@ ProbablyEngine.rotation.register(105, {
 
   -- On Tank
   { "Lifebloom", { "tank.buff(Lifebloom) <= 3", "tank.buff(Lifebloom).count <= 2" }, "tank" },
-  { "Rejuvenation", "tank.health <= 99", "tank" },
+  { "Rejuvenation", "!tank.buff(Rejuvenation)", "tank.health <= 99", "tank" },
   { "Regrowth", "tank.health <= 65", "tank" },
   { "Ironbark", "tank.health <= 75", "tank" },
   
   -- Regular Healing
   { "Nature's Cure", "@coreHealing.needsDispelled()" },
-  { "Rejuvenation", "lowest.health <= 85", "lowest" },
+  { "Rejuvenation", "!lowest.buff(Rejuvenation)", "lowest.health <= 85", "lowest" },
   { "Healing Touch", "lowest.health <= 65", "lowest" },
   { "Wild Growth", "@coreHealing.needsHealing(75, 5)", "lowest" },
   { "Regrowth", "lowest.health <= 50", "lowest" },
@@ -73,7 +73,7 @@ ProbablyEngine.rotation.register(105, {
    
   -- Regular Healing
   { "Nature's Cure", "@coreHealing.needsDispelled()" },
-  { "Rejuvenation", "lowest.health <= 85", "lowest" },
+  { "Rejuvenation", "!lowest.buff(Rejuvenation)", "lowest.health <= 85", "lowest" },
   { "Healing Touch", "lowest.health <= 65", "lowest" },
   { "Wild Growth", "@coreHealing.needsHealing(75, 5)", "lowest" },
   { "Regrowth", "lowest.health <= 50", "lowest" },
