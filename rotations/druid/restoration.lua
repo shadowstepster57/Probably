@@ -1,38 +1,41 @@
 -- SPEC ID 105 (Restoration)
 ProbablyEngine.rotation.register(105, {
+
+  --Screw bear form
+  { "/cancelform", "player.buff(Bear Form)" },
+  
   -- Keybinding
   { "Wild Mushroom: Bloom", "modifier.control" }, 
-  { "Genesis", "modifier.shift" },
+  { "Genesis", "modifier.shift", "!modifier.last(Genesis)" },
   { "Stampeding Roar", "modifier.alt" },
   
   -- Mouseover
-  { "Rebirth", "!mouseover.alive", "mouseover" },
+  { "Rebirth", "mouseover.dead", "mouseover" },
   { "Rejuvenation", "mouseover.health <= 85", "mouseover" },
   
   -- Basic Buffing
-  { "Mark of the Wild", "!player.buff(Mark of the Wild)", "player" },
+  { "Mark of the Wild", { "!player.buff(Mark of the Wild).any", "!player.buff(Blessing of Kings).any", "!player.buff(Legacy of the Emperor).any" }},
   { "Treant Form", "player.form = 0" },
   
   -- Survival on Self
   { "Renewal", "player.health <= 30" },
+  { "Might of Ursoc", "player.health <= 50" },
   { "Cenarion Ward", "player.health < 75", "player" },
   { "Barkskin", "player.health <= 80", "player" },
   { "Innervate", "player.mana <= 75", "player" },
-  { "Might of Ursoc", "player.health <= 50" },
-  { "/cancelaura Bear Form", "player.buff(Might of Ursoc)" },
 
   -- On Tank
-  { "Lifebloom", { "tank.buff(Lifebloom) <= 3", "tank.buff(Lifebloom).count <= 2" }, "tank" },
-  { "Rejuvenation", "!tank.buff(Rejuvenation)", "tank.health <= 99", "tank" },
-  { "Regrowth", "tank.health <= 65", "tank" },
+  { "Regrowth", { "tank.health <= 65", "tank.buff(Regrowth)", }, "tank" },
   { "Ironbark", "tank.health <= 75", "tank" },
+  { "Lifebloom", { "tank.buff(Lifebloom) <= 3", "tank.buff(Lifebloom).count <= 2" }, "tank" },
+  { "Rejuvenation", "tank.health <= 99", "tank" },
   
   -- Regular Healing
-  { "Nature's Cure", "@coreHealing.needsDispelled()" },
-  { "Rejuvenation", "!lowest.buff(Rejuvenation)", "lowest.health <= 85", "lowest" },
+  --{ "Nature's Cure", "@coreHealing.needsDispelled()" },
+  { "Regrowth", { "lowest.health <= 50", "!lowest.buff(Regrowth)" }, "lowest" },
   { "Healing Touch", "lowest.health <= 65", "lowest" },
+  { "Rejuvenation", "lowest.health <= 85", "lowest" },
   { "Wild Growth", "@coreHealing.needsHealing(75, 5)", "lowest" },
-  { "Regrowth", "lowest.health <= 50", "lowest" },
   { "Swiftmend", "lowest.health <= 80", "lowest.buff(Rejuvenation)", "lowest" },
   { "Swiftmend", "lowest.health <= 80", "lowest.buff(Regrowth)", "lowest" },
   
@@ -52,14 +55,14 @@ ProbablyEngine.rotation.register(105, {
   { "Tranquility", "player.buff(Incarnation: Tree of Life)", "@coreHealing.needsHealing(55, 4)" },
   
   -- Because Fuck Wild Mushrooms
-  { "Wild Mushroom", "tank" },
+  { "Wild Mushroom", "!tank.dead", "ground" },
 }, 
 {
   -- Out of Combat
   
   -- Keybinds
   { "Travel Form", "modifier.control" }, 
-  { "Genesis", "modifier.shift" },
+  { "Genesis", "modifier.shift", "!modifier.last(Genesis)" },
   { "Stampeding Roar", "modifier.alt" },
 
   -- On Tank
@@ -68,12 +71,12 @@ ProbablyEngine.rotation.register(105, {
   { "Regrowth", "tank.health <= 65", "tank" },
   
   -- Basic Buffing
-  { "Mark of the Wild", "!player.buff(Mark of the Wild)", "player" },
+  { "Mark of the Wild", { "!player.buff(Mark of the Wild).any", "!player.buff(Blessing of Kings).any", "!player.buff(Legacy of the Emperor).any" }},
   { "Treant Form", "player.form = 0" },
    
   -- Regular Healing
-  { "Nature's Cure", "@coreHealing.needsDispelled()" },
-  { "Rejuvenation", "!lowest.buff(Rejuvenation)", "lowest.health <= 85", "lowest" },
+  --{ "Nature's Cure", "@coreHealing.needsDispelled()" },
+  { "Rejuvenation", "lowest.health <= 85", "lowest" },
   { "Healing Touch", "lowest.health <= 65", "lowest" },
   { "Wild Growth", "@coreHealing.needsHealing(75, 5)", "lowest" },
   { "Regrowth", "lowest.health <= 50", "lowest" },
