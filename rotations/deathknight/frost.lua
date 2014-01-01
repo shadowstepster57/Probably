@@ -33,10 +33,7 @@ ProbablyEngine.rotation.register(251, {
   
   -- Goblins
   { "Rocket Barrage", "player.moving" },
-  
-  -- _,-=%Pandaren%=-,_ --
-  { "Quaking Palm", "modifier.interrupts" },
-  
+
     -- Survival
     -- Death Pact Macro
     { "!/cast Raise Dead\n/cast Death Pact", {
