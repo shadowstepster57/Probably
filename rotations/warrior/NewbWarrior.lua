@@ -1,7 +1,9 @@
 -- Class ID 1 - The Cannon Fodder
 ProbablyEngine.rotation.register(1, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -37,6 +39,14 @@ ProbablyEngine.rotation.register(1, {
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
   
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
+  
   -- Keybinds
   { "Throw", "modifier.control" },
   { "Charge", "modifier.shift" },
@@ -47,5 +57,10 @@ ProbablyEngine.rotation.register(1, {
   -- Rotation
   { "Execute" },
   { "Heroic Strike" },
+  
+  ------------------
+  -- End Rotation --
+  ------------------
+  
   }
 )

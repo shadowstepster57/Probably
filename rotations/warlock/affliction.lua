@@ -1,7 +1,9 @@
 -- Class ID 9 - The OP
 ProbablyEngine.rotation.register(265, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -26,6 +28,14 @@ ProbablyEngine.rotation.register(265, {
   
   -- Goblins
   { "Rocket Barrage", "player.moving" },
+  
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
 
   -- Curses
   { "Curse of the Elements", "!target.debuff(Curse of the Elements)" },
@@ -44,4 +54,9 @@ ProbablyEngine.rotation.register(265, {
   { "Haunt", "!target.debuff(Haunt)" },
   { "Drain Soul", "target.health <= 20" },
   { "Malefic Grasp" },
+  
+  ------------------
+  -- End Rotation --
+  ------------------
+  
 })

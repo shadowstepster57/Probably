@@ -1,7 +1,9 @@
 -- SPEC ID 254
 ProbablyEngine.rotation.register(254, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -32,6 +34,14 @@ ProbablyEngine.rotation.register(254, {
   
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
+  
+  -----------------
+  -- End Racials --
+  -----------------
+
+  --------------------
+  -- Start Rotation --
+  --------------------
   
   -- Pet
   { "!/cast [@pet,dead] Revive Pet; Call Pet 1", "!pet.alive" },
@@ -87,5 +97,10 @@ ProbablyEngine.rotation.register(254, {
     { "Arcane Shot", "player.focus >= 65" },
     { "Steady Shot" }
   }, "target.health < 80"}
+  
+  ------------------
+  -- End Rotation --
+  ------------------
+  
   }
 )

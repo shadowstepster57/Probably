@@ -1,7 +1,9 @@
 -- SPEC ID 268 Brewmaster
 ProbablyEngine.rotation.register(268, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -33,6 +35,14 @@ ProbablyEngine.rotation.register(268, {
  
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
+  
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
   
   -- Get Fucked Button
   { "Touch of Death", "player.buff(Death Note)" },
@@ -82,11 +92,25 @@ ProbablyEngine.rotation.register(268, {
   { "Tiger Palm", "player.buff(Tiger Power).duration < 4" },
   { "Blackout Kick" },
   { "Jab" },
-},{
+
+  ------------------
+  -- End Rotation --
+  ------------------
+  
+  },{
+  
+  ---------------
+  -- OOC Begin --
+  ---------------
+  
   -- Buffs
   { "Legacy of the Emperor", "!player.buff(Legacy of the Emperor)" },
   
   -- Ground Stuff
   { "Dizzying Haze", "modifier.shift", "ground" },
   { "Summon Black Ox Statue", "modifier.control", "ground" },
+
+  -------------
+  -- OOC End --
+  -------------
 })

@@ -1,7 +1,9 @@
 -- SPEC ID 263
 ProbablyEngine.rotation.register(263, {
 
-    -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -16,6 +18,14 @@ ProbablyEngine.rotation.register(263, {
   
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
+  
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
   
   -- Buffs
   { "Windfury Weapon", "!player.enchant.mainhand" },
@@ -61,8 +71,16 @@ ProbablyEngine.rotation.register(263, {
   { "Lava Lash" },
   { "Earth Shock" },
   
+  ------------------
+  -- End Rotation --
+  ------------------
+  
 }, {
 
+  ---------------
+  -- OOC Begin --
+  ---------------
+  
   -- Buffs
   { "Windfury Weapon", "!player.enchant.mainhand" },
   { "Flametongue Weapon", "!player.enchant.offhand" },
@@ -70,6 +88,10 @@ ProbablyEngine.rotation.register(263, {
 
   -- Heal
   { "Healing Stream Totem", "player.health < 100" },
+  
+  -------------
+  -- OOC End --
+  -------------
 
 }, function()
   ProbablyEngine.toggle.create('totems', 'Interface\\ICONS\\ability_shaman_totemrelocation', 'Totems', 'Toggle the placement of totems.')

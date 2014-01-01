@@ -1,7 +1,9 @@
 -- SPEC ID 70
 ProbablyEngine.rotation.register(70, {
   
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -13,6 +15,14 @@ ProbablyEngine.rotation.register(70, {
   { "Every Man for Himself", "player.state.incapacitate" },
   { "Every Man for Himself", "player.state.sleep" },
   { "Every Man for Himself", "player.state.stun" },
+  
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
   
   --Cooldowns
   { "Avenging Wrath", { "modifier.cooldowns", "player.buff(Inquisition)" } },
@@ -61,10 +71,21 @@ ProbablyEngine.rotation.register(70, {
   { "Templar's Verdict", "!modifier.multitarget" },
   { "Divine Storm", "modifier.multitarget" },
   
-  }, {
+  ------------------
+  -- End Rotation --
+  ------------------
   
-  -- OOC
+  },{
+  
+  ---------------
+  -- OOC Begin --
+  ---------------
+  
   { "Blessing of Might", "!player.buff(Blessing of Might)" },
 	
+  -------------
+  -- OOC End --
+  -------------
+  
 })
      

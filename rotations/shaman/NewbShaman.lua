@@ -1,7 +1,9 @@
 -- Class ID 7 - The Naturalist
 ProbablyEngine.rotation.register(7, {
 
-    -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -17,6 +19,14 @@ ProbablyEngine.rotation.register(7, {
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
   
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
+  
   -- Buffs
   { "Lightning Shield", "!player.buff(Lightning Shield)" },
 
@@ -27,6 +37,10 @@ ProbablyEngine.rotation.register(7, {
   { "Primal Strike" },
   { "Earth Shock" },
   { "Lightning Bolt" },
+  
+  ------------------
+  -- End Rotation --
+  ------------------
   
   }
 )

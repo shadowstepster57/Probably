@@ -1,7 +1,9 @@
 -- SPEC ID 250
 ProbablyEngine.rotation.register(250, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -29,6 +31,14 @@ ProbablyEngine.rotation.register(250, {
   
   -- Goblins
   { "Rocket Barrage", "player.moving" },
+  
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
   
   -- Keybinds
   { "Death and Decay", "modifier.shift", "ground" },
@@ -82,7 +92,31 @@ ProbablyEngine.rotation.register(250, {
   { "Soul Reaper", "player.runes(blood).count >= 1", "target.health < 35" },
   { "Death Strike", "!modifier.last(Death Strike)" },
   { "Rune Strike", "player.runicpower >= 40" },
-},
+  
+  ------------------
+  -- End Rotation --
+  ------------------
+  
+},{
+  
+  ---------------
+  -- OOC Begin --
+  ---------------
+  
+    -- Buffs
+  { "Horn of Winter" },
+  { "Path of Frost", "!player.buff(Path of Frost).any" },
+  { "Bone Shield", "player.buff(Bone Shield).charges < 1" },
+  
+  -- Keybinds
+  { "Army of the Dead", "modifier.alt" },
+  { "Death Grip", "modifier.control" },
+  
+  -------------
+  -- OOC End --
+  -------------
+  
+  },
  function ()
   ProbablyEngine.toggle.create('tc', 'Interface\\Icons\\ability_deathwing_bloodcorruption_death', 'Threat Control', '')
   end)

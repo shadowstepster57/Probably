@@ -1,11 +1,22 @@
 -- SPEC ID 105 (Restoration)
 ProbablyEngine.rotation.register(105, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
+  
   -- Night Elves
   { "Shadowmeld", "target.threat >= 80" },
   { "Shadowmeld", "focus.threat >= 80"}, 
 
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
+  
   --Screw bear form
   { "/cancelform", "player.buff(Bear Form)" },
   
@@ -67,9 +78,16 @@ ProbablyEngine.rotation.register(105, {
   -- Because Healing is not enough?
   { "Genesis", { "lowest.health <= 70", "!player.spell(Genesis).casted = 1", "lowest.buff(Rejuvenation)", "lowest.buff(Regrowth)", "lowest.buff(Wild Growth)", "!lowest.dead", "lowest.range <= 40" }},
   
-}, 
-{
-  -- Out of Combat
+  ------------------
+  -- End Rotation --
+  ------------------
+  
+  },{
+  
+  ---------------
+  -- OOC Begin --
+  ---------------
+  
   -- Keybinds
   {{
   { "Travel Form", "modifier.control" },
@@ -95,4 +113,9 @@ ProbablyEngine.rotation.register(105, {
   { "Swiftmend", { "lowest.health <= 80", "lowest.buff(Rejuvenation)", "!lowest.dead", "lowest.range <= 40" }, "lowest" },
   { "Swiftmend", { "lowest.health <= 80", "lowest.buff(Regrowth)", "!lowest.dead", "lowest.range <= 40" }, "lowest" },
   }, { "!player.buff(Bear Form)", "!player.buff(Cat Form)", "!player.buff(Flight Form)", "!player.buff(Swift Flight Form)", "!player.buff(Travel Form)", "!player.buff(Aquatic Form)" }}
+  
+  -------------
+  -- OOC End --
+  -------------
+  
 })

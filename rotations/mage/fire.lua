@@ -1,7 +1,9 @@
 -- SPEC ID 63
 ProbablyEngine.rotation.register(63, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -36,6 +38,14 @@ ProbablyEngine.rotation.register(63, {
   
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
+  
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
   
   -- Cooldowns
   { "45438", {"modifier.cooldowns", "player.health <= 30"} }, -- Ice Block
@@ -74,6 +84,22 @@ ProbablyEngine.rotation.register(63, {
   { "44457", "target.debuff(44457).duration <= 3" }, -- Living Bomb
   { "2948", "player.moving" }, -- Scorch
   { "133" } -- Fireball
-  },
-{{ "1459", "!player.buff" }, -- Arcane Brilliance
- { "30482", "!player.buff(30482)" },}) -- Molten Armor
+
+  ------------------
+  -- End Rotation --
+  ------------------
+  
+  },{
+  
+  ---------------
+  -- OOC Begin --
+  ---------------
+  
+  { "1459", "!player.buff" }, -- Arcane Brilliance
+  { "30482", "!player.buff(30482)" }
+  
+  -------------
+  -- OOC End --
+  -------------
+  
+  }) -- Molten Armor

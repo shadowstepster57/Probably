@@ -1,7 +1,9 @@
 -- Class ID 9 - The OP
 ProbablyEngine.rotation.register(9, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -26,6 +28,14 @@ ProbablyEngine.rotation.register(9, {
   
   -- Goblins
   { "Rocket Barrage", "player.moving" },
+  
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
 
   -- Mouseover
   { "Corruption", {"modifier.shift", "!mouseover.debuff(Corruption)"}, "mouseover" },
@@ -36,5 +46,9 @@ ProbablyEngine.rotation.register(9, {
   -- Rotation
   { "Corruption", "!target.debuff(Corruption)" },
   { "Shadow Bolt" },
+  
+  ------------------
+  -- End Rotation --
+  ------------------
   }
 )

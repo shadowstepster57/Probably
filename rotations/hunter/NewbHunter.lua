@@ -1,7 +1,9 @@
 -- Class ID 3 - Huntard
 ProbablyEngine.rotation.register(3, {
   
-    -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -33,9 +35,21 @@ ProbablyEngine.rotation.register(3, {
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
   
+  -----------------
+  -- End Racials --
+  -----------------
+
+  --------------------
+  -- Start Rotation --
+  --------------------
+  
   -- Fucking Easy...
   { "Concussive Shot" },
   { "Arcane Shot" },
   { "Steady Shot" },
+  
+  ------------------
+  -- End Rotation --
+  ------------------
   
   } )

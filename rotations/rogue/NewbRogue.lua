@@ -1,7 +1,9 @@
 -- Class ID 4 - 1337 P14Y3R
-ProbablyEngine.rotation.register(8, {
+ProbablyEngine.rotation.register(4, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -34,6 +36,14 @@ ProbablyEngine.rotation.register(8, {
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
   
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
+  
   -- Keybinds
   { "Throw", "modifier.shift" },
   
@@ -47,4 +57,13 @@ ProbablyEngine.rotation.register(8, {
   -- Rotation
   { "Eviscerate", "player.combopoints >= 4" },
   { "Sinister Strike" },
+<<<<<<< HEAD
+  
+  ------------------
+  -- End Rotation --
+  ------------------
+  
+)
+=======
 })
+>>>>>>> 7fba4f6c4b3c26ae7a30966768482c8fb507696c

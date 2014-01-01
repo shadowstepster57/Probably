@@ -1,7 +1,9 @@
 -- SPEC ID 66
 ProbablyEngine.rotation.register(66, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -13,6 +15,14 @@ ProbablyEngine.rotation.register(66, {
   { "Every Man for Himself", "player.state.incapacitate" },
   { "Every Man for Himself", "player.state.sleep" },
   { "Every Man for Himself", "player.state.stun" },
+  
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
   
   -- Seals
   { "Seal of Righteousness", { "modifier.multitarget", "player.seal != 2" }},
@@ -63,9 +73,21 @@ ProbablyEngine.rotation.register(66, {
   { "Judgment" },
   { "Crusader Strike" },
   
+  ------------------
+  -- End Rotation --
+  ------------------
+  
   },{
   
-  -- OOC Buffing
-    { "Blessing of Might", "!player.buff(Blessing of Might)" },
-    { "Righteous Fury",    "!player.buff(Righteous Fury)" },
+  ---------------
+  -- OOC Begin --
+  ---------------
+  
+  { "Blessing of Might", "!player.buff(Blessing of Might)" },
+  { "Righteous Fury",    "!player.buff(Righteous Fury)" },
+  
+  -------------
+  -- OOC End --
+  -------------
+  
 })

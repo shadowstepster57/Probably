@@ -1,7 +1,9 @@
 -- SPEC ID 267
 ProbablyEngine.rotation.register(267, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -26,6 +28,14 @@ ProbablyEngine.rotation.register(267, {
   
   -- Goblins
   { "Rocket Barrage", "player.moving" },
+  
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
 
   { "Dark Intent", "!player.buff" },
   { "Curse of the Elements", "!target.debuff" },
@@ -55,9 +65,16 @@ ProbablyEngine.rotation.register(267, {
   },{ "player.moving" }},
   { "Incinerate",{ "!player.moving", "!player.spell(Kil'jaeden's Cunning).exists" }}
   
+  ------------------
+  -- End Rotation --
+  ------------------
+  
 },{
 
-  -- OOC
+  ---------------
+  -- OOC Begin --
+  ---------------
+  
   { "Dark Intent", "!player.buff" },
   {{
   { "Summon Felhunter",{ "!modifier.last(Summon Felhunter)", "!player.spell(Grimoire of Supremacy).exists" }},
@@ -65,4 +82,9 @@ ProbablyEngine.rotation.register(267, {
   },{ "!player.moving", "!pet.exists" }},
   
   { "Grimoire of Sacrifice",{ "player.spell(Grimoire of Sacrifice).exists", "!player.buff", "pet.exists" }}
+  
+  -------------
+  -- OOC End --
+  -------------
+  
 })

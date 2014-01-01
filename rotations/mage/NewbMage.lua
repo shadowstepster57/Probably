@@ -1,7 +1,9 @@
 -- Class ID 8 - Table / Portal Machine
 ProbablyEngine.rotation.register(8, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -37,6 +39,14 @@ ProbablyEngine.rotation.register(8, {
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
   
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
+  
   -- Blink
   { "Blink", "modifier.shift" },
 
@@ -50,5 +60,8 @@ ProbablyEngine.rotation.register(8, {
   { "Fire Blast" },
   { "Frostfire Bolt" },
   
+  ------------------
+  -- End Rotation --
+  ------------------
   }
 )

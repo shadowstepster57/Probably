@@ -1,7 +1,9 @@
 -- SPEC ID 269
 ProbablyEngine.rotation.register(269, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -33,6 +35,14 @@ ProbablyEngine.rotation.register(269, {
   
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
+
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
   
   -- Get Fucked Button
   { "Touch of Death", "player.buff(Death Note)" },
@@ -86,8 +96,17 @@ ProbablyEngine.rotation.register(269, {
   { "Blackout Kick", "player.buff(Combo Breaker: Blackout Kick)" },
   { "Blackout Kick", { "player.chi >= 2", "target.debuff(Rising Sun Kick)", "player.buff(Tiger Power)"} },
   { "Fists of Fury", "player.energy < 30", "target.range <= 8" },
-  },
-  { 
+  
+  ------------------
+  -- End Rotation --
+  ------------------
+  
+  },{ 
+  
+  ---------------
+  -- OOC Begin --
+  ---------------
+  
   { "Expel Harm", "player.health < 80" },
   { "Fortifying Brew", "player.health <= 30" },
   { "Touch of Karma", "player.health <= 50" },
@@ -100,4 +119,8 @@ ProbablyEngine.rotation.register(269, {
   -- Buffs
   { "Legacy of the White Tiger", "!player.buff(Legacy of the White Tiger)" },
   { "Legacy of the Emperor", "!player.buff(Legacy of the Emperor)" },
+
+  -------------
+  -- OOC End --
+  -------------
   })

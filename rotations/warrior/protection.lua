@@ -1,7 +1,9 @@
 -- SPEC ID 73
 ProbablyEngine.rotation.register(73, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -33,6 +35,14 @@ ProbablyEngine.rotation.register(73, {
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
   
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
+  
   -- Buffs
   { "Berserker Rage" },
 
@@ -47,8 +57,9 @@ ProbablyEngine.rotation.register(73, {
   { "Shield Block", "!player.buff(Shield Block)" },
   { "Shield Barrier", { "!player.buff(Shield Barrier)", "player.rage > 80" } },
 
-  -- Taunts: Commented for Further Improvement
-  -- { "Taunt", "modifier.taunt" },
+  -- Threat Control w/ Toggle
+  { "Taunt", "toggle.tc", "target.threat < 100" },
+  { "Taun", "toggle.tc", "mouseover.threat < 100", "mouseover" },
 
   -- Kicks
   { "Pummel", "modifier.interrupts" },
@@ -87,9 +98,12 @@ ProbablyEngine.rotation.register(73, {
   { "Thunder Clap", { "!target.debuff(Weakened Blows).any", "target.range <= 8" } },
   -- Filler lol
   { "Devastate" },
-  
-}, {
 
-}, function()
-  ProbablyEngine.toggle.create('taunt', 'Interface\\ICONS\\spell_nature_reincarnation', 'Taunt', 'Toggle the usage of Taunt.')
-end)
+  ------------------
+  -- End Rotation --
+  ------------------
+  
+}, 
+ function ()
+  ProbablyEngine.toggle.create('tc', 'Interface\\Icons\\ability_deathwing_bloodcorruption_death', 'Threat Control', '')
+  end)

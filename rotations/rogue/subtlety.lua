@@ -1,7 +1,9 @@
 -- SPEC ID 261
 ProbablyEngine.rotation.register(261, {
   
-    -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -34,6 +36,14 @@ ProbablyEngine.rotation.register(261, {
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
   
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
+  
   -- Interrupts
   { "Kick", "modifier.interrupts" },
   
@@ -55,10 +65,22 @@ ProbablyEngine.rotation.register(261, {
   { "Hemorrhage", "!player.behind" },
   { "Hemorrhage", { "!player.spell(Backstab).exists", "player.behind" } },
   }, "player.combopoints < 5" },
+  
+  ------------------
+  -- End Rotation --
+  ------------------
 
 },{
-  -- OOC
+
+  ---------------
+  -- OOC Begin --
+  ---------------
+  
   { "Deadly Poison", { "!player.buff(Deadly Poison)", "!player.moving" } },
   { "Ambush", { "player.buff(Stealth)", "target.spell(Ambush).range" }, "target" },
+  
+  -------------
+  -- OOC End --
+  -------------
   
 })

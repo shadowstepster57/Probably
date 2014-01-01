@@ -1,7 +1,9 @@
 -- SPEC ID 259
 ProbablyEngine.rotation.register(259, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -34,6 +36,14 @@ ProbablyEngine.rotation.register(259, {
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
   
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
+  
   -- Buffs
   { "Deadly Poison", "!player.buff(Deadly Poison)" },
   { "Leeching Poison", "!player.buff(Leeching Poison)" },
@@ -53,5 +63,9 @@ ProbablyEngine.rotation.register(259, {
   { "Fan of Knives", "modifier.multitarget" },
   { "Mutilate", "target.health > 35" },
   { "Dispatch", "target.health < 35" },
+  
+  ------------------
+  -- End Rotation --
+  ------------------
 
 })

@@ -1,7 +1,9 @@
 -- SPEC ID 64
 ProbablyEngine.rotation.register(64, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -37,6 +39,14 @@ ProbablyEngine.rotation.register(64, {
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
   
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
+  
   -- Cooldowns
   { "12472", "modifier.cooldowns" }, -- Icy Veins
   { "45438", {"modifier.cooldowns", "player.health <= 30"} }, -- Ice Block
@@ -71,7 +81,22 @@ ProbablyEngine.rotation.register(64, {
   { "30455", "player.buff(112965)" }, -- Ice Lance
   { "44614", "player.buff(44549)" }, -- Frostfire Bolt
   { "30455", "player.moving" }, -- Ice Lance
-  { "116" }}, -- Frostbolt
+  { "116" } -- Frostbolt
+
+  ------------------
+  -- End Rotation --
+  ------------------
+  },{
   
-{{ "1459", "!player.buff" }, -- Arcane Brilliance
-  { "7302", "!player.buff" }}) -- Frost Armor
+  ---------------
+  -- OOC Begin --
+  ---------------
+  
+  { "1459", "!player.buff" }, -- Arcane Brilliance
+  { "7302", "!player.buff" } -- Frost Armor
+  
+  -------------
+  -- OOC End --
+  -------------
+  
+  })

@@ -2,7 +2,9 @@
 -- 7/11/2013 - Changed by j
 ProbablyEngine.rotation.register(258, {
     
-      -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -38,6 +40,14 @@ ProbablyEngine.rotation.register(258, {
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
   
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
+  
   -- Cooldowns
   { "Power Infusion", "modifier.cooldowns" },
   { "Shadowfiend",    "modifier.cooldowns" },
@@ -54,7 +64,6 @@ ProbablyEngine.rotation.register(258, {
   -- Rotation
   { "Mind Blast", "player.buff(Divine Insight)" },
   { "Devouring Plague", "player.shadoworbs = 3" },
-
   { "Mind Blast" }, 
   { "Shadow Word: Death", "target.debuff(Shadow Word: Death).duration < 1" },
   { "Shadow Word: Pain", "target.debuff(Shadow Word: Pain).duration < 1" },
@@ -64,15 +73,24 @@ ProbablyEngine.rotation.register(258, {
   { "Halo" },
   { "Mind Spike", "player.buff(Surge of Darkness)" },
   { "Mind Flay" },
- 
-    
   { "Shadow Word: Death" },
+  
+  ------------------
+  -- End Rotation --
+  ------------------
   
   }, {
   
-  -- OOC
+  ---------------
+  -- OOC Begin --
+  ---------------
+  
   { "Power Word: Fortitude", "!player.buff(Power Word: Fortitude)" },
   { "Inner Fire", "!player.buff(Inner Fire)" },
   { "Shadow Form", "!player.buff(Shadowform)" },
+  
+  -------------
+  -- OOC End --
+  -------------
   
   })

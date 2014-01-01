@@ -6,7 +6,9 @@ ProbablyEngine.library.register('coreHunter', {
 })
 ProbablyEngine.rotation.register(253, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -37,6 +39,14 @@ ProbablyEngine.rotation.register(253, {
   
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
+  
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
   
   -- Pet
   { "!/cast [@pet,dead] Revive Pet; Call Pet 1", "!pet.alive" },
@@ -74,5 +84,9 @@ ProbablyEngine.rotation.register(253, {
   { "Arcane Shot", "player.focus >= 60"},
   { "Arcane Shot", { "player.buff(Thrill of the Hunt)", "player.focus >= 20" } },
   { "Cobra Shot" }
+
+  ------------------
+  -- End Rotation --
+  ------------------
   }
 )

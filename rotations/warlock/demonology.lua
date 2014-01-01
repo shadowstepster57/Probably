@@ -1,7 +1,9 @@
 -- SPEC ID 266
 ProbablyEngine.rotation.register(266, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -26,10 +28,18 @@ ProbablyEngine.rotation.register(266, {
   
   -- Goblins
   { "Rocket Barrage", "player.moving" },
-
+  
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
+  
+  -- Something Something Buffs
   { "Dark Intent", "!player.buff(Dark Intent)" },
   { "Curse of the Elements", "!target.debuff(Curse of the Elements)" },
-
 
   -- Cooldowns
   { "Summon Doomguard", "modifier.cooldowns" },
@@ -43,20 +53,14 @@ ProbablyEngine.rotation.register(266, {
   { "Dark Soul: Knowledge", "modifier.cooldowns" },
   { "Corruption", "target.debuff(Doom).duration < 10" },
   { "Soul Fire", "player.buff(Molten Core)" },
-  { "!/cancelaura Metamorphosis", {
-    "player.demonicfury < 700",
-    "!player.buff(Dark Soul: Knowledge)"
-  }},
+  { "!/cancelaura Metamorphosis", { "player.demonicfury < 700", "!player.buff(Dark Soul: Knowledge)" } },
   { "Void Ray", "modifier.multitarget" },
   { "Shadow Bolt" },
   }, "player.buff(Metamorphosis)" },
 
   -- Regular Rotation (w/o Meta)
   {{
-  { "Life Tap", {
-    "player.mana < 40",
-    "player.health > 70"
-  }},
+  { "Life Tap", { "player.mana < 40", "player.health > 70" } },
   { "Corruption", "!target.debuff(Corruption)" },
   { "Metamorphosis", "player.demonicfury > 900" },
   { "Hand of Gul'dan", "!target.debuff(Shadowflame)" },
@@ -64,5 +68,9 @@ ProbablyEngine.rotation.register(266, {
   { "Harvest Life", "modifier.multitarget" },
   { "Shadow Bolt" }
   }, "!player.buff(Metamorphosis)" },
+  
+  ------------------
+  -- End Rotation --
+  ------------------
 
 })

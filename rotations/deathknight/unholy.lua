@@ -1,7 +1,9 @@
 -- SPEC ID 252
 ProbablyEngine.rotation.register(252, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -34,8 +36,15 @@ ProbablyEngine.rotation.register(252, {
   -- Goblins
   { "Rocket Barrage", "player.moving" },
   
-  -- Cooldowns
+  -----------------
+  -- End Racials --
+  -----------------
   
+  --------------------
+  -- Start Rotation --
+  --------------------
+  
+  -- Cooldowns
   { "Unholy Frenzy", "modifier.cooldowns" },
   { "Summon Gargoyle", "modifier.cooldowns" },
   { "Anti-Magic Zone", "modifier.cooldowns" },
@@ -47,14 +56,12 @@ ProbablyEngine.rotation.register(252, {
   { "Dark Simulacrum", "modifier.cooldowns" },
   
   -- Survival
-  
   { "Death Siphon", "player.health <= 80" },
   { "Death Pact", "player.health <= 30" },
   { "Icebound Fortitude", "player.health <= 50" },
   { "Conversion", "player.health <= 55" },
   
   -- Interrupts
-  
   { "Asphyxiate", {"modifier.interrupt", "target.casting", "player.spell(Asphyxiate).exists"} },
   { "Strangulate", "modifier.interrupt" },
   
@@ -63,23 +70,15 @@ ProbablyEngine.rotation.register(252, {
   { "Pestilence", "modifier.ctrl", "target" },
   { "Chains of Ice", "modifier.alt", "target" },
   
-  -- In Combat Buffs
-  
+  -- In Combat Buffs 
   { "Horn of Winter" },
   { "Dark Transformation" },
   { "Raise Dead", "!pet.exists" },
   { "Unholy Frenzy" },
   
   -- MultiTarget
-  
-  { "Blood Boil", {
-    "modifier.multitarget",
-    "target.range <= 8"
-  }},
-  { "Blood Boil", {
-    "player.buff(Crimson Scourge)",
-    "target.range <= 8"
-  }},
+  { "Blood Boil", { "modifier.multitarget", "target.range <= 8" } },
+  { "Blood Boil", { "player.buff(Crimson Scourge)", "target.range <= 8" } },
   
   -- Rotation
   { "Dark Transformation" },
@@ -91,8 +90,29 @@ ProbablyEngine.rotation.register(252, {
   { "Scourge Strike" },
   { "Death Coil" },
 
+  ------------------
+  -- End Rotation --
+  ------------------
+  
 },{
-  { "Path of Frost", "!player.buff(Path of Frost)" },
-  { "Raise Dead", "!pet.exists" },-- Out of Combat 
+
+  ---------------
+  -- OOC Begin --
+  ---------------
+  
+  -- Buffs
+  { "Horn of Winter" },
+  { "Path of Frost", "!player.buff(Path of Frost).any" },
+  
+  -- Keybinds
+  { "Army of the Dead", "modifier.alt" },
+  { "Death Grip", "modifier.control" },
+  
+  -- Pet
+  { "Raise Dead", "!pet.exists" },
+  
+  -------------
+  -- OOC End --
+  -------------
   }
 )

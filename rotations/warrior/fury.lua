@@ -1,7 +1,9 @@
 -- SPEC ID 72
 ProbablyEngine.rotation.register(72, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -37,14 +39,22 @@ ProbablyEngine.rotation.register(72, {
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
   
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
+  
   -- Buffs
   { "Berserker Rage" },
 
   -- Survival
   { "Rallying Cry", { "player.health < 15", "modifier.cooldowns" } },
   { "Die by the Sword", "player.health < 25" },
-  { "Impending Victory" },
-  { "Victory Rush" },
+  { "Impending Victory", "player.health <= 85" },
+  { "Victory Rush", "player.health <= 85" },
 
   -- Kicks
   { "Pummel", "modifier.interrupts" },
@@ -71,5 +81,9 @@ ProbablyEngine.rotation.register(72, {
   { "Wild Strike", "player.buff(Bloodsurge)" },
   { "Impending Victory" },
   { "Heroic Throw" }
+  
+  ------------------
+  -- End Rotation --
+  ------------------
 
 })

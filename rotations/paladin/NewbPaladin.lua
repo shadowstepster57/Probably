@@ -1,7 +1,9 @@
 -- Class ID 2 - Paladins Are Sad
 ProbablyEngine.rotation.register(2, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -13,6 +15,14 @@ ProbablyEngine.rotation.register(2, {
   { "Every Man for Himself", "player.state.incapacitate" },
   { "Every Man for Himself", "player.state.sleep" },
   { "Every Man for Himself", "player.state.stun" },
+
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
   
   -- Keybind
   { "Hammer of Justice", "modifier.shift" },
@@ -21,5 +31,10 @@ ProbablyEngine.rotation.register(2, {
   { "Word of Glory", "player.health < 90" },
   { "Judgement" },
   { "Crusader Strike" },
+  
+  ------------------
+  -- End Rotation --
+  ------------------
+  
   }
 )

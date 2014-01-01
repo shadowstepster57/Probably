@@ -1,7 +1,9 @@
 -- SPEC ID 262
 ProbablyEngine.rotation.register(262, {
 
-    -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -16,6 +18,14 @@ ProbablyEngine.rotation.register(262, {
   
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
+  
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
   
   -- Buffs
   { "Flametongue Weapon", "!player.enchant.mainhand" },
@@ -49,13 +59,25 @@ ProbablyEngine.rotation.register(262, {
   -- Filler
   { "Lightning Bolt" }
   
+  ------------------
+  -- End Rotation --
+  ------------------
+  
 }, {
 
+  ---------------
+  -- OOC Begin --
+  ---------------
+  
   -- Buffs
   { "Flametongue Weapon", "!player.enchant.mainhand" },
   { "Lightning Shield", "!player.buff(Lightning Shield)" },
 
   -- Heal
   { "Healing Stream Totem", "player.health < 100" },
+  
+  -------------
+  -- OOC End --
+  -------------
   
 })

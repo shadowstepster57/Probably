@@ -1,7 +1,9 @@
 -- Class ID 5 - Two Button Masher
 ProbablyEngine.rotation.register(5, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -37,6 +39,14 @@ ProbablyEngine.rotation.register(5, {
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
   
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
+  
   -- Mouseover
   { "Shadow Word: Pain", {"modifier.shift", "!mouseover.debuff(Shadow Word: Pain)"}, "mouseover" },
   
@@ -47,4 +57,14 @@ ProbablyEngine.rotation.register(5, {
   -- Rotation
   { "Shadow Word: Pain", "!target.debuff(Shadow Word: Pain)" },
   { "Smite" },
+<<<<<<< HEAD
+  
+  ------------------
+  -- End Rotation --
+  ------------------
+  
+  }
+)
+=======
 })
+>>>>>>> 7fba4f6c4b3c26ae7a30966768482c8fb507696c

@@ -1,7 +1,9 @@
 -- SPEC ID 71
 ProbablyEngine.rotation.register(71, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -37,6 +39,14 @@ ProbablyEngine.rotation.register(71, {
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
   
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
+  
   -- Buffs
   { "Berserker Rage" },
 
@@ -46,7 +56,7 @@ ProbablyEngine.rotation.register(71, {
   { "Die by the Sword", { "player.health <= 65" } },
   { "Hamstring", { "!target.debuff(Hamstring)", "modifier.player" } },
   { "Impending Victory", "player.health <= 85" },
-  { "Victory Rush" },
+  { "Victory Rush", "player.health <= 85" },
 
   -- Interrupts
   { "Pummel", "modifier.interrupts" },
@@ -73,5 +83,9 @@ ProbablyEngine.rotation.register(71, {
   { "Heroic Throw" },
   { "Heroic Strike", { "player.rage > 70", "target.debuff(Colossus Smash)" } },
   { "Slam", "player.rage > 40" },
+  
+  ------------------
+  -- End Rotation --
+  ------------------
   
 })

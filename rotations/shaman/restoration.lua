@@ -16,7 +16,9 @@ ProbablyEngine.library.register('coreHealing', {
 
 ProbablyEngine.rotation.register(264, {
 
-    -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -31,16 +33,24 @@ ProbablyEngine.rotation.register(264, {
   
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
+ 
+  -----------------
+  -- End Racials --
+  -----------------
   
-  -- buffs
+  --------------------
+  -- Start Rotation --
+  --------------------
+  
+  -- Buffs
   { "Earthliving Weapon", "!player.enchant.mainhand" },
   { "Water Shield", "!player.buff(Water Shield)" },
 
-  -- tank
+  -- Tank
   { "Earth Shield", { "!tank.buff(Earth Shield)", "!tank.player" }, "tank" },
   { "Riptide", "!tank.buff", "tank" },
 
-  -- healing totem
+  -- Healing totem
   { "Healing Stream Totem" },
   { "Mana Tide Totem", "player.mana < 40" },
   { "Healing Tide Totem", "@coreHealing.needsHealing(60, 4)", "lowest" },
@@ -66,12 +76,24 @@ ProbablyEngine.rotation.register(264, {
   -- caus we dps too right ?!?
   { "Searing Totem", {"toggle.totems", "!player.totem(Fire Elemental Totem)", "!player.totem(Searing Totem)" } },
   { "Lightning Bolt", { "focustarget.exists" }, "focustarget" },
+  
+  ------------------
+  -- End Rotation --
+  ------------------
 
 },{
-  -- OOC
+
+  ---------------
+  -- OOC Begin --
+  ---------------
+  
   { "Earthliving Weapon", "!player.enchant.mainhand" },
   { "Water Shield", "!player.buff" },
   { "Healing Wave", "@coreHealing.needsHealing(80, 1)", "lowest" },
   { "Healing Wave", "lowest.health < 85", "lowest" },
+  
+  -------------
+  -- OOC End --
+  -------------
   
 })

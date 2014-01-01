@@ -1,7 +1,9 @@
 -- SPEC ID 260
 ProbablyEngine.rotation.register(260, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -34,6 +36,14 @@ ProbablyEngine.rotation.register(260, {
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
   
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
+  
   -- Buffs
   { "Deadly Poison", "!player.buff(Deadly Poison)" },
   { "Leeching Poison", "!player.buff(Leeching Poison)" },
@@ -58,10 +68,21 @@ ProbablyEngine.rotation.register(260, {
   { "Eviscerate", "player.combopoints = 5" },
   { "Fan of Knives", "modifier.multitarget" },
   { "Sinister Strike" },
+  
+  ------------------
+  -- End Rotation --
+  ------------------
 
 },{
 
-  -- OOC Buffs
+  ---------------
+  -- OOC Begin --
+  ---------------
+  
   { "Deadly Poison", "!player.buff(Deadly Poison)" },
   { "Leeching Poison", "!player.buff(Leeching Poison)" },
+  
+  -------------
+  -- OOC End --
+  -------------
 })

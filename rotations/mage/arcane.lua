@@ -1,7 +1,9 @@
 -- SPEC ID 62
 ProbablyEngine.rotation.register(62, {
 
-  -- Racials (Temp)
+  -------------------
+  -- Start Racials --
+  -------------------
   
   -- =^*~ Alliance ~*^= --
   -- Dwarves
@@ -36,6 +38,14 @@ ProbablyEngine.rotation.register(62, {
   
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
+  
+  -----------------
+  -- End Racials --
+  -----------------
+  
+  --------------------
+  -- Start Rotation --
+  --------------------
   
   -- Cooldowns
   { "45438", {"modifier.cooldowns", "player.health <= 30"} }, -- Ice Block
@@ -85,12 +95,25 @@ ProbablyEngine.rotation.register(62, {
   { "44425", { "player.debuff(36032).count >= 4", "!player.buff(5143)" } }, -- Arcane Barrage
   { "30451" } -- Arcane Blast
   
-  },
+  ------------------
+  -- End Rotation --
+  ------------------
   
-  { { "1459", "!player.buff" }, -- Arcane Brilliance
+  },{
+  
+  ---------------
+  -- OOC Begin --
+  ---------------
+  
+  { "1459", "!player.buff" }, -- Arcane Brilliance
   { "7302", "!player.buff(30482)", "!player.spell(30482).exists" }, -- Frost Armor
   { "30482", "!player.buff(30482)", "!player.spell(6117).exists" }, -- Molten Armor
-  { "6117", "!player.buff(6117)" } } -- Mage Armor
+  { "6117", "!player.buff(6117)" } -- Mage Armor
+  
+  -------------
+  -- OOC End --
+  -------------
+  }
 , function()
   ProbablyEngine.toggle.create('alter', 'Interface\\ICONS\\spell_mage_altertime', 'Alter Time', 'Toggle the usage of Alter Time and Arcane Power.')
 end)
