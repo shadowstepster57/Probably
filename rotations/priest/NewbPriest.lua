@@ -42,10 +42,9 @@ ProbablyEngine.rotation.register(5, {
   
   -- Survival
   { "Power Word: Shield", "player.health <= 95" },
-  { "Flash Heal", "player.health <= 60 },
+  { "Flash Heal", "player.health <= 60" },
 
   -- Rotation
   { "Shadow Word: Pain", "!target.debuff(Shadow Word: Pain)" },
   { "Smite" },
-  }
-)
+})

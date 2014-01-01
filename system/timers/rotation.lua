@@ -13,7 +13,7 @@ ProbablyEngine.cycle = function(skip_verify)
     and UnitInVehicle("player") ~= 1
     and ProbablyEngine.module.player.combat
     and ProbablyEngine.config.read('button_states', 'MasterToggle', false)
-    and ProbablyEngine.module.player.specId
+    and ProbablyEngine.module.player.specID
 
   if cycle or skip_verify then
     local stickyValue = GetCVar("deselectOnClick")
@@ -85,7 +85,7 @@ ProbablyEngine.timer.register("oocrotation", function()
     and UnitInVehicle("player") ~= 1
     and ProbablyEngine.module.player.combat ~= true
     and ProbablyEngine.config.read('button_states', 'MasterToggle', false)
-    and ProbablyEngine.module.player.specId ~= 0
+    and ProbablyEngine.module.player.specID ~= 0
     and ProbablyEngine.rotation.activeOOCRotation ~= false
 
   if cycle then

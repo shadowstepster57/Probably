@@ -1,6 +1,8 @@
 -- ProbablyEngine Rotations - https://probablyengine.com/
 -- Released under modified BSD, see attached LICENSE.
 
+local GetClassInfoByID = GetClassInfoByID
+
 ProbablyEngine.rotation = {
   rotations = { },
   oocrotations =  { },
@@ -86,6 +88,7 @@ ProbablyEngine.rotation.classSpecId[269] = 10
 ProbablyEngine.rotation.classSpecId[270] = 10
 
 ProbablyEngine.rotation.register = function(specId, spellTable, arg1, arg2)
+  local name = ProbablyEngine.rotation.specId[specId] or GetClassInfoByID(specId)
 
   local buttons, oocrotation = nil, nil
 
@@ -112,7 +115,8 @@ ProbablyEngine.rotation.register = function(specId, spellTable, arg1, arg2)
     ProbablyEngine.rotation.buttons[specId] = buttons
   end
 
-  ProbablyEngine.debug.print('Loaded Rotation for ' .. ProbablyEngine.rotation.specId[specId], 'rotation')
+  print('Loaded Rotation for ' .. name, 'rotation')
+  ProbablyEngine.debug.print('Loaded Rotation for ' .. name, 'rotation')
 end
 
 
@@ -155,8 +159,9 @@ end
 ProbablyEngine.rotation.auto_unregister = function()
   local classId = select(3, UnitClass("player"))
   for specId,_ in pairs(ProbablyEngine.rotation.rotations) do
-    if ProbablyEngine.rotation.classSpecId[specId] ~= classId then
-      ProbablyEngine.debug.print('AutoUnloaded Rotation for ' .. ProbablyEngine.rotation.specId[specId], 'rotation')
+    if ProbablyEngine.rotation.classSpecId[specId] ~= classId and specId ~= classId then
+      local name = ProbablyEngine.rotation.specId[specId] or GetClassInfoByID(specId)
+      ProbablyEngine.debug.print('AutoUnloaded Rotation for ' .. name, 'rotation')
       ProbablyEngine.rotation.classSpecId[specId] = nil
       ProbablyEngine.rotation.specId[specId] = nil
       ProbablyEngine.rotation.rotations[specId] = nil
@@ -168,13 +173,13 @@ end
 
 ProbablyEngine.rotation.add_buttons = function()
   -- Default Buttons
-  if ProbablyEngine.rotation.buttons[ProbablyEngine.module.player.specId] then
-    ProbablyEngine.rotation.buttons[ProbablyEngine.module.player.specId]()
+  if ProbablyEngine.rotation.buttons[ProbablyEngine.module.player.specID] then
+    ProbablyEngine.rotation.buttons[ProbablyEngine.module.player.specID]()
   end
 
   -- Custom Buttons
-  if ProbablyEngine.rotation.custom[ProbablyEngine.module.player.specId] then
-    for _, rotation in pairs(ProbablyEngine.rotation.custom[ProbablyEngine.module.player.specId]) do
+  if ProbablyEngine.rotation.custom[ProbablyEngine.module.player.specID] then
+    for _, rotation in pairs(ProbablyEngine.rotation.custom[ProbablyEngine.module.player.specID]) do
       if ProbablyEngine.rotation.currentStringComp == rotation.desc then
         if rotation.buttons then
           rotation.buttons()

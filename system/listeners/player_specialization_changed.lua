@@ -2,30 +2,8 @@
 -- Released under modified BSD, see attached LICENSE.
 
 -- This shit fires all the time... wtf blizz, don't be stupid.
-ProbablyEngine.listener.register("PLAYER_SPECIALIZATION_CHANGED", function(...)
-  local unitID = ...
-  if unitID == "player" then
-    if GetSpecialization() then
-      local id, name, description, icon, background, role = GetSpecializationInfo(GetSpecialization())
-      if id ~= ProbablyEngine.module.player.specId then
-        ProbablyEngine.buttons.icon('MasterToggle', icon)
-        ProbablyEngine.module.player.specId = id
-        ProbablyEngine.module.player.specName = name
-        ProbablyEngine.rotation.activeRotation = ProbablyEngine.rotation.rotations[ProbablyEngine.module.player.specId]
-        if ProbablyEngine.rotation.oocrotations[ProbablyEngine.module.player.specId] then
-          ProbablyEngine.rotation.activeOOCRotation = ProbablyEngine.rotation.oocrotations[ProbablyEngine.module.player.specId]
-        else
-          ProbablyEngine.rotation.activeOOCRotation = false
-        end
-        ProbablyEngine.buttons.resetButtons()
-        if ProbablyEngine.rotation.buttons[ProbablyEngine.module.player.specId] then
-          ProbablyEngine.rotation.add_buttons()
-        end
-        ProbablyEngine.print(ProbablyEngine.rotation.specId[id] .. pelg('rotation_loaded'))
-        ProbablyEngine.rotation.loadLastRotation()
-      end
-    else
-      ProbablyEngine.module.player.specId = false
-    end
-  end
+ProbablyEngine.listener.register("PLAYER_SPECIALIZATION_CHANGED", function(unitID)
+  if unitID ~= 'player' then return end
+
+  ProbablyEngine.module.player.updateSpec()
 end)

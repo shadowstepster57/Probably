@@ -47,4 +47,4 @@ ProbablyEngine.rotation.register(8, {
   -- Rotation
   { "Eviscerate", "player.combopoints >= 4" },
   { "Sinister Strike" },
-)
+})

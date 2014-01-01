@@ -1,7 +1,7 @@
 
 ProbablyEngine.rotation.list_custom = (function()
   local classId = select(3, UnitClass("player"))
-  local mySpecId, _, _, _, _, _ = GetSpecializationInfo(GetSpecialization())
+  local mySpecId = ProbablyEngine.module.player.specID
 
 
   --info = { }
@@ -23,15 +23,15 @@ ProbablyEngine.rotation.list_custom = (function()
   for specId,_ in pairs(ProbablyEngine.rotation.rotations) do
     if specId == mySpecId then
       info = { }
-      info.text = ProbablyEngine.rotation.specId[specId]
+      info.text = ProbablyEngine.rotation.specId[specId] or ProbablyEngine.module.player.specName
       info.value = info.text
       info.checked = (ProbablyEngine.rotation.currentStringComp == info.text or ProbablyEngine.rotation.currentStringComp == "")
       info.func = function()
-        local text = ProbablyEngine.rotation.specId[specId]
+        local text = ProbablyEngine.rotation.specId[specId] or ProbablyEngine.module.player.specName
         ProbablyEngine.rotation.currentStringComp = text
         ProbablyEngine.rotation.activeRotation = ProbablyEngine.rotation.rotations[specId]
-        if ProbablyEngine.rotation.oocrotations[ProbablyEngine.module.player.specId] then
-          ProbablyEngine.rotation.activeOOCRotation = ProbablyEngine.rotation.oocrotations[ProbablyEngine.module.player.specId]
+        if ProbablyEngine.rotation.oocrotations[ProbablyEngine.module.player.specID] then
+          ProbablyEngine.rotation.activeOOCRotation = ProbablyEngine.rotation.oocrotations[ProbablyEngine.module.player.specID]
         else
           ProbablyEngine.rotation.activeOOCRotation = false
         end
@@ -89,11 +89,11 @@ ProbablyEngine.rotation.list_custom = (function()
 end)
 
 ProbablyEngine.rotation.loadLastRotation = function ()
-  local mySpecId, _, _, _, _, _ = GetSpecializationInfo(GetSpecialization())
+  local specID = ProbablyEngine.module.player.specID
 
-  local lastRotation = ProbablyEngine.config.read('lastRotation_' .. mySpecId, '')
-  if ProbablyEngine.rotation.custom[mySpecId] and lastRotation ~= '' then
-    for _, rotation in pairs(ProbablyEngine.rotation.custom[mySpecId]) do
+  local lastRotation = ProbablyEngine.config.read('lastRotation_' .. specID, '')
+  if ProbablyEngine.rotation.custom[specID] and lastRotation ~= '' then
+    for _, rotation in pairs(ProbablyEngine.rotation.custom[specID]) do
       if rotation.desc == lastRotation then
         local text = rotation.desc
         ProbablyEngine.rotation.currentStringComp = text
