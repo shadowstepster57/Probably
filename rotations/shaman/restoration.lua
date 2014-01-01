@@ -16,6 +16,22 @@ ProbablyEngine.library.register('coreHealing', {
 
 ProbablyEngine.rotation.register(264, {
 
+    -- Racials (Temp)
+  
+  -- =^*~ Alliance ~*^= --
+  -- Dwarves
+  { "Stoneform", "player.health <= 65" },
+
+  -- Draenei
+  { "Gift of the Naaru", "player.health <= 70", "player" },
+ 
+  -- <,&~ Horde ~&,> --
+  -- Goblins
+  { "Rocket Barrage", "player.moving" },
+  
+  -- _,-=%Pandaren%=-,_ --
+  { "Quaking Palm", "modifier.interrupts" },
+  
   -- buffs
   { "Earthliving Weapon", "!player.enchant.mainhand" },
   { "Water Shield", "!player.buff(Water Shield)" },
