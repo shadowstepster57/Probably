@@ -30,65 +30,59 @@ ProbablyEngine.rotation.register(250, {
   -- Goblins
   { "Rocket Barrage", "player.moving" },
   
-  -- defensive
-  { "Bone Shield", "!player.buff" },
+  -- Keybinds
+  { "Death and Decay", "modifier.shift", "ground" },
+  
+  -- Defensives and Buffing
+  { "Bone Shield", "player.buff(Bone Shield).charges < 1" },
+  { "Horn of Winter" },
 
+  -- Battle Rez, Mouseover w/ Cooldowns Mod
+  { "Raise Ally", "modifier.cooldowns", "!mouseover.alive", "mouseover" },
+  
   -- Interrupts
   { "Mind Freeze", "modifier.interrupts" },
+  { "Strangulate", "modifier.interrupts" },
 
-  -- Taunts
-  { "Dark Command", "modifier.taunt" },
-  { "Death Grip", "modifier.taunt" },
+  -- Threat Control w/ Toggle
+  { "Dark Command", { "toggle.tc", "mouseover.threat < 100" }, "mouseover" },
+  { "Dark Command", { "toggle.tc", "target.threat < 100" }, "target" },
+  { "Death Grip", { "toggle.tc", "mouseover.threat < 100" }, "mouseover" },
+  { "Death Grip", { "toggle.tc", "target.threat < 100" }, "target" },
 
   -- Survival
-  { "Anti-Magic Shell", "player.health < 70" },
-  { "Dancing Rune Weapon", "player.health < 60" },
-  { "Conversion", "player.health < 60" },
-  { "Vampiric Blood", "player.health < 55" },
-  { "Icebound Fortitude", "player.health < 50" },
-  { "Rune Tap", "player.health < 40" },
-  { "Empower Rune Weapon", "player.health < 40" },
+  { "Anti-Magic Shell", "player.health <= 70", "target.casting" },
+  { "Dancing Rune Weapon", "player.health <= 75" },
+  { "Conversion", "player.health <= 60" },
+  { "Vampiric Blood", "player.health <= 55" },
+  { "Icebound Fortitude", "player.health <= 50" },
+  { "Rune Tap", "player.health <= 40" },
+  { "Empower Rune Weapon", "player.health <= 40" },
+  -- Death Pact Macro, Last Resort
+  { "/cast Raise Dead\n/cast Death Pact", { "player.health < 35", "player.spell(Death Pact).cooldown", "player.spell(Raise Dead).cooldown", "player.spell(Death Pact).usable" } },
 
-  -- Death Pact Macro
-  { "!/cast Raise Dead\n/cast Death Pact", {
-    "player.health < 35",
-    "player.spell(Death Pact).cooldown",
-    "player.spell(Raise Dead).cooldown",
-    "player.spell(Death Pact).usable"
-  }},
-
-  -- hard cast dnd
-  { "Death and Decay", "modifier.shift", "ground" },
-
+  -- Blood Tap Control
   { "Blood Tap", "player.buff(Blood Charge).count >= 5" },
-
-  -- Places dots
-  { "Outbreak", "!target.debuff(Frost Fever)" },
-
-  -- Refresh dots with Blood Boil
-  { "Blood Boil", {
-    "target.debuff(Frost Fever).duration < 4",
-    "target.range <= 8"
-  }},
-
-  -- Refresh dots with hard casts
-  { "Icy Touch", "target.debuff(Frost Fever).duration < 4" },
-  { "Plague Strike", "target.debuff(Blood Plague).duration < 4" },
+  
+  -- Disease Control
+  { "Outbreak", "target.debuff(Frost Fever).duration < 3", "target.debuff(Blood Plague).duration <3", "target" },
+  { "Blood Boil", "player.runes(blood).count > 1","target.debuff(Frost Fever).duration < 3", "target.debuff(Blood Plague).duration <3" },
+  { "Blood Boil", "player.runes(death).count > 1","target.debuff(Frost Fever).duration < 3", "target.debuff(Blood Plague).duration <3" },  
+  { "Icy Touch", "target.debuff(Frost Fever).duration < 3" },
+  { "Plague Strike", "target.debuff(Blood Plague).duration < 3" },
+  
+  -- AoE Rotation
+  { "Pestilence", "target.debuff(Blood Plague", "target.debuff(Frost Fever)" },
+  { "Death Strike", "modifier.multitarget" },
+  { "Blood Boil", "modifier.multitarget" },
+  { "Rune Strike", "modifier.multitarget" },
 
   -- Rotation
-  { "Heart Strike", "player.runes(blood).count >= 1" },
-  { "Death Strike" },
-  { "Blood Boil", {
-    "player.buff(Crimson Scourge)",
-    "target.range <= 8"
-  }},
-  { "Blood Boil", {
-    "modifier.multitarget",
-    "target.range <= 8"
-  }},
-  { "Soul Reaper", "target.health < 35" },
-  { "Rune Strike" },
-  { "Horn of Winter" },
-})
-
-
+  { "Heart Strike", "player.runes(blood).count >= 1", "target.health > 35" },
+  { "Soul Reaper", "player.runes(blood).count >= 1", "target.health < 35" },
+  { "Death Strike", "!modifier.last(Death Strike)" },
+  { "Rune Strike", "player.runicpower >= 40" },
+}
+ function ()
+  ProbablyEngine.toggle.create('tc', 'Interface\\Icons\\ability_deathwing_bloodcorruption_death', 'Threat Control', '')
+  )
