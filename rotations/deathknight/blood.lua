@@ -30,9 +30,6 @@ ProbablyEngine.rotation.register(250, {
   -- Goblins
   { "Rocket Barrage", "player.moving" },
   
-  -- _,-=%Pandaren%=-,_ --
-  { "Quaking Palm", "modifier.interrupts" },
-  
   -- defensive
   { "Bone Shield", "!player.buff" },
 
