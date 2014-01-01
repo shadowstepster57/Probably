@@ -13,10 +13,7 @@ ProbablyEngine.rotation.register(260, {
   { "Every Man for Himself", "player.state.incapacitate" },
   { "Every Man for Himself", "player.state.sleep" },
   { "Every Man for Himself", "player.state.stun" },
- 
-  -- Draenei
-  { "Gift of the Naaru", "player.health <= 70", "player" },
- 
+
   -- Gnomes
   { "Escape Artist", "player.state.root" },
   { "Escape Artist", "player.state.snare" },
