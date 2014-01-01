@@ -41,11 +41,7 @@ ProbablyEngine.rotation.register(72, {
   { "Berserker Rage" },
 
   -- Survival
-  { "Rallying Cry", {
-    "player.health < 15",
-    "modifier.cooldowns"
-  }},
-
+  { "Rallying Cry", { "player.health < 15", "modifier.cooldowns" } },
   { "Die by the Sword", "player.health < 25" },
   { "Impending Victory" },
   { "Victory Rush" },
@@ -62,9 +58,9 @@ ProbablyEngine.rotation.register(72, {
   { "Bladestorm", "modifier.cooldowns" },
 
   -- AoE
-  { "Thunder Clap", { "modifier.multitarget", "target.range <= 4" } },
-  { "Whirlwind", "modifier.multitarget" },
-  { "Dragon Roar", "modifier.multitarget" },
+  { "Thunder Clap", "modifier.multitarget", "target.range <= 5" },
+  { "Whirlwind", "modifier.multitarget", "target.range <= 5" },
+  { "Dragon Roar", "modifier.multitarget", "target.range <= 5" },
 
   -- Rotation
   { "Colossus Smash" },

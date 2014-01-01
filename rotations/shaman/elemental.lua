@@ -17,51 +17,45 @@ ProbablyEngine.rotation.register(262, {
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
   
-    -- Buffs
-    { "Flametongue Weapon", "!player.enchant.mainhand" },
-    { "Lightning Shield", "!player.buff(Lightning Shield)" },
+  -- Buffs
+  { "Flametongue Weapon", "!player.enchant.mainhand" },
+  { "Lightning Shield", "!player.buff(Lightning Shield)" },
 
-    -- Moving Rotation
-    { "Lightning Bolt", {
-      "player.moving",
-      "!player.buff(Spiritwalker's Grace)"
-    }},
+  -- Moving Rotation
+  { "Lightning Bolt", {  "player.moving", "!player.buff(Spiritwalker's Grace)" } },
 
-    -- AoE
-    { "Earthquake", "modifier.shift", "ground" },
+  -- AoE
+  { "Earthquake", "modifier.shift", "ground" },
 
-    -- Cooldowns
-    { "Shamanistic Rage", "modifier.cooldowns" },
-    { "Stormlash Totem", "modifier.cooldowns" },
-    { "Fire Elemental Totem", "modifier.cooldowns" },
-    { "Ascendance", {
-      "modifier.cooldowns",
-      "!player.buff(Ascendance)"
-    }},
+  -- Cooldowns
+  { "Shamanistic Rage", "modifier.cooldowns" },
+  { "Stormlash Totem", "modifier.cooldowns" },
+  { "Fire Elemental Totem", "modifier.cooldowns" },
+  { "Ascendance", { "modifier.cooldowns", "!player.buff(Ascendance)" } },
 
-    -- Totems
-    { "Searing Totem", {
-      "!player.totem(Fire Elemental Totem)",
-      "!player.totem(Searing Totem)"
-    }},
-    { "Healing Stream", "!totem(Healing Stream)" },
+  -- Totems
+  { "Searing Totem", { "!player.totem(Fire Elemental Totem)", "!player.totem(Searing Totem)" } },
+  { "Healing Stream", "!totem(Healing Stream)" },
 
-    -- Rotation
-    { "Flame Shock", "target.debuff(Flame Shock).duration <= 3" },
-    { "Lava Burst" },
-    { "Elemental Blast" },
-    { "Earth Shock", "player.buff(Lightning Shield).count >= 6" },
+  -- Rotation
+  { "Flame Shock", "target.debuff(Flame Shock).duration <= 3" },
+  { "Lava Burst" },
+  { "Elemental Blast" },
+  { "Earth Shock", "player.buff(Lightning Shield).count >= 6" },
 
-    -- Aoe
-    { "Chain Lightning", "modifier.multitarget" },
+  -- Aoe
+  { "Chain Lightning", "modifier.multitarget" },
 
-    -- Filler
-    { "Lightning Bolt" }
+  -- Filler
+  { "Lightning Bolt" }
+  
 }, {
+
   -- Buffs
   { "Flametongue Weapon", "!player.enchant.mainhand" },
   { "Lightning Shield", "!player.buff(Lightning Shield)" },
 
   -- Heal
-  { "Healing Stream Totem", "player.health < 60" },
+  { "Healing Stream Totem", "player.health < 100" },
+  
 })
