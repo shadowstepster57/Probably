@@ -1,6 +1,19 @@
 -- SPEC ID 66
 ProbablyEngine.rotation.register(66, {
 
+  -- Racials (Temp)
+  
+  -- =^*~ Alliance ~*^= --
+  -- Dwarves
+  { "Stoneform", "player.health <= 65" },
+ 
+  -- Humans
+  { "Every Man for Himself", "player.state.charm" },
+  { "Every Man for Himself", "player.state.fear" },
+  { "Every Man for Himself", "player.state.incapacitate" },
+  { "Every Man for Himself", "player.state.sleep" },
+  { "Every Man for Himself", "player.state.stun" },
+  
     -- Seals
     { "Seal of Righteousness", {
         "modifier.multitarget",
