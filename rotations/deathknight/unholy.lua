@@ -34,9 +34,6 @@ ProbablyEngine.rotation.register(252, {
   -- Goblins
   { "Rocket Barrage", "player.moving" },
   
-  -- _,-=%Pandaren%=-,_ --
-  { "Quaking Palm", "modifier.interrupts" },
-  
   -- Cooldowns
   
   { "Unholy Frenzy", "modifier.cooldowns" },
