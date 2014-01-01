@@ -1,6 +1,7 @@
 -- SPEC ID 104
 ProbablyEngine.rotation.register(104, {
 
+  -- Fuck Bear Form
   { "!/cast Bear Form", "!player.buff(Bear Form)" },
 
   -- Interrupts
