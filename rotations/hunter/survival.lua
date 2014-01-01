@@ -17,10 +17,6 @@ ProbablyEngine.rotation.register(255, {
   -- Draenei
   { "Gift of the Naaru", "player.health <= 70", "player" },
  
-  -- Gnomes
-  { "Escape Artist", "player.state.root" },
-  { "Escape Artist", "player.state.snare" },
-
   -- Night Elves
   { "Shadowmeld", "target.threat >= 80" },
   { "Shadowmeld", "focus.threat >= 80"},
