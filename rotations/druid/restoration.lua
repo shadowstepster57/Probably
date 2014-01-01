@@ -11,7 +11,7 @@ ProbablyEngine.rotation.register(105, {
   
   -- Mouseover
   { "Rebirth", "mouseover.dead", "mouseover" },
-  { "Rejuvenation", "mouseover.health <= 85", "mouseover" },
+  { "Rejuvenation", { "mouseover.health <= 85", "!mouseover.buff(Rejuvenation)" }, "mouseover" },
   
   -- Basic Buffing
   { "Mark of the Wild", { "!player.buff(Mark of the Wild).any", "!player.buff(Blessing of Kings).any", "!player.buff(Legacy of the Emperor).any" }},
@@ -25,19 +25,19 @@ ProbablyEngine.rotation.register(105, {
   { "Innervate", "player.mana <= 75", "player" },
 
   -- On Tank
-  { "Regrowth", { "tank.health <= 65", "tank.buff(Regrowth)", }, "tank" },
+  { "Regrowth", { "tank.health <= 65", "!tank.buff(Regrowth)", }, "tank" },
   { "Ironbark", "tank.health <= 75", "tank" },
   { "Lifebloom", { "tank.buff(Lifebloom) <= 3", "tank.buff(Lifebloom).count <= 2" }, "tank" },
-  { "Rejuvenation", "tank.health <= 99", "tank" },
+  { "Rejuvenation", { "tank.health <= 99", "!tank.buff(Rejuvenation)" }, "tank" },
   
   -- Regular Healing
   --{ "Nature's Cure", "@coreHealing.needsDispelled()" },
   { "Regrowth", { "lowest.health <= 50", "!lowest.buff(Regrowth)" }, "lowest" },
   { "Healing Touch", "lowest.health <= 65", "lowest" },
-  { "Rejuvenation", "lowest.health <= 85", "lowest" },
+  { "Rejuvenation", { "lowest.health <= 85", "!lowest.buff(Rejuvenation)" }, "lowest" },
   { "Wild Growth", "@coreHealing.needsHealing(75, 5)", "lowest" },
-  { "Swiftmend", "lowest.health <= 80", "lowest.buff(Rejuvenation)", "lowest" },
-  { "Swiftmend", "lowest.health <= 80", "lowest.buff(Regrowth)", "lowest" },
+  { "Swiftmend", { "lowest.health <= 80", "lowest.buff(Rejuvenation)" }, "lowest" },
+  { "Swiftmend", { "lowest.health <= 80", "lowest.buff(Regrowth)" }, "lowest" },
   
   -- Treants, you persistent fucks.
   { "102693", { "@coreHealing.needsHealing(70, 3)", "!modifier.last(106737)" }, "lowest" },
@@ -49,13 +49,13 @@ ProbablyEngine.rotation.register(105, {
   -- Oh Shit Healing Start
   { "Incarnation: Tree of Life", "@coreHealing.needsHealing(60,4)" },
   
-  --Incarnation: Turret of Healing
+  -- Incarnation: Turret of Healing
   { "Wild Growth", "player.buff(Incarnation: Tree of Life)", "lowest" },
-  { "Regrowth", { "player.buff(Incarnation: Tree of Life)", "@coreHealing.needsHealing(60, 4)", "lowest.health <= 60" }, "lowest" },
+  { "Regrowth", { "player.buff(Incarnation: Tree of Life)", "@coreHealing.needsHealing(60, 4)", "lowest.health <= 60", "!lowest.buff(Regrowth)" }, "lowest" },
   { "Tranquility", "player.buff(Incarnation: Tree of Life)", "@coreHealing.needsHealing(55, 4)" },
   
   -- Because Fuck Wild Mushrooms
-{ "Wild Mushroom", {"!player.spell(Wild Mushroom).casted = 1", "!modifier.last(Wild Mushroom)", "!tank.dead"}, "tank" },
+  { "Wild Mushroom", { "!player.spell(Wild Mushroom).casted = 1", "!modifier.last(Wild Mushroom)", "!tank.dead" }, "tank" },
 }, 
 {
   -- Out of Combat
@@ -67,8 +67,8 @@ ProbablyEngine.rotation.register(105, {
 
   -- On Tank
   { "Lifebloom", { "tank.buff(Lifebloom) <= 3", "tank.buff(Lifebloom).count <= 2" }, "tank" },
-  { "Rejuvenation", "tank.health <= 99", "tank" },
-  { "Regrowth", "tank.health <= 65", "tank" },
+  { "Rejuvenation", { "!lowest.buff(Rejuvenation)", "lowest.health <= 85" }, "lowest" },
+  { "Regrowth", { "tank.health <= 65", "!lowest.buff(Regrowth)" }, "tank" },
   
   -- Basic Buffing
   { "Mark of the Wild", { "!player.buff(Mark of the Wild).any", "!player.buff(Blessing of Kings).any", "!player.buff(Legacy of the Emperor).any" }},
@@ -76,10 +76,10 @@ ProbablyEngine.rotation.register(105, {
    
   -- Regular Healing
   --{ "Nature's Cure", "@coreHealing.needsDispelled()" },
-  { "Rejuvenation", "lowest.health <= 85", "lowest" },
+  { "Rejuvenation", { "lowest.health <= 85", "!lowest.buff(Rejuvenation)" }, "lowest" },
+  { "Regrowth", { "lowest.health <= 50", "!lowest.buff(Regrowth)" }, "lowest" },
   { "Healing Touch", "lowest.health <= 65", "lowest" },
   { "Wild Growth", "@coreHealing.needsHealing(75, 5)", "lowest" },
-  { "Regrowth", "lowest.health <= 50", "lowest" },
-  { "Swiftmend", "lowest.health <= 80", "lowest.buff(Rejuvenation)", "lowest" },
-  { "Swiftmend", "lowest.health <= 80", "lowest.buff(Regrowth)", "lowest" },
+  { "Swiftmend", { "lowest.health <= 80", "lowest.buff(Rejuvenation)" }, "lowest" },
+  { "Swiftmend", { "lowest.health <= 80", "lowest.buff(Regrowth)" }, "lowest" },
 })
