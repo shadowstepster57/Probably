@@ -82,7 +82,7 @@ ProbablyEngine.rotation.register(250, {
   { "Soul Reaper", "player.runes(blood).count >= 1", "target.health < 35" },
   { "Death Strike", "!modifier.last(Death Strike)" },
   { "Rune Strike", "player.runicpower >= 40" },
-}
+},
  function ()
   ProbablyEngine.toggle.create('tc', 'Interface\\Icons\\ability_deathwing_bloodcorruption_death', 'Threat Control', '')
-  )
+  end)
