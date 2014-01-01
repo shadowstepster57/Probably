@@ -31,9 +31,6 @@ ProbablyEngine.rotation.register(10, {
   { "Will of the Forsaken", "player.state.charm" },
   { "Will of the Forsaken", "player.state.sleep" },
   
-  -- Goblins
-  { "Rocket Barrage", "player.moving" },
-  
   -- _,-=%Pandaren%=-,_ --
   { "Quaking Palm", "modifier.interrupts" },
   
