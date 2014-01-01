@@ -1,6 +1,22 @@
 -- SPEC ID 263
 ProbablyEngine.rotation.register(263, {
 
+    -- Racials (Temp)
+  
+  -- =^*~ Alliance ~*^= --
+  -- Dwarves
+  { "Stoneform", "player.health <= 65" },
+
+  -- Draenei
+  { "Gift of the Naaru", "player.health <= 70", "player" },
+ 
+  -- <,&~ Horde ~&,> --
+  -- Goblins
+  { "Rocket Barrage", "player.moving" },
+  
+  -- _,-=%Pandaren%=-,_ --
+  { "Quaking Palm", "modifier.interrupts" },
+  
     -- Buffs
     { "Windfury Weapon", "!player.enchant.mainhand" },
     { "Flametongue Weapon", "!player.enchant.offhand" },
