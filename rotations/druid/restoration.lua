@@ -1,6 +1,12 @@
 -- SPEC ID 105 (Restoration)
 ProbablyEngine.rotation.register(105, {
 
+  -- Racials (Temp)
+  -- =^*~ Alliance ~*^= --
+  -- Night Elves
+  { "Shadowmeld", "target.threat >= 80" },
+  { "Shadowmeld", "focus.threat >= 80"},
+  
   --Screw bear form
   { "/cancelform", "player.buff(Bear Form)" },
   
