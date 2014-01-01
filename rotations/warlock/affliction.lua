@@ -1,5 +1,5 @@
--- SPEC ID 265
-ProbablyEngine.rotation.register(265, {
+-- Class ID 9 - The OP
+ProbablyEngine.rotation.register(9, {
 
   -- Racials (Temp)
   
@@ -13,18 +13,11 @@ ProbablyEngine.rotation.register(265, {
   { "Every Man for Himself", "player.state.incapacitate" },
   { "Every Man for Himself", "player.state.sleep" },
   { "Every Man for Himself", "player.state.stun" },
- 
-  -- Draenei
-  { "Gift of the Naaru", "player.health <= 70", "player" },
- 
+
   -- Gnomes
   { "Escape Artist", "player.state.root" },
   { "Escape Artist", "player.state.snare" },
 
-  -- Night Elves
-  { "Shadowmeld", "target.threat >= 80" },
-  { "Shadowmeld", "focus.threat >= 80"},
-  
   -- <,&~ Horde ~&,> --
   -- Forsaken
   { "Will of the Forsaken", "player.state.fear" },
@@ -33,10 +26,7 @@ ProbablyEngine.rotation.register(265, {
   
   -- Goblins
   { "Rocket Barrage", "player.moving" },
-  
-  -- _,-=%Pandaren%=-,_ --
-  { "Quaking Palm", "modifier.interrupts" },
-  
+
   { "Curse of the Elements", "!target.debuff(Curse of the Elements)" },
 
   -- Soul Burn + Soul Swap
