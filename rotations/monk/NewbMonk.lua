@@ -1,5 +1,5 @@
--- Class ID 8 - Table / Portal Machine
-ProbablyEngine.rotation.register(8, {
+-- Class ID 10 - Four Line Killing Machine
+ProbablyEngine.rotation.register(10, {
 
   -- Blink
   { "Roll", "modifier.shift" },
