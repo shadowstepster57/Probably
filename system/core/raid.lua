@@ -218,3 +218,18 @@ ProbablyEngine.raid.tank = function ()
 
   return tank
 end
+
+ProbablyEngine.raid.check = function (fn)
+  local count = 0
+
+  local start, groupMembers = getGroupMembers()
+  local unit
+  for i = start, groupMembers do
+    if fn(ProbablyEngine.raid.roster[i]) then
+      ProbablyEngine.dsl.parsedTarget = ProbablyEngine.raid.roster[i].unit
+      count = count + 1
+    end
+  end
+
+  return count
+end
