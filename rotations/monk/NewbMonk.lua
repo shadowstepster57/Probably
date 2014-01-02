@@ -56,5 +56,16 @@ ProbablyEngine.rotation.register(10, {
   -- End Rotation --
   ------------------
   
-  }
-)
+  },{
+  
+  ---------------
+  -- OOC Begin --
+  ---------------
+  
+  -- Roll
+  { "Roll", "modifier.shift" },
+
+  -------------
+  -- OOC End --
+  -------------
+})
