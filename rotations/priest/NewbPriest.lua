@@ -57,7 +57,6 @@ ProbablyEngine.rotation.register(5, {
   -- Rotation
   { "Shadow Word: Pain", "!target.debuff(Shadow Word: Pain)" },
   { "Smite" },
-<<<<<<< HEAD
   
   ------------------
   -- End Rotation --
@@ -65,6 +64,3 @@ ProbablyEngine.rotation.register(5, {
   
   }
 )
-=======
-})
->>>>>>> 7fba4f6c4b3c26ae7a30966768482c8fb507696c

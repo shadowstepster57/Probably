@@ -1,13 +1,9 @@
 -- Class ID 11 - Drood
 ProbablyEngine.rotation.register(11, {
-<<<<<<< HEAD
   
   -------------------
   -- Start Racials --
   -------------------
-=======
-  -- Racials (Temp)
->>>>>>> 7fba4f6c4b3c26ae7a30966768482c8fb507696c
   
   -- =^*~ Alliance ~*^= --
   -- Night Elves
@@ -35,7 +31,6 @@ ProbablyEngine.rotation.register(11, {
   { "Rake", "target.debuff(Rake).duration <= 3", "toggle.cat" },
   { "Mangle", "toggle.cat" },
   
-<<<<<<< HEAD
   ------------------
   -- End Rotation --
   ------------------
@@ -43,10 +38,6 @@ ProbablyEngine.rotation.register(11, {
   },
   
   function ()
-  ProbablyEngine.toggle.create('cat', 'Interface\\Icons\\ability_druid_predatoryinstincts', 'Kitty Mode - Requires Level 6', '')
-  )
-=======
-}, function ()
-  ProbablyEngine.toggle.create('cat', 'Interface\\Icons\\ability_druid_predatoryinstincts', 'Kitty Mode - Requires Level 6', '')
-end)
->>>>>>> 7fba4f6c4b3c26ae7a30966768482c8fb507696c
+    ProbablyEngine.toggle.create('cat', 'Interface\\Icons\\ability_druid_predatoryinstincts', 'Kitty Mode - Requires Level 6', '')
+  end
+)
