@@ -206,7 +206,6 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
         event = string.sub(event, 2)
       elseif string.sub(event, 1, 1) == '#' then
         eventType = "item"
-        event = string.sub(event, 1)
       elseif string.sub(event, 1, 1) == '/' then
         eventType = "macro"
         event = string.sub(event, 1)
