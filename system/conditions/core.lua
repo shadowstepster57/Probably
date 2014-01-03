@@ -514,6 +514,14 @@ ProbablyEngine.condition.register("totem.duration", function(target, totem)
   return 0
 end)
 
+ProbablyEngine.condition.register("mushrooms", function ()
+  count = 0
+  for slot = 1, 3 do
+    if GetTotemInfo(slot) then count = count + 1 end
+  end
+  return count
+end)
+
 local function checkChanneling(target)
   local name, _, _, _, startTime, endTime, _, _, notInterruptible = UnitCastingInfo(target) 
   if name then return name, startTime, endTime, notInterruptible end
