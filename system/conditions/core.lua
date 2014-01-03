@@ -209,6 +209,10 @@ ProbablyEngine.condition.register('dead', function (target)
   return UnitIsDeadOrGhost(target)
 end)
 
+ProbablyEngine.condition.register('swimming', function ()
+  return IsSwimming()
+end)
+
 ProbablyEngine.condition.register("target", function(target, spell)
   return ( UnitGUID(target .. "target") == UnitGUID(spell) )
 end)
