@@ -196,19 +196,15 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
 
     if eventType == "string" then
       if string.sub(event, 1, 1) == '!' then
-        if string.sub(event, 2, 2) == '#' then
-          eventType = "item"
-        elseif string.sub(event, 2, 2) == '/' then
-          eventType = "macro"
-        else
-          stopCasting = true
-        end
+        stopCasting = true
         event = string.sub(event, 2)
-      elseif string.sub(event, 1, 1) == '#' then
+      end
+
+      if string.sub(event, 1, 1) == '#' then
         eventType = "item"
+        event = string.sub(event, 2)
       elseif string.sub(event, 1, 1) == '/' then
         eventType = "macro"
-        event = string.sub(event, 1)
       end
     end
 
@@ -262,7 +258,7 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
     end
 
     if eventType == "item" then
-      local slot = string.sub(event, 2)
+      local slot = event
       if ProbablyEngine.parser.items[slot] then
         slotId, itemTexture = GetInventorySlotInfo(ProbablyEngine.parser.items[slot])
         if slotId then
