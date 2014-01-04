@@ -46,7 +46,7 @@ ProbablyEngine.command.register_help('kick', pelg('interrupt_tooltip'))
 ProbablyEngine.command.register_handler({'aoe', 'multitarget'}, function()
   ProbablyEngine.buttons.toggle('multitarget')
 end)
-ProbablyEngine.command.register_help('kick', pelg('multitarget_tooltip'))
+ProbablyEngine.command.register_help('aoe', pelg('multitarget_tooltip'))
 
 
 ProbablyEngine.command.register_handler({'ct', 'combattracker', 'ut', 'unittracker', 'tracker'}, function()
