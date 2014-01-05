@@ -27,9 +27,16 @@ ProbablyEngine.command.register_handler({'cycle', 'pew', 'run'}, function()
 end)
 ProbablyEngine.command.register_help('cycle', pelg('help_cycle'))
 
-ProbablyEngine.command.register_handler({'toggle', 'enable', 'disable'}, function()
+ProbablyEngine.command.register_handler({'toggle'}, function()
   ProbablyEngine.buttons.toggle('MasterToggle')
 end)
+ProbablyEngine.command.register_handler({'enable'}, function()
+  ProbablyEngine.buttons.setActive('MasterToggle')
+end)
+ProbablyEngine.command.register_handler({'disable'}, function()
+  ProbablyEngine.buttons.setInactive('MasterToggle')
+end)
+
 ProbablyEngine.command.register_help('toggle', pelg('help_toggle'))
 
 ProbablyEngine.command.register_handler({'cd', 'cooldown', 'cooldowns'}, function()
