@@ -752,3 +752,7 @@ ProbablyEngine.condition.register("class", function (target, expectedClass)
     return expectedClass == class
   end
 end)
+
+ProbablyEngine.condition.register("falling", function()
+   return IsFalling() == 1
+ end)
