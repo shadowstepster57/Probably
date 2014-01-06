@@ -101,7 +101,7 @@ ProbablyEngine.rotation.register(252, {
   ---------------
   
   -- Buffs
-  { "Horn of Winter" },
+  { "Horn of Winter, "!player.buff(Horn of Winter)" },
   { "Path of Frost", "!player.buff(Path of Frost).any" },
   
   -- Keybinds
