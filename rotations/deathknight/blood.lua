@@ -88,8 +88,8 @@ ProbablyEngine.rotation.register(250, {
   { "Rune Strike", "modifier.multitarget" },
 
   -- Rotation
-  { "Heart Strike", "player.runes(blood).count >= 1", "target.health > 35" },
   { "Soul Reaper", "player.runes(blood).count >= 1", "target.health < 35" },
+  { "Heart Strike", "player.runes(blood).count >= 1" },
   { "Death Strike", "!modifier.last(Death Strike)" },
   { "Rune Strike", "player.runicpower >= 40" },
   
