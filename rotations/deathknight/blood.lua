@@ -88,7 +88,7 @@ ProbablyEngine.rotation.register(250, {
   { "Rune Strike", "modifier.multitarget" },
 
   -- Rotation
-  { "Soul Reaper", "player.runes(blood).count >= 1", "target.health < 35" },
+  { "Soul Reaper", {"player.runes(blood).count >= 1", "target.health < 35" }},
   { "Heart Strike", "player.runes(blood).count >= 1" },
   { "Death Strike", "!modifier.last(Death Strike)" },
   { "Rune Strike", "player.runicpower >= 40" },
@@ -104,7 +104,7 @@ ProbablyEngine.rotation.register(250, {
   ---------------
   
     -- Buffs
-  { "Horn of Winter, "!player.buff(Horn of Winter)" },
+  { "Horn of Winter", "!player.buff(Horn of Winter)" },
   { "Path of Frost", "!player.buff(Path of Frost).any" },
   { "Bone Shield", "player.buff(Bone Shield).charges < 1" },
   
