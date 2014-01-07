@@ -7,4 +7,5 @@ ProbablyEngine.listener.register("PLAYER_TARGET_CHANGED", function(...)
   ProbablyEngine.module.target.class = UnitClass("target")
   ProbablyEngine.module.target.level = UnitLevel("target")
   ProbablyEngine.module.target.name = UnitName("target")
+  ProbablyEngine.module.player.disarmable = true
 end)
