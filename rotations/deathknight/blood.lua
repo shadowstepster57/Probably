@@ -76,15 +76,15 @@ ProbablyEngine.rotation.register(250, {
   
   -- Disease Control
   { "Outbreak", "target.debuff(Frost Fever).duration < 3", "target.debuff(Blood Plague).duration <3", "target" },
-  { "Blood Boil", "player.runes(blood).count > 1","target.debuff(Frost Fever).duration < 3", "target.debuff(Blood Plague).duration <3" },
-  { "Blood Boil", "player.runes(death).count > 1","target.debuff(Frost Fever).duration < 3", "target.debuff(Blood Plague).duration <3" },  
+  { "Blood Boil", "player.runes(blood).count > 1","target.debuff(Frost Fever).duration < 3", "target.debuff(Blood Plague).duration <3", "target.range <= 10" },
+  { "Blood Boil", "player.runes(death).count > 1","target.debuff(Frost Fever).duration < 3", "target.debuff(Blood Plague).duration <3", "target.range <= 10"  },  
   { "Icy Touch", "target.debuff(Frost Fever).duration < 3" },
   { "Plague Strike", "target.debuff(Blood Plague).duration < 3" },
   
   -- AoE Rotation
   { "Pestilence", "target.debuff(Blood Plague", "target.debuff(Frost Fever)" },
   { "Death Strike", "modifier.multitarget" },
-  { "Blood Boil", "modifier.multitarget" },
+  { "Blood Boil", "modifier.multitarget", "target.range <= 10"  },
   { "Rune Strike", "modifier.multitarget" },
 
   -- Rotation
