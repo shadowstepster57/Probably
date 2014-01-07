@@ -18,9 +18,14 @@ local spells = {
   137461, -- Ring of Peace, Disarmed, Monk
   140023 -- Ring of Peace, Monk
 }
+local lastTarget
 local blacklist = {}
 function disarm.fail()
-  local guid = UnitGUID('target')
+  if not lastTarget then
+    return false
+  end
+
+  local guid = UnitGUID(lastTarget)
   if guid then
     blacklist[guid] = time()
   end
@@ -37,6 +42,7 @@ function disarm.check(target)
       end
     end
 
+    lastTarget = target
     return true
   end
 end
