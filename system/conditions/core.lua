@@ -195,7 +195,7 @@ ProbablyEngine.condition.register("infront", function(target, spell)
 end)
 
 ProbablyEngine.condition.register("disarmable", function(target, spell)
-  return ProbablyEngine.module.player.disarmable
+  return ProbablyEngine.module.disarm.check(target)
 end)
 
 ProbablyEngine.condition.register("combopoints", function()
@@ -758,5 +758,5 @@ ProbablyEngine.condition.register("class", function (target, expectedClass)
 end)
 
 ProbablyEngine.condition.register("falling", function()
-   return IsFalling() == 1
- end)
+  return IsFalling() == 1
+end)

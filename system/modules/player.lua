@@ -11,9 +11,7 @@ local player = {
   behind = false,
   behindTime = 0,
   infront = true,
-  infrontTime = 0,
-  disarmable = true,
-  disarmTime = 0
+  infrontTime = 0
 }
 
 function player.updateSpec()
