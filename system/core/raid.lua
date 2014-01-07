@@ -61,8 +61,8 @@ local function ancientBarrier(unit)
   end
 
 	local amount
-	for i= 2, 4 do
-		amount = select(15, UnitDebuff('player', ancientBarrierDebuffs[i]))
+	for i = 2, 4 do
+		amount = select(15, UnitDebuff(unit, ancientBarrierDebuffs[i]))
 		if amount then
       return amount
 		end
@@ -179,7 +179,7 @@ ProbablyEngine.raid.needsHealing = function (threshold)
   local unit
   for i = start, groupMembers do
     unit = ProbablyEngine.raid.roster[i]
-    if unit and unit.health and unit.health <= threshold then
+    if canHeal(unit.unit) and unit.health and unit.health <= threshold then
       needsHealing = needsHealing + 1
     end
   end
