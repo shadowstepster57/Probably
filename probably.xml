@@ -55,6 +55,7 @@
   <Script file="system\modules\queue.lua" />
   <Script file="system\modules\config.lua" />
   <Script file="system\modules\tooltip.lua" />
+  <Script file="system\modules\disarm.lua" />
 
   <!-- Timers -->
   <Script file="system\timers\profile.lua" />
