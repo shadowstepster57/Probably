@@ -96,7 +96,6 @@
   <Script file="system\listeners\addon_action_forbidden.lua" />
   <Script file="system\listeners\player_regen_enabled.lua" />
   <Script file="system\listeners\player_regen_disabled.lua" />
-  <Script file="system\listeners\player_target_changed.lua" />
   <Script file="system\listeners\ui_error_message.lua" />
   <Script file="system\listeners\lfg_proposal_show.lua" />
 
