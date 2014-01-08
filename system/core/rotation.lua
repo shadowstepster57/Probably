@@ -115,7 +115,6 @@ ProbablyEngine.rotation.register = function(specId, spellTable, arg1, arg2)
     ProbablyEngine.rotation.buttons[specId] = buttons
   end
 
-  print('Loaded Rotation for ' .. name, 'rotation')
   ProbablyEngine.debug.print('Loaded Rotation for ' .. name, 'rotation')
 end
 
