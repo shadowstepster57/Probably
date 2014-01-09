@@ -27,9 +27,16 @@ ProbablyEngine.command.register_handler({'cycle', 'pew', 'run'}, function()
 end)
 ProbablyEngine.command.register_help('cycle', pelg('help_cycle'))
 
-ProbablyEngine.command.register_handler({'toggle', 'enable', 'disable'}, function()
+ProbablyEngine.command.register_handler({'toggle'}, function()
   ProbablyEngine.buttons.toggle('MasterToggle')
 end)
+ProbablyEngine.command.register_handler({'enable'}, function()
+  ProbablyEngine.buttons.setActive('MasterToggle')
+end)
+ProbablyEngine.command.register_handler({'disable'}, function()
+  ProbablyEngine.buttons.setInactive('MasterToggle')
+end)
+
 ProbablyEngine.command.register_help('toggle', pelg('help_toggle'))
 
 ProbablyEngine.command.register_handler({'cd', 'cooldown', 'cooldowns'}, function()
@@ -46,7 +53,7 @@ ProbablyEngine.command.register_help('kick', pelg('interrupt_tooltip'))
 ProbablyEngine.command.register_handler({'aoe', 'multitarget'}, function()
   ProbablyEngine.buttons.toggle('multitarget')
 end)
-ProbablyEngine.command.register_help('kick', pelg('multitarget_tooltip'))
+ProbablyEngine.command.register_help('aoe', pelg('multitarget_tooltip'))
 
 
 ProbablyEngine.command.register_handler({'ct', 'combattracker', 'ut', 'unittracker', 'tracker'}, function()
