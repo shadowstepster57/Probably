@@ -53,13 +53,13 @@ ProbablyEngine.rotation.register(105, {
   { "Healing Touch", { "player.buff(Sage Mender).count = 5", "!tank.dead", "tank.range <= 40" }, "tank" },
   
   -- Regular Healing
+  { "Wild Growth", { "modifier.last(Swiftmend)", "player.spell(Soul of the Forest).exists" }, "lowest" },
   { "Rejuvenation", { "lowest.health <= 85", "!lowest.buff(Rejuvenation)", "lowest.range <= 40", "!lowest.dead" }, "lowest" },
   { "Regrowth", { "lowest.health <= 65", "lowest.range <= 40", "!lowest.buff(Regrowth)", "!modifier.last(Regrowth)", "!lowest.dead" }, "lowest" },
   { "Healing Touch", { "lowest.health <= 65", "lowest.range <= 40", "!lowest.dead" }, "lowest" },
   { "Wild Growth", { "@coreHealing.needsHealing(75, 5)", "lowest.range <= 40", "!lowest.dead" }, "lowest" },
   { "Swiftmend", { "lowest.health <= 80", "lowest.buff(Rejuvenation)", "lowest.range <= 40", "!lowest.dead" }, "lowest" },
   { "Swiftmend", { "lowest.health <= 80", "lowest.buff(Regrowth)", "lowest.range <= 40" }, "lowest" },
-  { "Wild Growth", { "player.spell(Swiftmend).cooldown", "player.spell(Soul of the Forest).exists" }, "lowest" },
   
   -- Treants, you persistent fucks.
   { "102693", { "@coreHealing.needsHealing(70, 3)", "!modifier.last(106737)", "!lowest.dead", "lowest.range <= 40" }, "lowest" },
@@ -87,7 +87,7 @@ ProbablyEngine.rotation.register(105, {
   }, { "player.glyph(Glyph of Efflorescence)" }},
   
   -- Because Healing is not enough?
-  { "Genesis", { "lowest.health <= 70", "!player.spell(Genesis).casted = 1", "lowest.buff(Rejuvenation)", "lowest.buff(Regrowth)", "!lowest.dead", "lowest.range <= 40" }},
+  { "Genesis", { "lowest.health <= 70", "!player.spell(Genesis).casted = 1", "lowest.buff(Rejuvenation).duration > 10", "!lowest.dead", "lowest.range <= 40" }},
   
   ------------------
   -- End Rotation --
