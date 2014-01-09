@@ -7,7 +7,7 @@ ProbablyEngine.rotation.register(105, {
   
   -- Night Elves
   { "Shadowmeld", "target.threat >= 80" },
-  { "Shadowmeld", "focus.threat >= 80"}, 
+  { "Shadowmeld", "mouseover.threat >= 80"}, 
 
   -----------------
   -- End Racials --
@@ -16,6 +16,10 @@ ProbablyEngine.rotation.register(105, {
   --------------------
   -- Start Rotation --
   --------------------
+  
+  --Symbiosis
+  { "Spiritwalker's Grace", { "player.moving" }},
+  { "Icebound Fortitude", { "player.health <= 75" }},
   
   --Screw bear form
   { "/cancelform", "player.buff(Bear Form)" },
@@ -35,30 +39,30 @@ ProbablyEngine.rotation.register(105, {
   { "Cenarion Ward", { "player.health <= 75" }, "player" },
   { "Barkskin", { "player.health <= 80" }, "player" },
   { "Innervate", { "player.mana <= 75" }, "player" },
+  { "#Healthstone", { "player.health <= 50" }},
 
   -- On tank
+  { "Rejuvenation", { "tank.health < 100", "!tank.buff(Rejuvenation)", "!tank.dead", "tank.range <= 40" }, "tank" },
   { "Regrowth", { "tank.health <= 65", "!tank.buff(Regrowth)", "!modifier.last(Regrowth)", "!tank.dead", "tank.range <= 40" }, "tank" },
   { "Ironbark", { "tank.health <= 75", "!tank.dead", "tank.range <= 40" }, "tank" },
   { "Lifebloom", { "tank.buff(Lifebloom).count < 3", "!tank.dead", "tank.range <= 40" }, "tank" },
   { "Lifebloom", { "tank.buff(Lifebloom).duration < 3", "!tank.dead", "tank.range <= 40" }, "tank" },
-  { "Rejuvenation", { "tank.health < 100", "!tank.buff(Rejuvenation)", "!tank.dead", "tank.range <= 40" }, "tank" },
-  
-  -- Regular Healing
-  --{ "Nature's Cure", "@coreHealing.needsDispelled()" },
-  { "Regrowth", { "lowest.health <= 65", "lowest.range <= 40", "!lowest.buff(Regrowth)", "!modifier.last(Regrowth)", "!lowest.dead" }, "lowest" },
-  { "Healing Touch", { "lowest.health <= 65", "lowest.range <= 40", "!lowest.dead" }, "lowest" },
-  { "Rejuvenation", { "lowest.health <= 85", "!lowest.buff(Rejuvenation)", "lowest.range <= 40", "!lowest.dead" }, "lowest" },
-  { "Wild Growth", { "@coreHealing.needsHealing(75, 5)", "lowest.range <= 40", "!lowest.dead" }, "lowest" },
-  { "Swiftmend", { "lowest.health <= 80", "lowest.buff(Rejuvenation)", "lowest.range <= 40", "!lowest.dead" }, "lowest" },
-  { "Swiftmend", { "lowest.health <= 80", "lowest.buff(Regrowth)", "lowest.range <= 40" }, "lowest" },
-  
-  -- Treants, you persistent fucks.
-  { "102693", { "@coreHealing.needsHealing(70, 3)", "!modifier.last(106737)", "!lowest.dead", "lowest.range <= 40" }, "lowest" },
-
   -- Nature's Swiftness / Sage Mender Healing
   { "Nature's Swiftness", { "tank.health <= 40", "player.buff(Sage Mender).count < 5" }},
   { "Healing Touch", { "player.buff(Nature's Swiftness)", "!tank.dead", "tank.range <= 40" }, "tank" },
   { "Healing Touch", { "player.buff(Sage Mender).count = 5", "!tank.dead", "tank.range <= 40" }, "tank" },
+  
+  -- Regular Healing
+  { "Rejuvenation", { "lowest.health <= 85", "!lowest.buff(Rejuvenation)", "lowest.range <= 40", "!lowest.dead" }, "lowest" },
+  { "Regrowth", { "lowest.health <= 65", "lowest.range <= 40", "!lowest.buff(Regrowth)", "!modifier.last(Regrowth)", "!lowest.dead" }, "lowest" },
+  { "Healing Touch", { "lowest.health <= 65", "lowest.range <= 40", "!lowest.dead" }, "lowest" },
+  { "Wild Growth", { "@coreHealing.needsHealing(75, 5)", "lowest.range <= 40", "!lowest.dead" }, "lowest" },
+  { "Swiftmend", { "lowest.health <= 80", "lowest.buff(Rejuvenation)", "lowest.range <= 40", "!lowest.dead" }, "lowest" },
+  { "Swiftmend", { "lowest.health <= 80", "lowest.buff(Regrowth)", "lowest.range <= 40" }, "lowest" },
+  { "Wild Growth", { "player.spell(Swiftmend).cooldown", "player.spell(Soul of the Forest).exists" }, "lowest" },
+  
+  -- Treants, you persistent fucks.
+  { "102693", { "@coreHealing.needsHealing(70, 3)", "!modifier.last(106737)", "!lowest.dead", "lowest.range <= 40" }, "lowest" },
   
   -- Basic Buffing
   { "Mark of the Wild", { "!lowest.buff(Mark of the Wild).any", "!lowest.buff(Blessing of Kings).any", "!lowest.buff(Legacy of the Emperor).any", "!lowest.dead", "lowest.range <= 30" }, "lowest" },
@@ -73,10 +77,17 @@ ProbablyEngine.rotation.register(105, {
   { "Tranquility", { "player.buff(Incarnation: Tree of Life)", "@coreHealing.needsHealing(55, 4)", "lowest.range <= 40" }},
   
   -- Because Fuck Wild Mushrooms
-  { "Wild Mushroom", { "!player.spell(Wild Mushroom).casted = 1", "!modifier.last(Wild Mushroom)", "!tank.dead", "tank.range <= 40" }, "tank" },
+  {{
+  { "Wild Mushroom", { "!player.totem(Wild Mushroom)", "!tank.dead", "tank.range <= 40" }, "tank" },
+  { "Wild Mushroom: Bloom", { "player.totem(Wild Mushroom)", "tank.health < 80" }},
+  }, { "!player.glyph(Glyph of Efflorescence)" }},
+  {{
+  { "Wild Mushroom", { "!player.totem(Wild Mushroom)", "lowest.range <= 40" }, "lowest" },
+  { "Wild Mushroom: Bloom", { "player.totem(Wild Mushroom)", "player.moving", "lowest.health < 80" }},
+  }, { "player.glyph(Glyph of Efflorescence)" }},
   
   -- Because Healing is not enough?
-  { "Genesis", { "lowest.health <= 70", "!player.spell(Genesis).casted = 1", "lowest.buff(Rejuvenation)", "lowest.buff(Regrowth)", "lowest.buff(Wild Growth)", "!lowest.dead", "lowest.range <= 40" }},
+  { "Genesis", { "lowest.health <= 70", "!player.spell(Genesis).casted = 1", "lowest.buff(Rejuvenation)", "lowest.buff(Regrowth)", "!lowest.dead", "lowest.range <= 40" }},
   
   ------------------
   -- End Rotation --
@@ -87,6 +98,9 @@ ProbablyEngine.rotation.register(105, {
   ---------------
   -- OOC Begin --
   ---------------
+  
+  --Get rid of Mushroom to fix range problems
+  { "Wild Mushroom: Bloom", { "player.totem(Wild Mushroom)" }},
   
   -- Keybinds
   {{
@@ -105,7 +119,6 @@ ProbablyEngine.rotation.register(105, {
   { "Treant Form", "player.form = 0" },
    
   -- Regular Healing
-  --{ "Nature's Cure", "@coreHealing.needsDispelled()" },
   { "Rejuvenation", { "lowest.health <= 85", "!lowest.buff(Rejuvenation)", "!lowest.dead", "lowest.range <= 40" }, "lowest" },
   { "Regrowth", { "lowest.health <= 65", "!lowest.buff(Regrowth)", "!lowest.dead", "!modifier.last(Regrowth)", "lowest.range <= 40" }, "lowest" },
   { "Healing Touch", { "lowest.health <= 65", "!lowest.dead", "lowest.range <= 40" }, "lowest" },
