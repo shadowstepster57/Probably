@@ -42,6 +42,7 @@ ProbablyEngine.rotation.register(105, {
   { "#Healthstone", { "player.health <= 50" }},
 
   -- On tank
+  {{
   { "Rejuvenation", { "tank.health < 100", "!tank.buff(Rejuvenation)", "!tank.dead", "tank.range <= 40" }, "tank" },
   { "Regrowth", { "tank.health <= 65", "!tank.buff(Regrowth)", "!modifier.last(Regrowth)", "!tank.dead", "tank.range <= 40" }, "tank" },
   { "Ironbark", { "tank.health <= 75", "!tank.dead", "tank.range <= 40" }, "tank" },
@@ -51,29 +52,39 @@ ProbablyEngine.rotation.register(105, {
   { "Nature's Swiftness", { "tank.health <= 40", "player.buff(Sage Mender).count < 5" }},
   { "Healing Touch", { "player.buff(Nature's Swiftness)", "!tank.dead", "tank.range <= 40" }, "tank" },
   { "Healing Touch", { "player.buff(Sage Mender).count = 5", "!tank.dead", "tank.range <= 40" }, "tank" },
+  },{ "tank.exists" }},
+  
+  --Target healing
+  {{
+  { "Rejuvenation", { "target.health <= 90" ,"!target.buff(Rejuvenation)", }, "target" },  
+  { "Regrowth", { "target.health <= 65", "!target.buff(Regrowth)", "!modifier.last(Regrowth)", }, "target" },  
+  { "Healing Touch", { "target.health <= 65" }, "target" },
+  { "Nourish", { "target.health <= 85", "player.buff(Glyph of Rejuvenation)" }, "target" },
+  }, "target.friend", "target.exists", "!target.enemy" },
   
   -- Regular Healing
   { "Wild Growth", { "modifier.last(Swiftmend)", "player.spell(Soul of the Forest).exists" }, "lowest" },
-  { "Rejuvenation", { "lowest.health <= 85", "!lowest.buff(Rejuvenation)", "lowest.range <= 40", "!lowest.dead" }, "lowest" },
-  { "Regrowth", { "lowest.health <= 65", "lowest.range <= 40", "!lowest.buff(Regrowth)", "!modifier.last(Regrowth)", "!lowest.dead" }, "lowest" },
-  { "Healing Touch", { "lowest.health <= 65", "lowest.range <= 40", "!lowest.dead" }, "lowest" },
-  { "Wild Growth", { "@coreHealing.needsHealing(75, 5)", "lowest.range <= 40", "!lowest.dead" }, "lowest" },
-  { "Swiftmend", { "lowest.health <= 80", "lowest.buff(Rejuvenation)", "lowest.range <= 40", "!lowest.dead" }, "lowest" },
+  { "Rejuvenation", { "lowest.health <= 85", "!lowest.buff(Rejuvenation)", "lowest.range <= 40" }, "lowest" },
+  { "Regrowth", { "lowest.health <= 65", "lowest.range <= 40", "!lowest.buff(Regrowth)", "!modifier.last(Regrowth)" }, "lowest" },
+  { "Healing Touch", { "lowest.health <= 65", "lowest.range <= 40" }, "lowest" },
+  { "Wild Growth", { "@coreHealing.needsHealing(75, 5)", "lowest.range <= 40" }, "lowest" },
+  { "Swiftmend", { "lowest.health <= 80", "lowest.buff(Rejuvenation)", "lowest.range <= 40" }, "lowest" },
   { "Swiftmend", { "lowest.health <= 80", "lowest.buff(Regrowth)", "lowest.range <= 40" }, "lowest" },
+  { "Nourish", { "lowest.health <= 85", "player.buff(Glyph of Rejuvenation)" }, "lowest" },
   
   -- Treants, you persistent fucks.
-  { "102693", { "@coreHealing.needsHealing(70, 3)", "!modifier.last(106737)", "!lowest.dead", "lowest.range <= 40" }, "lowest" },
+  { "102693", { "@coreHealing.needsHealing(70, 3)", "!modifier.last(106737)", "lowest.range <= 40" }, "lowest" },
   
   -- Basic Buffing
-  { "Mark of the Wild", { "!lowest.buff(Mark of the Wild).any", "!lowest.buff(Blessing of Kings).any", "!lowest.buff(Legacy of the Emperor).any", "!lowest.dead", "lowest.range <= 30" }, "lowest" },
+  { "Mark of the Wild", { "!lowest.buff(Mark of the Wild).any", "!lowest.buff(Blessing of Kings).any", "!lowest.buff(Legacy of the Emperor).any", "lowest.range <= 30" }, "lowest" },
   { "Treant Form", "player.form = 0" },
   
   -- Oh Shit Healing Start
   { "Incarnation: Tree of Life", { "@coreHealing.needsHealing(60,4)", "!player.buff(Incarnation: Tree of Life)", "modifier.cooldowns" }},
   
   -- Incarnation: Turret of Healing
-  { "Wild Growth", { "player.buff(Incarnation: Tree of Life)", "!lowest.dead", "lowest.range <= 40" }, "lowest" },
-  { "Regrowth", { "player.buff(Incarnation: Tree of Life)", "@coreHealing.needsHealing(60, 4)", "lowest.health <= 60", "!lowest.buff(Regrowth)", "!lowest.dead", "lowest.range <= 40" }, "lowest" },
+  { "Wild Growth", { "player.buff(Incarnation: Tree of Life)", "lowest.range <= 40" }, "lowest" },
+  { "Regrowth", { "player.buff(Incarnation: Tree of Life)", "@coreHealing.needsHealing(60, 4)", "lowest.health <= 60", "!lowest.buff(Regrowth)", "lowest.range <= 40" }, "lowest" },
   { "Tranquility", { "player.buff(Incarnation: Tree of Life)", "@coreHealing.needsHealing(55, 4)", "lowest.range <= 40" }},
   
   -- Because Fuck Wild Mushrooms
@@ -87,7 +98,7 @@ ProbablyEngine.rotation.register(105, {
   }, { "player.glyph(Glyph of Efflorescence)" }},
   
   -- Because Healing is not enough?
-  { "Genesis", { "lowest.health <= 70", "!player.spell(Genesis).casted = 1", "lowest.buff(Rejuvenation).duration > 10", "!lowest.dead", "lowest.range <= 40" }},
+  { "Genesis", { "lowest.health <= 70", "!player.spell(Genesis).casted = 1", "lowest.buff(Rejuvenation).duration > 10", "lowest.range <= 40" }},
   
   ------------------
   -- End Rotation --
@@ -109,22 +120,32 @@ ProbablyEngine.rotation.register(105, {
   { "Stampeding Roar", "modifier.alt" },
 
   -- On tank
+  {{
   { "Lifebloom", { "tank.buff(Lifebloom).count < 3", "!tank.dead", "tank.range <= 40" }, "tank" },
   { "Lifebloom", { "tank.buff(Lifebloom).duration < 3", "!tank.dead", "tank.range <= 40" }, "tank" },
-  { "Rejuvenation", { "!tank.buff(Rejuvenation)", "tank.health <= 85", "!tank.dead", "tank.range <= 40" }, "tank" },
+  { "Rejuvenation", { "tank.health <= 85", "!tank.buff(Rejuvenation)", "!tank.dead", "tank.range <= 40" }, "tank" },
   { "Regrowth", { "tank.health <= 65", "!tank.buff(Regrowth)", "!modifier.last(Regrowth)", "!tank.dead", "tank.range <= 40" }, "tank" },
+  },{ "tank.exists" }},
+  
+  --Target healing
+  {{
+  { "Rejuvenation", { "target.health <= 90" ,"!target.buff(Rejuvenation)", }, "target" },  
+  { "Regrowth", { "target.health <= 65", "!target.buff(Regrowth)", "!modifier.last(Regrowth)", }, "target" },  
+  { "Healing Touch", { "target.health <= 65" }, "target" },
+  { "Nourish", { "target.health <= 85", "player.buff(Glyph of Rejuvenation)" }, "target" },
+  }, "target.friend", "target.exists", "!target.enemy" },
   
   -- Basic Buffing
-  { "Mark of the Wild", { "!lowest.buff(Mark of the Wild).any", "!lowest.buff(Blessing of Kings).any", "!lowest.buff(Legacy of the Emperor).any", "!lowest.dead", "lowest.range <= 30" }, "lowest" },
+  { "Mark of the Wild", { "!lowest.buff(Mark of the Wild).any", "!lowest.buff(Blessing of Kings).any", "!lowest.buff(Legacy of the Emperor).any", "lowest.range <= 30" }, "lowest" },
   { "Treant Form", "player.form = 0" },
    
   -- Regular Healing
-  { "Rejuvenation", { "lowest.health <= 85", "!lowest.buff(Rejuvenation)", "!lowest.dead", "lowest.range <= 40" }, "lowest" },
-  { "Regrowth", { "lowest.health <= 65", "!lowest.buff(Regrowth)", "!lowest.dead", "!modifier.last(Regrowth)", "lowest.range <= 40" }, "lowest" },
-  { "Healing Touch", { "lowest.health <= 65", "!lowest.dead", "lowest.range <= 40" }, "lowest" },
-  { "Wild Growth", { "@coreHealing.needsHealing(75, 5)", "!lowest.dead", "lowest.range <= 40" }, "lowest" },
-  { "Swiftmend", { "lowest.health <= 80", "lowest.buff(Rejuvenation)", "!lowest.dead", "lowest.range <= 40" }, "lowest" },
-  { "Swiftmend", { "lowest.health <= 80", "lowest.buff(Regrowth)", "!lowest.dead", "lowest.range <= 40" }, "lowest" },
+  { "Rejuvenation", { "lowest.health <= 85", "!lowest.buff(Rejuvenation)", "lowest.range <= 40" }, "lowest" },
+  { "Regrowth", { "lowest.health <= 65", "!lowest.buff(Regrowth)", "!modifier.last(Regrowth)", "lowest.range <= 40" }, "lowest" },
+  { "Healing Touch", { "lowest.health <= 65", "lowest.range <= 40" }, "lowest" },
+  { "Wild Growth", { "@coreHealing.needsHealing(75, 5)", "lowest.range <= 40" }, "lowest" },
+  { "Swiftmend", { "lowest.health <= 80", "lowest.buff(Rejuvenation)", "lowest.range <= 40" }, "lowest" },
+  { "Swiftmend", { "lowest.health <= 80", "lowest.buff(Regrowth)", "lowest.range <= 40" }, "lowest" },
   }, { "!player.buff(Bear Form)", "!player.buff(Cat Form)", "!player.buff(Flight Form)", "!player.buff(Swift Flight Form)", "!player.buff(Travel Form)", "!player.buff(Aquatic Form)" }}
   
   -------------
