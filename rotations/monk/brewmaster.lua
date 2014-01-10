@@ -74,11 +74,11 @@ ProbablyEngine.rotation.register(268, {
   { "Leg Sweep", "modifier.interrupts", "target.range <= 5" },
 
   -- Talents
-  -- { "Chi Wave", "target" },
-  -- { "Zen Sphere", "!player.buff(Zen Sphere)", "player" },
-  -- { "Chi Burst", "!player.moving" },
+  { "Chi Wave" },
+  { "Zen Sphere", "!player.buff(Zen Sphere)", "player" },
+  { "Chi Burst" },
   { "Invoke Xuen, the White Tiger" },
-  { "Tiger's Lust", { "target.enemy", "target.range >= 15" }, "player" },
+  { "Tiger's Lust", "target.range >= 15" },
 
   -- Brews
   { "Purifying Brew", "player.debuff(Moderate Stagger)" },
@@ -92,6 +92,7 @@ ProbablyEngine.rotation.register(268, {
   { "Tiger Palm", "player.buff(Tiger Power).duration < 4" },
   { "Blackout Kick" },
   { "Jab" },
+  { "Tiger Palm" },
 
   ------------------
   -- End Rotation --
