@@ -1,7 +1,15 @@
 -- ProbablyEngine Rotations - https://probablyengine.com/
 -- Released under modified BSD, see attached LICENSE.
 
+local GetActionInfo = GetActionInfo
+local GetSpellCooldown = GetSpellCooldown
 local GetSpellInfo = GetSpellInfo
+local IsUsableSpell = IsUsableSpell
+local hooksecurefunc = hooksecurefunc
+
+local config = ProbablyEngine.config
+local queue = ProbablyEngine.module.queue
+local player = ProbablyEngine.module.player
 
 ProbablyEngine.module.register("queue", {
   queue = nil,
@@ -26,14 +34,22 @@ end
 -- action bars.  This allows us to let the engine know we would like to cast a spell other
 -- than the one currently active in the rotation.
 
-hooksecurefunc("UseAction", function(...)
-  if ProbablyEngine.module.player.combat and UnitAffectingCombat("player") then
-    if select(3, ...) ~= nil then
-      local type, id, subType, spellID = GetActionInfo(select(1,...))
-      if type == "spell" then
-        local name,_,_,_,_,_,_,_,_ = GetSpellInfo(id)
-        ProbablyEngine.module.queue.add_spell(name)
-      end
-    end
+local function useAction(slot, target, button)
+  if not player.combat
+     or not config.read('button_states', 'MasterToggle', false)
+     or not button then
+    print('Returning Early')
+    return false
   end
-end)
+
+  local actionType, actionID = GetActionInfo(slot)
+  if actionType == 'spell' then
+    local spell = GetSpellName(actionID)
+    local isUsable, notEnoughMana = IsUsableSpell(spell)
+    if not isUsable or notEnoughMana or select(2, GetSpellCooldown(spell)) - select(2, GetSpellCooldown(61304)) > 0 then
+      return false
+    end
+    queue.add_spell(spell)
+  end
+end
+hooksecurefunc('UseAction', useAction)
