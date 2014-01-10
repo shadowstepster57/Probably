@@ -760,3 +760,14 @@ end)
 ProbablyEngine.condition.register("falling", function()
   return IsFalling() == 1
 end)
+
+ProbablyEngine.condition.register("modifier.timeout", function(_, spell, time)
+  if ProbablyEngine.timeout.check(spell) then
+    return ProbablyEngine.timeout.check(spell)
+  else
+    ProbablyEngine.timeout.set(spell, function()
+      print(spell .. 'finished')
+    end, tonumber(time))
+  end
+  return true
+end)

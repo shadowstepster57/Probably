@@ -45,31 +45,45 @@ ProbablyEngine.dsl.comparator = function(condition, target, condition_spell)
 
   local evaluation = false
   if #comparator_table == 3 then
-    local condition_call = ProbablyEngine.dsl.get(comparator_table[1])(target, condition_spell)
-    if not condition_call then condition_call = 0 end
-    local value = tonumber(condition_call)
-    local compare_value = tonumber(comparator_table[3])
 
-    if compare_value == nil then
-      evaluation = comparator_table[3]  == condition_call
-    else
-      if comparator_table[2] == '>=' then
-        evaluation = value >= compare_value
-      elseif comparator_table[2] == '<=' then
-        evaluation = value <= compare_value
-      elseif comparator_table[2] == '>' then
-        evaluation = value > compare_value
-      elseif comparator_table[2] == '<' then
-        evaluation = value < compare_value
-      elseif comparator_table[2] == '=' or comparator_table[2] == '==' then
-        evaluation = value == compare_value
-      elseif comparator_table[2] == '!=' or comparator_table[2] == '!' then
-        evaluation = value ~= compare_value
-      else
-        ProbablyEngine.debug.print("Calling non-existant comparator: [" .. comparator_table .. "]", 'dsl_no_exist')
-        evaluation = false
+    local compare_value = tonumber(comparator_table[3])
+    local condition_call = ProbablyEngine.dsl.get(comparator_table[1])(target, condition_spell, compare_value)
+    local call_type = type(condition_call)
+
+    if call_type ~= "number" then
+      if tonumber(condition_call) then
+        call_type = "number"
+        condition_call = tonumber(condition_call)
       end
     end
+
+    if call_type == "number" then
+      local value = condition_call
+      if compare_value == nil then
+        evaluation = comparator_table[3]  == condition_call
+      else
+        if comparator_table[2] == '>=' then
+          evaluation = value >= compare_value
+        elseif comparator_table[2] == '<=' then
+          evaluation = value <= compare_value
+        elseif comparator_table[2] == '>' then
+          evaluation = value > compare_value
+        elseif comparator_table[2] == '<' then
+          evaluation = value < compare_value
+        elseif comparator_table[2] == '=' or comparator_table[2] == '==' then
+          evaluation = value == compare_value
+        elseif comparator_table[2] == '!=' or comparator_table[2] == '!' then
+          evaluation = value ~= compare_value
+        else
+          ProbablyEngine.debug.print("Calling non-existant comparator: [" .. comparator_table .. "]", 'dsl_no_exist')
+          evaluation = false
+        end
+      end
+    else
+      evaluation = condition_call
+    end
+
+
   else
     evaluation = ProbablyEngine.dsl.get(condition)(target, condition_spell)
   end
@@ -207,7 +221,7 @@ ProbablyEngine.dsl.get = function(condition)
 end
 
 ProbablyEngine.dsl.notEval = function (condition, target, spell)
-  return function () 
+  return function ()
     return not ProbablyEngine.dsl.get(condition)(target, spell)
   end
 end
