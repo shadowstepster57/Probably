@@ -20,9 +20,20 @@ local spells = {
 }
 local lastTarget
 local blacklist = {}
-function disarm.fail()
+function disarm.fail(spell)
   if not lastTarget then
     return false
+  end
+
+  if spell then
+    local spellID = GetSpellID(spell)
+    local found = false
+    for i = 1, #spells do
+      if spellID == spells[i] then
+        found = true
+      end
+    end
+    if not found then return false end
   end
 
   local guid = UnitGUID(lastTarget)
