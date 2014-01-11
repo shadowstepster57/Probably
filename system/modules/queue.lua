@@ -23,7 +23,7 @@ function queue.addSpell(spellName)
   end
 end
 
-function module.queue.addMacro(macroID)
+function queue.addMacro(macroID)
   if queue.macroQueue ~= macroID then
     queue.macroQueue = macroID
     ProbablyEngine.debug.print('Macro ID ' .. macroID .. ' was queued for casting.', 'queue')
