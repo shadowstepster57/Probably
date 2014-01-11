@@ -50,7 +50,7 @@ ProbablyEngine.rotation.register(269, {
   -- Interrupts
   { "Spear Hand Strike", "modifier.interrupts" },
   { "Grapple Weapon", "modifier.interrupts" },
-  { "Leg Sweep", "modifier.interrupts", "target.range <= 5" },
+  { "Leg Sweep", {"modifier.interrupts", "target.range <= 5"} },
 
   -- Survival
   { "Expel Harm", "player.health < 80" },
@@ -71,6 +71,9 @@ ProbablyEngine.rotation.register(269, {
   -- Cooldowns
   { "Invoke Xuen: The White Tiger", "modifier.cooldowns" },
   
+  -- PvP
+  { "Disable", {"toggle.disable", "!target.debuff(Disable)"} },
+  
   -- Talents
   { "Chi Wave" },
   { "Zen Sphere", "!player.buff(Zen Sphere)", "player" },
@@ -81,7 +84,7 @@ ProbablyEngine.rotation.register(269, {
   -- Multi-Target
   { "Rushing Jade Wind", "modifier.multitarget" },
   { "Spinning Crane Kick", "modifier.multitarget" },
-  { "Fists of Fury", "modifier.multitarget", "player.energy < 30", "target.range <= 8", "player.chi >= 3" },
+  { "Fists of Fury", { "modifer.multitarget", "player.energy < 30", "target.range <= 8", "player.chi >= 3"} },
   
   --Brews
   { "Energizing Brew", "player.energy <= 45" },
@@ -89,13 +92,14 @@ ProbablyEngine.rotation.register(269, {
   { "Chi Brew", "player.chi <= 1" },
   
   -- Rotation
-  { "Jab" },
   { "Rising Sun Kick" },
+  { "Fists of Fury", {"player.energy < 30", "target.range <= 8"} },
   { "Tiger Palm", "player.buff(Tiger Power).duration <= 2" },
   { "Tiger Palm", "player.buff(Combo Breaker: Tiger Palm)" },
   { "Blackout Kick", "player.buff(Combo Breaker: Blackout Kick)" },
   { "Blackout Kick", { "player.chi >= 2", "target.debuff(Rising Sun Kick)", "player.buff(Tiger Power)"} },
-  { "Fists of Fury", "player.energy < 30", "target.range <= 8" },
+  { "Fists of Fury", {"player.energy < 30", "target.range <= 8"} },
+  { "Jab" },
   
   ------------------
   -- End Rotation --
@@ -123,4 +127,6 @@ ProbablyEngine.rotation.register(269, {
   -------------
   -- OOC End --
   -------------
-  })
+}, function()
+ProbablyEngine.toggle.create('disable', 'Interface\\Icons\\spell_nature_rejuvenation', 'Disable', 'Toggle Disable')
+end)

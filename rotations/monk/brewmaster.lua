@@ -67,11 +67,15 @@ ProbablyEngine.rotation.register(268, {
   -- Ground Stuff
   { "Dizzying Haze", "modifier.shift", "ground" },
   { "Summon Black Ox Statue", "modifier.control", "ground" },
+  { "Healing Sphere", "modifer.alt", "ground" },
 
   -- Interrupts
   { "Spear Hand Strike", "modifier.interrupts" },
   { "Grapple Weapon", "modifier.interrupts" },
-  { "Leg Sweep", "modifier.interrupts", "target.range <= 5" },
+  { "Leg Sweep", "modifier.interrupts", "target.range <= 10" },
+  
+  -- PvP
+  { "Disable", { "toggle.disable", "!target.debuff(Disable)" } },
 
   -- Talents
   { "Chi Wave" },
@@ -110,8 +114,14 @@ ProbablyEngine.rotation.register(268, {
   -- Ground Stuff
   { "Dizzying Haze", "modifier.shift", "ground" },
   { "Summon Black Ox Statue", "modifier.control", "ground" },
+  { "Healing Sphere", "modifier.alt", "ground" },
 
   -------------
   -- OOC End --
   -------------
-})
+  },
+  
+  function ()
+    ProbablyEngine.toggle.create('disable', 'Interface\\Icons\\ability_monk_disable', 'Enables Disable.' '')
+  end
+)
