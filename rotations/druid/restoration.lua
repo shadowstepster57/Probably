@@ -77,7 +77,7 @@ ProbablyEngine.rotation.register(105, {
   
   -- Basic Buffing
   { "Mark of the Wild", { "!lowest.buff(Mark of the Wild).any", "!lowest.buff(Blessing of Kings).any", "!lowest.buff(Legacy of the Emperor).any", "lowest.range <= 30" }, "lowest" },
-  { "Treant Form", "player.form = 0" },
+  { "Treant Form", "player.form = 0", "!modifier.last(Treant Form)" },
   
   -- Oh Shit Healing Start
   { "Incarnation: Tree of Life", { "@coreHealing.needsHealing(60,4)", "!player.buff(Incarnation: Tree of Life)", "modifier.cooldowns" }},
@@ -137,7 +137,7 @@ ProbablyEngine.rotation.register(105, {
   
   -- Basic Buffing
   { "Mark of the Wild", { "!lowest.buff(Mark of the Wild).any", "!lowest.buff(Blessing of Kings).any", "!lowest.buff(Legacy of the Emperor).any", "lowest.range <= 30" }, "lowest" },
-  { "Treant Form", "player.form = 0" },
+  { "Treant Form", "player.form = 0", "!modifier.last(Treant Form)" },
    
   -- Regular Healing
   { "Rejuvenation", { "lowest.health <= 85", "!lowest.buff(Rejuvenation)", "lowest.range <= 40" }, "lowest" },

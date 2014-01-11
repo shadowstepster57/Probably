@@ -115,13 +115,10 @@ ProbablyEngine.rotation.register(268, {
   { "Dizzying Haze", "modifier.shift", "ground" },
   { "Summon Black Ox Statue", "modifier.control", "ground" },
   { "Healing Sphere", "modifier.alt", "ground" },
-
+  
   -------------
   -- OOC End --
   -------------
-  },
-  
-  function ()
-    ProbablyEngine.toggle.create('disable', 'Interface\\Icons\\ability_monk_disable', 'Enables Disable.' '')
-  end
-)
+}, function()
+ProbablyEngine.toggle.create('disable', 'Interface\\Icons\\spell_nature_rejuvenation', 'Disable', 'Toggle Disable')
+end)
