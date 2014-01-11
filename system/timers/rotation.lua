@@ -20,13 +20,13 @@ ProbablyEngine.cycle = function(skip_verify)
     local spell, target = false
 
 
-    local queue = ProbablyEngine.module.queue.queue
+    local queue = ProbablyEngine.module.queue.spellQueue
     if queue ~= nil and ProbablyEngine.parser.can_cast(queue) then
       spell = queue
       target = 'target'
-      ProbablyEngine.module.queue.queue = nil
+      ProbablyEngine.module.queue.spellQueue = nil
     elseif ProbablyEngine.parser.lastCast == queue then
-      ProbablyEngine.module.queue.queue = nil
+      ProbablyEngine.module.queue.spellQueue = nil
     else
       spell, target = ProbablyEngine.parser.table(ProbablyEngine.rotation.activeRotation)
     end
