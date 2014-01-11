@@ -76,7 +76,6 @@ ProbablyEngine.rotation.register(105, {
   { "102693", { "@coreHealing.needsHealing(70, 3)", "!modifier.last(106737)", "lowest.range <= 40" }, "lowest" },
   
   -- Basic Buffing
-  { "Mark of the Wild", { "!lowest.buff(Mark of the Wild).any", "!lowest.buff(Blessing of Kings).any", "!lowest.buff(Legacy of the Emperor).any", "lowest.range <= 30" }, "lowest" },
   { "Treant Form", "player.form = 0", "!modifier.last(Treant Form)" },
   
   -- Oh Shit Healing Start
